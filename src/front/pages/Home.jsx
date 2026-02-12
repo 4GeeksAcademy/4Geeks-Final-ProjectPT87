@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import React, { useState, useEffect } from "react"
 
 export const Home = () => {
 
@@ -32,20 +32,28 @@ export const Home = () => {
 		loadMessage()
 	}, [])
 
+	// const {store, dispatch, fetchAgenda} = useGlobalReducer();
+  
+	// useEffect(() => {
+	// 	fetchAgenda()
+	// }, [])
+
 	return (
 		<div className="text-center mt-5">
-			<h1 className="display-4">Hello Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
+			<h1>Welcome to Rigo's Running App!</h1>
+			<img src={rigoImageUrl} />
+			<h5>Rigo's Running App is a community where you can</h5>
+			<h5>meet with other runners to run together and even ask for mentorship!</h5>
+			<div className = "mx-auto w-25 text-start">
+			<h5>
+				<ul>
+					<li>Create your running profile</li>
+					<li>View other runner's profiles</li>
+					<li>Favorite other runners to run with</li>
+					<li>Schedule a time to meet and run</li>
+					<li>Seek a mentor</li>
+				</ul>
+			</h5>
 			</div>
 		</div>
 	);
