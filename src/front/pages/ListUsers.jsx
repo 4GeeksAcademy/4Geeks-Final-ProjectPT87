@@ -4,30 +4,30 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import ContactCard from "../components/ContactCard.jsx";
 
-export const ListMentors = () => {
+export const ListUsers = () => {
 
-  const {store, dispatch, fetchMentors} = useGlobalReducer();
-  const [ mentors, setMentors ] = useState([]);
+  const {store, dispatch, fetchUsers} = useGlobalReducer();
+  const [ users, setUsers ] = useState([]);
 
   useEffect(() => {
-        fetchMentors()
-        setMentors(store.mentors)
+        fetchUsers()
+        setUsers(store.users)
     }, [])
 
     useEffect(()=>{
-        setMentors(store.mentors)
-    }, [store.mentors])
+        setUsers(store.users)
+    }, [store.users])
     return (
         <div className = " contatiner text-center bg-light">
-            <h1 className = "p-3">Mentor List</h1>
+            <h1 className = "p-3">Runner List</h1>
             <div>
-                {mentors?.length > 0 ? mentors.map((mentor, index) => {
+                {users?.length > 0 ? users.map((user, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
                         <ContactCard
-                            key = {mentor.id} 
-                            contact = {mentor} 
+                            key = {user.id} 
+                            contact = {user} 
                             pictureNumber={pictureNumber}
                         />
                     )
