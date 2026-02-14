@@ -9,11 +9,11 @@ import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
-import { CreateUser } from "./pages/CreateUser";
-import { EditUser } from "./pages/EditUser";
+import { CreateRunner } from "./pages/CreatRunner";
+import { EditRunner } from "./pages/EditRunner";
 import { ListMentors } from "./pages/ListMentors";
-import { ListUsers } from "./pages/ListUsers";
-import { SingleUser } from "./pages/SingleUser";
+import { ListRunners } from "./pages/ListRunners";
+import { SingleRunner } from "./pages/SingleRunner";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,11 +30,11 @@ export const router = createBrowserRouter(
         <Route path= "/" element={<Home />} />
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
-        <Route path = "/create_user" element={<CreateUser />} />
+        <Route path = "/create_runner" element={<CreateRunner />} />
         <Route path = "/list_mentors" element={<ListMentors />} />
-        <Route path = "/list_users" element={<ListUsers />} />
-        <Route path = "/single_user/:theId/:pictureNumber" element={<SingleUser />} />
-        <Route path = "/edit_user/:theId" element={<EditUser />} />
+        <Route path = "/list_runners" element={<ListRunners />} />
+        <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
+        <Route path = "/edit_runner/:theId" element={<EditRunner />} />
       </Route>
     )
 );
