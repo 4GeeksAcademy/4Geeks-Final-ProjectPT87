@@ -2,16 +2,16 @@
 import { Link, useParams } from "react-router-dom";  // To use link for navigation and useParams to get URL parameters
 import PropTypes from "prop-types";  // To define prop types for this component
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";  // Import an image asset
-import profile0 from "../assets/img/profile-0.jpg";
-import profile1 from "../assets/img/profile-1.jpg";
-import profile2 from "../assets/img/profile-2.jpg";
-import profile3 from "../assets/img/profile-3.jpg";
-import profile4 from "../assets/img/profile-4.jpg";
-import profile5 from "../assets/img/profile-5.jpg";
-import profile6 from "../assets/img/profile-6.jpg";
-import profile7 from "../assets/img/profile-4.jpg";
-import profile8 from "../assets/img/profile-8.jpg";
-import profile9 from "../assets/img/profile-9.jpg";
+// import profile0 from "../assets/img/profile-0.jpg";
+// import profile1 from "../assets/img/profile-1.jpg";
+// import profile2 from "../assets/img/profile-2.jpg";
+// import profile3 from "../assets/img/profile-3.jpg";
+// import profile4 from "../assets/img/profile-4.jpg";
+// import profile5 from "../assets/img/profile-5.jpg";
+// import profile6 from "../assets/img/profile-6.jpg";
+// import profile7 from "../assets/img/profile-4.jpg";
+// import profile8 from "../assets/img/profile-8.jpg";
+// import profile9 from "../assets/img/profile-9.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 import React, { useState, useEffect } from "react";
 // import pictureNumber from "./ListUsers";

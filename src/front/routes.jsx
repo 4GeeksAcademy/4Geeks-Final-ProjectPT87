@@ -9,7 +9,7 @@ import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
-import { CreateRunner } from "./pages/CreatRunner";
+import { CreateRunner } from "./pages/CreateRunner";
 import { EditRunner } from "./pages/EditRunner";
 import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";

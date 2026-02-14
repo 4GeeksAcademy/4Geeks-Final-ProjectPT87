@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { addRunner } from "../hooks/actions.js";
+// import { addRunner } from "../hooks/actions.js";
 
 export const CreateRunner = () => {
     const [runner, setRunner] = useState({name: "", phone: "", email: "", address: ""})
