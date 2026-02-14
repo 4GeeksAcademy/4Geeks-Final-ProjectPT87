@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import String, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Boolean, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 db = SQLAlchemy()
 
@@ -15,6 +15,9 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
+    favorites = relationship("Favorites", back_populates="user") 
+    streak = relationship("Streak", back_populates="user")
+
     def serialize(self):
         return {
             "id": self.id,
@@ -25,23 +28,27 @@ class User(db.Model):
         }
 
 # database for favorites
-    class favorites(db.Model):
-        id: Mapped[int] = mapped_column(primary_key=True)
-        favorited_by_id: Mapped[int] = mapped_column(foreign_key(User.id))
+class Favorites(db.Model): 
+    id: Mapped[int] = mapped_column(primary_key=True)
+    favorited_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
-        def serialize(self):
-            return {
-                "id": self.id,
-                "favorited_by_id": self.favorited_by_id
-            }
+    user = relationship("User", back_populates="favorites")
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "favorited_by_id": self.favorited_by_id
+        }
 
 # database that indicate the streak of the user or how often does the user log in
-    class streak(db.Model):
-        id: Mapped[int] = mapped_column(primary_key=True)
-        streak_by_id: Mapped[int] = mapped_column(foreign_key(User.id))
-
-        def serialize(self):
-            return {
-                "id": self.id,
-                "streak_by_id": self.streak_by_id
-            }
+class Streak(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    streak_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    
+    user = relationship("User", back_populates="streak")
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "streak_by_id": self.streak_by_id
+        }
