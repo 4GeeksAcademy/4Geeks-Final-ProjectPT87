@@ -2,7 +2,8 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import ContactCard from "../components/ContactCard.jsx";
+import MentorCard from "../components/MentorCard.jsx";
+
 
 export const ListMentors = () => {
 
@@ -25,7 +26,7 @@ export const ListMentors = () => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
-                        <ContactCard
+                        <MentorCard
                             key = {mentor.id} 
                             contact = {mentor} 
                             pictureNumber={pictureNumber}
@@ -33,7 +34,7 @@ export const ListMentors = () => {
                     )
                 })
                 :
-                <h2>Add a Profile</h2>
+                <h2>Add Mentor Profile</h2>
                 }
             </div>
                 <br />

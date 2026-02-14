@@ -2,38 +2,38 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import ContactCard from "../components/ContactCard.jsx";
+import RunnerCard from "../components/RunnerCard.jsx";
 
-export const ListUsers = () => {
+export const ListRunners = () => {
 
-  const {store, dispatch, fetchUsers} = useGlobalReducer();
-  const [ users, setUsers ] = useState([]);
+  const {store, dispatch, fetchRunners} = useGlobalReducer();
+  const [ runners, setRunners ] = useState([]);
 
   useEffect(() => {
-        fetchUsers()
-        setUsers(store.users)
+        fetchRunners()
+        setRunners(store.runners)
     }, [])
 
     useEffect(()=>{
-        setUsers(store.users)
-    }, [store.users])
+        setRunners(store.runners)
+    }, [store.runners])
     return (
         <div className = " contatiner text-center bg-light">
             <h1 className = "p-3">Runner List</h1>
             <div>
-                {users?.length > 0 ? users.map((user, index) => {
+                {users?.length > 0 ? runners.map((runner, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
-                        <ContactCard
-                            key = {user.id} 
-                            contact = {user} 
+                        <RunnerCard
+                            key = {runner.id} 
+                            contact = {runner} 
                             pictureNumber={pictureNumber}
                         />
                     )
                 })
                 :
-                <h2>Add a Profile</h2>
+                <h2>Add Runner Profile</h2>
                 }
             </div>
                 <br />

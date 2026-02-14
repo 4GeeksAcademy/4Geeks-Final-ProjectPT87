@@ -2,29 +2,29 @@ import React, { useState } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { addContact } from "../hooks/actions.js";
+import { addRunner } from "../hooks/actions.js";
 
-export const CreateUser = () => {
-    const [user, setUser] = useState({name: "", phone: "", email: "", address: ""})
-    const {store, dispatch, addUser} = useGlobalReducer();
+export const CreateRunner = () => {
+    const [runner, setRunner] = useState({name: "", phone: "", email: "", address: ""})
+    const {store, dispatch, addRunner} = useGlobalReducer();
     const navigate = useNavigate();
 
-    const handleCreateContact = async (e) => {
+    const handleCreateRunner = async (e) => {
         e.preventDefault(); // prevents page reload
 
-        if (!user.name || !user.phone || !user.email || !user.address) {
+        if (!runner.name || !runner.phone || !runner.email || !runner.address) {
             alert("Please complete all fields");
             return;
         }
-        await addUser(user);
-        // console.log(user);
-        navigate("/list_users");
+        await addRunner(runner);
+        // console.log(runner);
+        navigate("/list_runners");
     }
 
     return (
         <div className="container bg-light mt-5 p-3 w-50 shadow p-3 mb-5 bg-white rounded">
 			<div className = "text-center mt-3">
-				<h3>Create a Profile!</h3>
+				<h3>Create Runner Profile!</h3>
 			</div>
 			
             <div className = "mb-3">
@@ -34,8 +34,8 @@ export const CreateUser = () => {
                     className = "form-control"
                     type = "text"
 					placeholder = "Enter the full name here"
-					onChange = {(e) => setContact({...user, name: e.target.value})}
-					value = {user.name}
+					onChange = {(e) => setRunner({...runner, name: e.target.value})}
+					value = {runner.name}
 				/>
 			</div>
             
@@ -46,8 +46,8 @@ export const CreateUser = () => {
                     className = "form-control"
 					type = "text"
 					placeholder = "Enter the full phone number here"
-					onChange = {(e) => setContact({...user, phone: e.target.value})}
-					value = {user.phone}
+					onChange = {(e) => setRunner({...runner, phone: e.target.value})}
+					value = {runner.phone}
 				/>
 			</div>
 
@@ -58,8 +58,8 @@ export const CreateUser = () => {
                     className = "form-control"
 					type = "text"
 					placeholder = "Enter the full email address here"
-					onChange = {(e) => setContact({...user, email: e.target.value})}
-					value = {user.email}
+					onChange = {(e) => setRunner({...user, email: e.target.value})}
+					value = {runner.email}
 				/>
 			</div>
 
@@ -70,19 +70,22 @@ export const CreateUser = () => {
                     className = "form-control"
 					type = "text"
 					placeholder = "Enter the full address here"
-					onChange = {(e) => setContact({...user, address: e.target.value})}
-					value = {user.address}
+					onChange = {(e) => setRunner({...runner, address: e.target.value})}
+					value = {runner.address}
 				/>
 			</div>
             <div className = "d-flex justify-content-center">
                 <button 
                     className = "btn btn-primary mx-2"
-                    onClick = {(e) => handleCreateContact(e)}
+                    onClick = {(e) => handleCreateRunner(e)}
                 >
-                    Create Profile
+                    Create Runner Profile
                 </button>
-                <Link to="/list_users">
+                <Link to="/list_runners">
                     <button className="btn btn-primary mx-2">List Runners</button>
+                </Link>
+                <Link to="/list_mentors">
+                    <button className="btn btn-primary mx-2">List Mentors</button>
                 </Link>
                 <Link to = "/">
                     <button className = "btn btn-primary mx-2">Return Home</button>

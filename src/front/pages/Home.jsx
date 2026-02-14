@@ -47,11 +47,12 @@ export const Home = () => {
 			<div className = "mx-auto w-25 text-start">
 			<h5>
 				<ul>
-					<li>Create your running profile</li>
+					<li>Create your runner profile</li>
 					<li>View other runner's profiles</li>
 					<li>Favorite other runners to run with</li>
 					<li>Schedule a time to meet and run</li>
-					<li>Seek a mentor</li>
+					<li>Become a mentor!</li>
+					<li>Seek a mentor!</li>
 				</ul>
 			</h5>
 			</div>

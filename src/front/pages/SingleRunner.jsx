@@ -17,38 +17,38 @@ import React, { useState, useEffect } from "react";
 // import pictureNumber from "./ListUsers";
 
 // Define and export the Single component which displays individual item details.
-export const SingleUser = props => {
+export const SingleRunner = props => {
   // Access the global state using the custom hook.
-  const { store, dispatch, fetchContacts, editUser, deleteUser } = useGlobalReducer()
-  const [ user, setUser ] = useState({});
+  const { store, dispatch, fetchContacts, editRunner, deleteRunner } = useGlobalReducer()
+  const [ runner, setRunner ] = useState({});
   // Retrieve the 'theId' URL parameter using useParams hook.
   const { theId, pictureNumber } = useParams();
 
   useEffect(() => {
-    const singleUser = store.users.find(user => user.id === parseInt(theId));
-    if (singleUser) {
-      setUser(singleUser)
+    const singleRunner = store.runners.find(runner => runner.id === parseInt(theId));
+    if (singleRunner) {
+      setRunner(singleRunner)
     } else {
-      fetchUsers()
-      .then((foundUsers) => {
-        const foundUser = foundUsers.find(user => user.id === parseInt(theId));
-        return (foundUser)
+      fetchRunners()
+      .then((foundRunners) => {
+        const foundRunner = foundRunners.find(runner => runner.id === parseInt(theId));
+        return (foundRunner)
       })
-      .then((foundUser) => {
-        setUser(foundUser);
+      .then((foundRunner) => {
+        setRunner(foundRunner);
       })
     }
   }, [])
 
   // let pictureNumber = index < 10 ? index : index - 9;
   // console.log(pictureNumber);
-  let currentUrl = window.location.href.split("/single_user")[0];
+  let currentUrl = window.location.href.split("/single_runner")[0];
   let pictureUrl = currentUrl + "/src/assets/img/profile-" + pictureNumber + ".jpg"
 
   return (
     <div style = {{marginBottom: 100}}>
       <div className="card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
-        {/* Display the title of the contact element dynamically retrieved from the store using theId. */}
+        {/* Display the title of the runner element dynamically retrieved from the store using theId. */}
         <div className = "contatiner text-center bg-light">
           <h1>Runner Profile</h1>
         </div>
@@ -56,30 +56,30 @@ export const SingleUser = props => {
           <img src={pictureUrl} className="" alt="Profile Picture" />
 
         <div className = "mt-4">
-          <h4>Name: {user?.name}</h4>
-          <h4>Phone: {user?.phone}</h4>
-          <h4>Email: {user?.email}</h4>
-          <h4>Address: {user?.address}</h4>
+          <h4>Name: {runner?.name}</h4>
+          <h4>Phone: {runner?.phone}</h4>
+          <h4>Email: {runner?.email}</h4>
+          <h4>Address: {runner?.address}</h4>
         </div>
         
         <hr className="my-4" />  {/* A horizontal rule for visual separation. */}
 
         {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
         <div className = "d-flex justify-content-center">
-					<Link to="/list_users">
+					<Link to="/list_runners">
 					  <button className="btn btn-primary mx-2">List Runners</button>
 					</Link>
-          <Link to = {"/edit_user/" + user.id}>
+          <Link to = {"/edit_runner/" + user.id}>
             <button className="btn btn-primary mx-2" href="#" role="button">
               Edit Runner Profile
             </button>
           </Link>
-          <Link to="/list_usesrs">
+          <Link to="/list_runners">
             <button 
               className="btn btn-primary mx-2" 
               href="#" 
               role="button"
-              onClick={() => deleteUser(contact.id)}
+              onClick={() => deleteRunner(runner.id)}
               >
                 Delete Runner Profile
             </button>
@@ -91,7 +91,7 @@ export const SingleUser = props => {
 };
 
 // Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
-SingleUser.propTypes = {
+SingleRunner.propTypes = {
   // Although 'match' prop is defined here, it is not used in the component.
   // Consider removing or using it as needed.
   match: PropTypes.object
