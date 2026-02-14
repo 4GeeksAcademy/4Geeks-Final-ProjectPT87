@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-// import { addRunner } from "../hooks/actions.js";
+// import { createRunner } from "../hooks/actions.js";
 
 export const CreateRunner = () => {
     const [runner, setRunner] = useState({name: "", phone: "", email: "", address: ""})
@@ -16,7 +16,7 @@ export const CreateRunner = () => {
             alert("Please complete all fields");
             return;
         }
-        await addRunner(runner);
+        await createRunner(runner);
         // console.log(runner);
         navigate("/list_runners");
     }
@@ -24,7 +24,7 @@ export const CreateRunner = () => {
     return (
         <div className="container bg-light mt-5 p-3 w-50 shadow p-3 mb-5 bg-white rounded">
 			<div className = "text-center mt-3">
-				<h3>Create Runner Profile!</h3>
+				<h3>Create Runner Profile</h3>
 			</div>
 			
             <div className = "mb-3">
@@ -58,7 +58,7 @@ export const CreateRunner = () => {
                     className = "form-control"
 					type = "text"
 					placeholder = "Enter the full email address here"
-					onChange = {(e) => setRunner({...user, email: e.target.value})}
+					onChange = {(e) => setRunner({...runner, email: e.target.value})}
 					value = {runner.email}
 				/>
 			</div>
@@ -81,12 +81,12 @@ export const CreateRunner = () => {
                 >
                     Create Runner Profile
                 </button>
-                <Link to="/list_runners">
+                {/* <Link to="/list_runners">
                     <button className="btn btn-primary mx-2">List Runners</button>
                 </Link>
                 <Link to="/list_mentors">
                     <button className="btn btn-primary mx-2">List Mentors</button>
-                </Link>
+                </Link> */}
                 <Link to = "/">
                     <button className = "btn btn-primary mx-2">Return Home</button>
                 </Link>

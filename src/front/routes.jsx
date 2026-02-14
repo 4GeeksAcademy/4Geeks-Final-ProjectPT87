@@ -31,10 +31,10 @@ export const router = createBrowserRouter(
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
         <Route path = "/create_runner" element={<CreateRunner />} />
-        <Route path = "/list_mentors" element={<ListMentors />} />
-        <Route path = "/list_runners" element={<ListRunners />} />
-        <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
         <Route path = "/edit_runner/:theId" element={<EditRunner />} />
+        <Route path = "/list_runners" element={<ListRunners />} />
+        <Route path = "/list_mentors" element={<ListMentors />} />
+        <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
       </Route>
     )
 );

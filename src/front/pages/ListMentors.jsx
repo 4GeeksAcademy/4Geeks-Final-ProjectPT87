@@ -10,19 +10,19 @@ export const ListMentors = () => {
   const {store, dispatch, fetchMentors} = useGlobalReducer();
   const [ mentors, setMentors ] = useState([]);
 
-  useEffect(() => {
-        fetchMentors()
-        setMentors(store.mentors)
-    }, [])
+//   useEffect(() => {
+//         fetchMentors()
+//         setMentors(store.mentors)
+//     }, [])
 
-    useEffect(()=>{
-        setMentors(store.mentors)
-    }, [store.mentors])
+//     useEffect(()=>{
+//         setMentors(store.mentors)
+//     }, [store.mentors])
     return (
         <div className = " contatiner text-center bg-light">
             <h1 className = "p-3">Mentor List</h1>
             <div>
-                {mentors?.length > 0 ? mentors.map((mentor, index) => {
+                {/* {mentors?.length > 0 ? mentors.map((mentor, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
@@ -35,7 +35,7 @@ export const ListMentors = () => {
                 })
                 :
                 <h2>Add Mentor Profile</h2>
-                }
+                } */}
             </div>
                 <br />
                 <div>

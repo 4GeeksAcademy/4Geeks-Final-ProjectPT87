@@ -24,21 +24,21 @@ export const SingleRunner = props => {
   // Retrieve the 'theId' URL parameter using useParams hook.
   const { theId, pictureNumber } = useParams();
 
-  useEffect(() => {
-    const singleRunner = store.runners.find(runner => runner.id === parseInt(theId));
-    if (singleRunner) {
-      setRunner(singleRunner)
-    } else {
-      fetchRunners()
-      .then((foundRunners) => {
-        const foundRunner = foundRunners.find(runner => runner.id === parseInt(theId));
-        return (foundRunner)
-      })
-      .then((foundRunner) => {
-        setRunner(foundRunner);
-      })
-    }
-  }, [])
+  // useEffect(() => {
+  //   const singleRunner = store.runners.find(runner => runner.id === parseInt(theId));
+  //   if (singleRunner) {
+  //     setRunner(singleRunner)
+  //   } else {
+  //     fetchRunners()
+  //     .then((foundRunners) => {
+  //       const foundRunner = foundRunners.find(runner => runner.id === parseInt(theId));
+  //       return (foundRunner)
+  //     })
+  //     .then((foundRunner) => {
+  //       setRunner(foundRunner);
+  //     })
+  //   }
+  // }, [])
 
   // let pictureNumber = index < 10 ? index : index - 9;
   // console.log(pictureNumber);
@@ -53,27 +53,24 @@ export const SingleRunner = props => {
           <h1>Runner Profile</h1>
         </div>
 
-          <img src={pictureUrl} className="" alt="Profile Picture" />
+          {/* <img src={pictureUrl} className="" alt="Profile Picture" /> */}
 
-        <div className = "mt-4">
+        {/* <div className = "mt-4">
           <h4>Name: {runner?.name}</h4>
           <h4>Phone: {runner?.phone}</h4>
           <h4>Email: {runner?.email}</h4>
           <h4>Address: {runner?.address}</h4>
-        </div>
+        </div> */}
         
         <hr className="my-4" />  {/* A horizontal rule for visual separation. */}
 
         {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
         <div className = "d-flex justify-content-center">
-					<Link to="/list_runners">
-					  <button className="btn btn-primary mx-2">List Runners</button>
-					</Link>
-          <Link to = {"/edit_runner/" + user.id}>
+          {/* <Link to = {"/edit_runner/" + user.id}>
             <button className="btn btn-primary mx-2" href="#" role="button">
               Edit Runner Profile
             </button>
-          </Link>
+          </Link> */}
           <Link to="/list_runners">
             <button 
               className="btn btn-primary mx-2" 
@@ -83,6 +80,15 @@ export const SingleRunner = props => {
               >
                 Delete Runner Profile
             </button>
+          </Link>
+          <Link to="/list_runners">
+					  <button className="btn btn-primary mx-2">List Runners</button>
+					</Link>
+          <Link to="/list_mentors">
+            <button className="btn btn-primary mx-2">List Mentors</button>
+          </Link>
+          <Link to = "/">
+            <button className = "btn btn-primary mx-2">Return Home</button>
           </Link>
         </div>
       </div>
