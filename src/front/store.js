@@ -1,38 +1,48 @@
-export const initialStore=()=>{
-  return{
+// Defines the initial global state of the application
+export const initialStore = () => {
+  return {
     message: null,
-    todos: [
-      {
-        id: 1,
-        title: "Make the bed",
-        background: null,
-      },
-      {
-        id: 2,
-        title: "Do my homework",
-        background: null,
-      }
-    ]
+    runners: [],
+    singleRunner: null,
+    loading: false // for loading screens later
   }
 }
 
+// Reducer function that updates global state based on dispatched actions
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'set_hello':
+
+    // Replaces the entire runners array with fetched data
+    case "set_runners":
       return {
         ...store,
-        message: action.payload
+        runners: action.payload
       };
-      
-    case 'add_task':
 
-      const { id,  color } = action.payload
-
+      // storing single runners
+    case "set_single_runner":
       return {
         ...store,
-        todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
+        singlerunner: action.payload
       };
+
+      // adding runners to the existing runner array
+    case "add_runner":
+      return {
+        ...store,
+        runners: [...store.runners, action.payload]
+      };
+
+      // deleting runner by removing id
+    case "delete_runners":
+      return {
+        ...store,
+        runners: store.runners.filter(
+          runner => runner.id !== action.payload
+        )
+      };
+
     default:
-      throw Error('Unknown action.');
-  }    
+      return store;
+  }
 }
