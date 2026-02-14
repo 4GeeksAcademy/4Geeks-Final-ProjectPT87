@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -13,6 +14,8 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
+    def __repr(self):
+        return f"Username {self.username}"
 
     def serialize(self):
         return {
@@ -23,3 +26,6 @@ class User(db.Model):
             "lastName": self.last_name,
             # do not serialize the password, its a security breach
         }
+
+    
+    
