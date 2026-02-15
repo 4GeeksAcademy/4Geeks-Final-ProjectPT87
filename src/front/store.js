@@ -19,12 +19,12 @@ export default function storeReducer(store, action = {}) {
         runners: action.payload
       };
 
-      // storing single runners
-    case "set_single_runner":
-      return {
-        ...store,
-        singlerunner: action.payload
-      };
+    // storing single runners
+    // case "set_single_runner":
+    //   return {
+    //     ...store,
+    //     singlerunner: action.payload
+    //   };
 
       // adding runners to the existing runner array
     case "add_runner":
@@ -33,8 +33,19 @@ export default function storeReducer(store, action = {}) {
         runners: [...store.runners, action.payload]
       };
 
+      // editing runners info inside array
+      case "update_runner":
+  return {
+    ...store,
+    runners: store.runners.map(runner =>
+      runner.id === action.payload.id
+        ? action.payload
+        : runner
+    )
+  };
+
       // deleting runner by removing id
-    case "delete_runners":
+    case "delete_runner":
       return {
         ...store,
         runners: store.runners.filter(

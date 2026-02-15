@@ -27,6 +27,27 @@ export const createRunner = async (dispatch, newRunner) => {
   });
 };
 
+// Updates an existing runner
+export const editRunner = async (dispatch, id, updatedRunner) => {
+  const response = await fetch(
+    process.env.BACKEND_URL + "/runners/" + id,
+    {
+      method: "PUT", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updatedRunner)
+    }
+  );
+
+  const data = await response.json();
+
+  dispatch({
+    type: "update_runner",
+    payload: data
+  });
+};
+
 // Deletes profile from backed and removes it from global state
 export const deleteRunner = async (dispatch, id) => {
   await fetch(process.env.BACKEND_URL + "/runners/" + id, {
