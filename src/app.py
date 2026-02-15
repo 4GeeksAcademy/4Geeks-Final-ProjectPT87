@@ -24,7 +24,7 @@ app.url_map.strict_slashes = False
 
 
 CORS(app)
-app.config["JWT_SECRET_KEY"] = "Tsehrsfhsdkfsjkfjksd"
+app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
 jwt = JWTManager(app)
 
 @jwt.user_identity_loader

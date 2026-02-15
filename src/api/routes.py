@@ -15,15 +15,6 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
-
 @api.route('/register', methods=['POST'])
 def register(): 
     user = db.session.scalars(
@@ -48,20 +39,20 @@ def register():
 @api.route('/login', methods=['POST'])
 def login(): 
     user = db.session.scalars(
-    db.select(User).filter_by(username = request.json.get("username"))
+    db.select(User).filter_by(email = request.json.get("email"))
     ).first()
     if not all([
         user,
         getattr(user, "password", None) == request.json.get("password", "")
     ]):
-        return jsonify("Invalid username or password."),400
+        return jsonify("Invalid email or password."),400
     
-    return (jsonify(token=create_access_token(identity=user)
+    return (jsonify(token=create_access_token(identity=user.id)
     ))
 
-@api.route('/user', methods=['GET'])
-@jwt_required()
-def get_user():
-    uid = get_jwt_identity()
-    user = User.query.filter_by(id=uid).first()
-    return jsonify(user.serialize())
+# @api.route('/user', methods=['GET'])
+# @jwt_required()
+# def get_user():
+#     uid = get_jwt_identity()
+#     user = User.query.filter_by(id=uid).first()
+#     return jsonify(user.serialize())
