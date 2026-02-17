@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { Register } from "./Register.jsx";
 export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer()
@@ -34,7 +33,8 @@ export const Home = () => {
 
 	return (
 			 <div className="container mt-4" style={{ maxWidth: "500px" }}>
-				<Register />
+				
 			</div>
+			
 	);
 }; 

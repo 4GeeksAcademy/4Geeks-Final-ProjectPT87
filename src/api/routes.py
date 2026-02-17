@@ -23,7 +23,7 @@ def register():
 
     if user:
         return jsonify(msg="Invalid username or password."),400
-
+    
 
     
     user= User(**request.json, is_active =True)
@@ -47,7 +47,7 @@ def login():
     ]):
         return jsonify("Invalid email or password."),400
     
-    return (jsonify(token=create_access_token(identity=user.id)
+    return (jsonify(token=create_access_token(user)
     ))
 
 # @api.route('/user', methods=['GET'])
