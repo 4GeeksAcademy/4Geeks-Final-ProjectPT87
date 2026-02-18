@@ -7,7 +7,7 @@ export const initialStore = () => {
     loading: false, // for loading screens later
     token: []
 }
-
+}
 // Reducer function that updates global state based on dispatched actions
 export default function storeReducer(store, action = {}) {
   switch(action.type){
