@@ -5,10 +5,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     # first_name: Mapped[str] = mapped_column(String(50))
     # last_name: Mapped[str] = mapped_column(String(50))
     password: Mapped[str] = mapped_column(nullable=False)
@@ -27,5 +30,33 @@ class User(db.Model):
             # do not serialize the password, its a security breach
         }
 
+
+class Runner(db.Model):
+    __tablename__ = "runners"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    phone = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(200), nullable=False)
+
+    # Added another database column for selecting runner or mentor for the user
+    role = db.Column(
+        db.Enum("runner", "mentor", name="role_types"),
+        nullable=False,
+        default="runner"
+    )
+
+    # below a relative option for typing in the role yourself instead of selecting if we want that instead of the enum option above
+    # role = db.Column(db.String(20), nullable=False, default="runner") 
     
-    
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "phone": self.phone,
+            "email": self.email,
+            "address": self.address,
+            "role": self.role
+        }
