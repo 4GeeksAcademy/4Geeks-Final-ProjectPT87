@@ -1,0 +1,106 @@
+import React, { useState, useEffect } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+export const EditRunner = () => {
+    const {store, dispatch, fetchRunners, editRunners} = useGlobalReducer();
+    const navigate = useNavigate();
+    const { theId } = useParams();
+
+    const [currentRunnerInfo, setCurrentRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
+    const [newRunnerInfo, setNewRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
+
+    // useEffect(() => {
+    //     fetchRunners();
+    // }, []);
+
+    // useEffect(() => {
+    //     let currentRunner = store.runners.filter((runner) => runner.id === parseInt(theId));
+
+    // if (currentRunner.length === 1) {
+    //         setCurrentRunnerInfo(currentRunner[0]);
+    //         setNewRunnerInfo(currentRunner[0]);
+    //     }
+    // }, [store.runners]);
+    
+    // const handleEditRunner = async (e) => {
+    //     e.preventDefault(); // prevents page reload
+
+    //     if (!newRunnerInfo.name || !newRunnerInfo.phone || !newRunnerInfo.email || !newRunnerInfo.address) {
+    //         alert("Please complete all fields!");
+    //         return;
+    //     }
+    //     await editRunner(newRunnerInfo);
+    //     navigate("/list_runners");
+    // };
+
+    return (
+        <div className="container bg-light mt-5 p-3 w-50">
+			<div className = "text-center mt-3">
+				<h3>Edit Your Runner Profile</h3>
+			</div>
+			
+            <div className = "mb-3">
+				<label htmlFor = "name" className = "ms-2 mb-1">Name</label>
+                <input 
+                    id = "name"
+                    className = "form-control"
+                    type = "text"
+                    value = {newRunnerInfo.name}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, name: e.target.value})}
+				/>
+			</div>
+            
+            <div className = "mb-3">
+				<label htmlFor = "phone" className = "ms-2 mb-1">Phone</label>
+                <input 
+                    id = "phone"
+                    className = "form-control"
+					type = "text"
+                    value = {newRunnerInfo.phone}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, phone: e.target.value})}
+					
+				/>
+			</div>
+
+            <div className = "mb-3">
+				<label htmlFor = "email" className = "ms-2 mb-1">Email</label>
+                <input
+                    id = "email"
+                    className = "form-control"
+					type = "text"
+                    value = {newRunnerInfo.email}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, email: e.target.value})}
+				/>
+			</div>
+
+            <div className = "mb-3">
+				<label htmlFor = "address" className = "ms-2 mb-1">Address</label>
+                <input 
+                    id = "address"
+                    className = "form-control"
+					type = "text"
+					value = {newRunnerInfo.address}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, address: e.target.value})}
+				/>
+			</div>
+            <div className = "d-flex justify-content-center">
+                <button 
+                    className = "btn btn-primary mx-2"
+                    onClick = {(e) => handleEditRunner(e)}
+                >
+                    Update Runner Profile
+                </button>
+                <Link to="/list_runners">
+                    <button className="btn btn-primary mx-2">List Runners</button>
+                </Link>
+                <Link to="/list_mentors">
+                    <button className="btn btn-primary mx-2">List Mentors</button>
+                </Link>
+                <Link to = "/">
+                    <button className = "btn btn-primary mx-2">Return Home</button>
+                </Link>
+            </div>
+        </div>
+    );
+}; 

@@ -6,10 +6,13 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
+from flask_cors import CORS
+
 
 # from models import Person
 
@@ -18,6 +21,20 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../dist/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+
+CORS(app)
+app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
+jwt = JWTManager(app)
+
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.username
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return db.session.scalars(db.select(User).filter_by(username=identity)).one_or_none()
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
