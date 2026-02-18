@@ -4,8 +4,8 @@ export const initialStore = () => {
     message: null,
     runners: [],
     singleRunner: null,
-    loading: false // for loading screens later
-  }
+    loading: false, // for loading screens later
+    token: []
 }
 
 // Reducer function that updates global state based on dispatched actions
@@ -57,3 +57,4 @@ export default function storeReducer(store, action = {}) {
       return store;
   }
 }
+
