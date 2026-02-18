@@ -1,6 +1,6 @@
 // Retrieves all runners from backend and updates global state
 export const fetchRunner = async (dispatch) => {
-  const response = await fetch(process.env.BACKEND_URL + "/runners");
+  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/runners");
   const data = await response.json();
 
   dispatch({
@@ -11,7 +11,7 @@ export const fetchRunner = async (dispatch) => {
 
 // Creates new Profile data to backend and adds it to global state
 export const createRunner = async (dispatch, newRunner) => {
-  const response = await fetch(process.env.BACKEND_URL + "/runners", {
+  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/runners", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -30,7 +30,7 @@ export const createRunner = async (dispatch, newRunner) => {
 // Updates an existing runner
 export const editRunner = async (dispatch, id, updatedRunner) => {
   const response = await fetch(
-    process.env.BACKEND_URL + "/runners/" + id,
+    import.meta.env.VITE_BACKEND_URL + "/runners/" + id,
     {
       method: "PUT", 
       headers: {
@@ -50,7 +50,7 @@ export const editRunner = async (dispatch, id, updatedRunner) => {
 
 // Deletes profile from backed and removes it from global state
 export const deleteRunner = async (dispatch, id) => {
-  await fetch(process.env.BACKEND_URL + "/runners/" + id, {
+  await fetch(import.meta.env.VITE_BACKEND_URL + "/runners/" + id, {
     method: "DELETE"
   });
 
