@@ -14,6 +14,7 @@ import { EditRunner } from "./pages/EditRunner";
 import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
+import { Authentication } from "./pages/Authentication";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +31,7 @@ export const router = createBrowserRouter(
         <Route path= "/" element={<Home />} />
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
+        <Route path ="/account" element={<Authentication />} />
         <Route path = "/create_runner" element={<CreateRunner />} />
         <Route path = "/edit_runner/:theId" element={<EditRunner />} />
         <Route path = "/list_runners" element={<ListRunners />} />
