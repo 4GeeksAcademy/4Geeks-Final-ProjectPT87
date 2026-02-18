@@ -2,7 +2,7 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-// import MentorCard from "../components/MentorCard.jsx";
+import MentorCard from "../components/MentorCard.jsx";
 
 
 export const ListMentors = () => {
