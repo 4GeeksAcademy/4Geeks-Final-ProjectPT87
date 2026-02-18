@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-// import { createRunner } from "../hooks/actions.js";
+import { createRunner } from "../hooks/actions.jsx";
+
 
 export const CreateRunner = () => {
     const [runner, setRunner] = useState({name: "", phone: "", email: "", address: ""})
@@ -16,7 +17,9 @@ export const CreateRunner = () => {
             alert("Please complete all fields");
             return;
         }
-        await createRunner(runner);
+
+        //  
+        await createRunner(dispatch, runner);
         // console.log(runner);
         navigate("/list_runners");
     }
