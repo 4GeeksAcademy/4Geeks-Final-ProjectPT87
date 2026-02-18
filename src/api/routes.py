@@ -7,6 +7,8 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
 import hashlib
+from api.models import db, User, Runner
+
 
 
 api = Blueprint('api', __name__)
@@ -49,6 +51,66 @@ def login():
     
     return (jsonify(token=create_access_token(user)
     ))
+
+# Gets all runners from the database and converts it into a list
+@api.route('/runners', methods=['GET'])
+def get_runners():
+    runners = db.session.scalars(db.select(Runner)).all()
+    return jsonify([runner.serialize() for runner in runners]), 200
+
+# Route to create runner 
+@api.route('/runners', methods=['POST'])
+def create_runner():
+    body = request.json
+
+    new_runner = Runner(
+        name=body.get("name"),
+        phone=body.get("phone"),
+        email=body.get("email"),
+        address=body.get("address")
+    )
+
+    db.session.add(new_runner)
+    db.session.commit()
+    db.session.refresh(new_runner)
+
+    return jsonify(new_runner.serialize()), 201
+
+
+
+@api.route('/runners/<int:runner_id>', methods=['PUT'])
+def update_runner(runner_id):
+    runner = db.session.get(Runner, runner_id)
+
+    if not runner:
+        return jsonify({"msg": "Runner not found"}), 404
+
+    body = request.json
+
+    runner.name = body.get("name", runner.name)
+    runner.phone = body.get("phone", runner.phone)
+    runner.email = body.get("email", runner.email)
+    runner.address = body.get("address", runner.address)
+
+    db.session.commit()
+
+    return jsonify(runner.serialize()), 200
+
+
+@api.route('/runners/<int:runner_id>', methods=['DELETE'])
+def delete_runner(runner_id):
+    runner = db.session.get(Runner, runner_id)
+
+    if not runner:
+        return jsonify({"msg": "Runner not found"}), 404
+
+    db.session.delete(runner)
+    db.session.commit()
+
+    return jsonify({"msg": "Runner deleted"}), 200
+
+
+
 
 # @api.route('/user', methods=['GET'])
 # @jwt_required()
