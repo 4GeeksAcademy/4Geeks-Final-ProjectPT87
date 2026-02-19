@@ -21,6 +21,7 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "username": self.username,
             "email": self.email,
             "firstName": self.first_name,
             "lastName": self.last_name
@@ -44,7 +45,7 @@ class Favorites(db.Model):
 class Streak(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     streak_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    
+
     user = relationship("User", back_populates="streak")
     
     def serialize(self):
