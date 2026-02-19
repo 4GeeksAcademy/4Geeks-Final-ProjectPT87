@@ -28,15 +28,20 @@ export const createRunner = async (dispatch, newRunner) => {
 };
 
 // Updates an existing runner
-export const editRunner = async (dispatch, id, updatedRunner) => {
+export const editRunner = async (dispatch, payload ) => { 
   const response = await fetch(
-    import.meta.env.VITE_BACKEND_URL + "/list_runners/" + id,
+    import.meta.env.VITE_BACKEND_URL + "/list_runners/" + payload.id,
     {
       method: "PUT", 
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(updatedRunner)
+      body: JSON.stringify({ 
+        name: payload.name,
+        phone: payload.phone,
+        email: payload.email,
+        address: payload.address
+       })
     }
   );
 
