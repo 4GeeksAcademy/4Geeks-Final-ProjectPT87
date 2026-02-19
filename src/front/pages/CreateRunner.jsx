@@ -85,7 +85,7 @@ export const CreateRunner = () => {
                     Create Runner Profile
                 </button>
                 {/* <Link to="/list_runners">
-                    <button className="btn btn-primary mx-2">List Runners</button>
+                    <button className="btn btn-primary mx-2">List list_runners</button>
                 </Link>
                 <Link to="/list_mentors">
                     <button className="btn btn-primary mx-2">List Mentors</button>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function RunnerCard ({ runner, pictureNumber }) {
 
-    const { store, dispatch, fetchRunners, deleteRunner } = useGlobalReducer()
+    const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer()
 
     return (
         <div>
