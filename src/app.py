@@ -27,14 +27,17 @@ CORS(app)
 app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
 jwt = JWTManager(app)
 
+
 @jwt.user_identity_loader
 def user_identity_lookup(user):
     return user.username
+
 
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
     return db.session.scalars(db.select(User).filter_by(username=identity)).one_or_none()
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -47,9 +50,6 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
-
-with app.app_context():
-    db.create_all()
 
 # add the admin
 setup_admin(app)
@@ -77,6 +77,8 @@ def sitemap():
     return send_from_directory(static_file_dir, 'index.html')
 
 # any other endpoint will try to serve it like a static file
+
+
 @app.route('/<path:path>', methods=['GET'])
 def serve_any_other_file(path):
     if not os.path.isfile(os.path.join(static_file_dir, path)):
