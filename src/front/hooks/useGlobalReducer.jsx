@@ -1,7 +1,7 @@
 // Import necessary hooks and functions from React.
 import { useContext, useReducer, createContext } from "react";
 import storeReducer, { initialStore } from "../store"  // Import the reducer and the initial state.
-
+import { fetchRunner, createRunner, editRunner, deleteRunner } from "./actions.jsx"; 
 // Create a context to hold the global state of the application
 // We will call this global state the "store" to avoid confusion while using local states
 const StoreContext = createContext()
@@ -20,5 +20,10 @@ export function StoreProvider({ children }) {
 // Custom hook to access the global state and dispatch function.
 export default function useGlobalReducer() {
     const { dispatch, store } = useContext(StoreContext)
-    return { dispatch, store };
+    return { dispatch, store,
+        fetchRunner: (payload) => fetchRunner(dispatch, payload),
+        createRunner: (payload) => createRunner(dispatch, payload),
+        editRunner: (payload) => editRunner(dispatch, payload),
+        deleteRunner: (payload) => deleteRunner(dispatch, payload)
+    };
 }
