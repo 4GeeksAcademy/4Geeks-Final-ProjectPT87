@@ -13,6 +13,7 @@ export default function RunnerCard ({ runner, pictureNumber }) {
                     <h5 className = "card-title">{runner.name}</h5>
                     <p className = "card-text">{runner.phone}</p>
                     <p className = "card-text">{runner.email}</p>
+                    <p className = "card-text">{runner.role}</p>
                 </div>
                 <div>
                     <Link to = {"/single_runner/" + runner.id + "/" + pictureNumber}>
