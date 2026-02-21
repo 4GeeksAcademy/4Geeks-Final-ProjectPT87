@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from 'react-router-dom';
 
+// This card populates the runners on the List Runners page
+// This allows users to scroll through the runners to see who to favorite
 export default function RunnerCard ({ runner, pictureNumber }) {
 
     const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer()
