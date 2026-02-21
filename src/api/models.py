@@ -61,3 +61,4 @@ class Runner(db.Model):
             "address": self.address,
             "role": self.role,
         }
+
