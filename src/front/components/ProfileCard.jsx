@@ -2,11 +2,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { fetchRunner } from "../hooks/actions.jsx";
 import React, { useState, useEffect } from "react";
 import { use } from "react";
-
-
-
-
-const ProfileCard = ({ runner }) => {
+const ProfileCard = () => {
 
 
 
@@ -15,7 +11,7 @@ const ProfileCard = ({ runner }) => {
   return (
     <div className="container text-center mt-5">
       <img
-        src={runner?.image}
+        src="https://i.pravatar.cc/250/250"
         alt="User profile"
         className="rounded-circle mx-auto d-block mb-3"
       />

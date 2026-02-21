@@ -75,8 +75,6 @@ def create_runner():
     db.session.commit()
     db.session.refresh(new_runner)
 
-    new_runner.image = f"https://i.pravatar.cc/250?u={new_runner.id}"
-    db.session.commit()
     return jsonify(new_runner.serialize()), 201
 
 

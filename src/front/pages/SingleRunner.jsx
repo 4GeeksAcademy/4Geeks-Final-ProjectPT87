@@ -54,7 +54,7 @@ export const SingleRunner = props => {
           <h1>Runner Profile</h1>
         </div>
 
-          <ProfileCard runner={runner} />
+          <ProfileCard />
 
 
         <div className = "mt-4">
