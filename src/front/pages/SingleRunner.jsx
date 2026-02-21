@@ -14,6 +14,7 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";  // Import an image asse
 // import profile9 from "../assets/img/profile-9.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 import React, { useState, useEffect } from "react";
+import ProfileCard from "../components/ProfileCard";
 // import pictureNumber from "./ListUsers";
 
 // Define and export the Single component which displays individual item details.
@@ -53,7 +54,8 @@ export const SingleRunner = props => {
           <h1>Runner Profile</h1>
         </div>
 
-          <img src={pictureUrl} className="" alt="Profile Picture" />
+          <ProfileCard runner={runner} />
+
 
         <div className = "mt-4">
           <h4>Name: {runner?.name}</h4>

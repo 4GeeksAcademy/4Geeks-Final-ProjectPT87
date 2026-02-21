@@ -8,8 +8,8 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    #username: Mapped[str] = mapped_column(
-    #    String(120), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(
+       String(120), unique=True, nullable=False)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     # first_name: Mapped[str] = mapped_column(String(50))
@@ -17,8 +17,8 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
-    #def __repr__(self):
-    #     return f"Username {self.username}"
+    def __repr__(self):
+        return f"Username {self.username}"
 
     def serialize(self):
         return {
@@ -39,6 +39,7 @@ class Runner(db.Model):
     phone = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(200), nullable=False)
+    image = db.Column(db.String(300), nullable=True)
 
     # Added another database column for selecting runner or mentor for the user
     role = db.Column(
@@ -58,5 +59,6 @@ class Runner(db.Model):
             "phone": self.phone,
             "email": self.email,
             "address": self.address,
-            "role": self.role
+            "role": self.role,
+            "image": self.image
         }

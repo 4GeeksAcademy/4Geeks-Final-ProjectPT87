@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from 'react-router-dom';
+import ProfileCard from "./ProfileCard.jsx";
 
 export default function RunnerCard ({ runner, pictureNumber }) {
 
@@ -9,6 +10,7 @@ export default function RunnerCard ({ runner, pictureNumber }) {
     return (
         <div>
             <div className = "card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
+                <ProfileCard runner={runner} />
                 <div className = "card-body">
                     <h5 className = "card-title">{runner.name}</h5>
                     <p className = "card-text">{runner.phone}</p>
@@ -19,6 +21,7 @@ export default function RunnerCard ({ runner, pictureNumber }) {
                     <Link to = {"/single_runner/" + runner.id + "/" + pictureNumber}>
                         <button className = "btn btn-primary mb-3">View Details</button>
                     </Link>
+                
                 </div>
             </div>
         </div>
