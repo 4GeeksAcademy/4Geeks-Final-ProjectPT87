@@ -7,7 +7,7 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
 import hashlib
-from api.models import db, User, Runner
+from api.models import db, User, Runner, Message
 
 
 
@@ -110,7 +110,31 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
+# Messages database
+@api.route("/messages", methods=["POST"])
+def send_message():
+    body = request.json
 
+    new_message = Message(
+        sender_id=body.get("sender_id"),
+        receiver_id=body.get("receiver_id"),
+        content=body.get("content")
+    )
+
+    db.session.add(new_message)
+    db.session.commit()
+
+    return jsonify(new_message.serialize()), 201
+
+@api.route("/messages/<int:user1>/<int:user2>", methods=["GET"])
+def get_conversation(user1, user2):
+
+    messages = db.session.query(Message).filter(
+        ((Message.sender_id == user1) & (Message.receiver_id == user2)) |
+        ((Message.sender_id == user2) & (Message.receiver_id == user1))
+    ).order_by(Message.timestamp).all()
+
+    return jsonify([m.serialize() for m in messages]), 200
 
 
 # @api.route('/user', methods=['GET'])
