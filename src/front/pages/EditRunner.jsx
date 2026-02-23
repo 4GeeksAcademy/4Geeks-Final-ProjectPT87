@@ -10,29 +10,29 @@ export const EditRunner = () => {
     const [currentRunnerInfo, setCurrentRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
     const [newRunnerInfo, setNewRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
 
-    // useEffect(() => {
-    //     fetchRunners();
-    // }, []);
+    useEffect(() => {
+        fetchRunners();
+    }, []);
 
-    // useEffect(() => {
-    //     let currentRunner = store.runners.filter((runner) => runner.id === parseInt(theId));
+    useEffect(() => {
+        let currentRunner = store.runners.filter((runner) => runner.id === parseInt(theId));
 
-    // if (currentRunner.length === 1) {
-    //         setCurrentRunnerInfo(currentRunner[0]);
-    //         setNewRunnerInfo(currentRunner[0]);
-    //     }
-    // }, [store.runners]);
+    if (currentRunner.length === 1) {
+            setCurrentRunnerInfo(currentRunner[0]);
+            setNewRunnerInfo(currentRunner[0]);
+        }
+    }, [store.runners]);
     
-    // const handleEditRunner = async (e) => {
-    //     e.preventDefault(); // prevents page reload
+    const handleEditRunner = async (e) => {
+        e.preventDefault(); // prevents page reload
 
-    //     if (!newRunnerInfo.name || !newRunnerInfo.phone || !newRunnerInfo.email || !newRunnerInfo.address) {
-    //         alert("Please complete all fields!");
-    //         return;
-    //     }
-    //     await editRunner(newRunnerInfo);
-    //     navigate("/list_runners");
-    // };
+        if (!newRunnerInfo.name || !newRunnerInfo.phone || !newRunnerInfo.email || !newRunnerInfo.address) {
+            alert("Please complete all fields!");
+            return;
+        }
+        await editRunner(newRunnerInfo);
+        navigate("/list_runners");
+    };
 
     return (
         <div className="container bg-light mt-5 p-3 w-50">

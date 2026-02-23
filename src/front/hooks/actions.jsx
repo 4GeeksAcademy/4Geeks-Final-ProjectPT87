@@ -1,6 +1,6 @@
 // Retrieves all runners from backend and updates global state
 export const fetchRunner = async (dispatch) => {
-  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/runners");
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/runners`);
   const data = await response.json();
 
   dispatch({
