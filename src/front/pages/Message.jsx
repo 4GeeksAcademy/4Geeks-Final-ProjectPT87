@@ -14,7 +14,7 @@ const Message = () => {
 
   const interval = setInterval(() => {
     fetchConversation();
-  }, 3000);
+  }, 1000);
 
   return () => clearInterval(interval);
   }, [otherUserId]);   
@@ -23,7 +23,7 @@ const Message = () => {
 
 const fetchConversation = async () => {
   const response = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/messages/${currentUserId}/${otherUserId}`
+    `${import.meta.env.VITE_BACKEND_URL}/messages/${4}/${3}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
   );
   const data = await response.json();
   setMessages(data);
@@ -36,8 +36,8 @@ const sendMessage = async () => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      sender_id: currentUserId,
-      receiver_id: otherUserId,
+      sender_id: 4, // Replace with actual sender ID (current user)
+      receiver_id: 3, // Replace with actual receiver ID (other user) 
       content: messageInput,
     })
   });
@@ -54,7 +54,8 @@ return (
     <div className="border p-3 mb-3" style={{ height: "300px", overflowY: "scroll" }}>
       {messages.map((msg) => (
         <div key={msg.id}>
-          <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong>
+          {/* OtherUserId is at the momment replaced by 3 */}
+          <strong>{msg.sender_id === 3 ? "Them" : "You"}:</strong> 
           <span> {msg.content}</span>
         </div>
       ))}
