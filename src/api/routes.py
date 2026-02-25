@@ -39,28 +39,29 @@ def login():
     user = db.session.scalars(
         db.select(User).filter_by(email=request.json.get("email"))
     ).first()
+
     if not all([
         user,
         getattr(user, "password", None) == request.json.get("password", "")
     ]):
         return jsonify("Invalid email or password."), 400
 
-    return (jsonify(token=create_access_token(identity=user.id)))
+    access_token = create_access_token(identity=str(user.id))
+
+    return jsonify(token=access_token), 200
 
 
 # Not sure what this does yet, but it seems to be for getting the current user info based on the JWT token
 @api.route("/me", methods=["GET"])
 @jwt_required()
 def get_current_user():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     user = db.session.get(User, user_id)
 
     if not user:
         return jsonify({"msg": "User not found"}), 404
 
     return jsonify(user.serialize()), 200
-
-
 # Gets all runners from the database and converts it into a list
 @api.route('/list_runners', methods=['GET'])
 def get_runners():
