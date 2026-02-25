@@ -27,6 +27,40 @@ export default function RunnerCard({ runner, pictureNumber }) {
                             Message
                         </button>
                     </Link>
+
+                    {/* Favorite functionality */}
+                    <button 
+                        className= {`btn ${store.favorites.some(
+                            fav => fav.id === runner.id && fav.type === "runner"
+                        )
+                                ? "btn-danger"
+                                : "btn-outline-warning"
+                            }`}
+                        onClick={() => {
+                            const isFavorite = store.favorites.some(
+                                fav => fav.id === runner.id && fav.type === "runner"
+                            );
+
+                            if (isFavorite) {
+                                dispatch({
+                                    type: "remove_favorite",
+                                    payload: { id: runner.id, type: "runner" }
+                                });
+                            } else {
+                                dispatch({
+                                    type: "favorite_runner",
+                                    payload: {
+                                        id: runner.id,
+                                        name: runner.name,
+                                        type: "runner"
+                                    }
+                                });
+                            }
+                        }}
+                    >
+                        ❤️
+                    </button>
+
                 </div>
             </div>
         </div>

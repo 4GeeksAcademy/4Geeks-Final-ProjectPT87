@@ -8,8 +8,8 @@ db = SQLAlchemy()
 #  database for user
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    # username: Mapped[str] = mapped_column(
-    #    String(120), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(
+       String(120), unique=True, nullable=False)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     # first_name: Mapped[str] = mapped_column(String(50))
@@ -66,13 +66,20 @@ class Runner(db.Model):
 class Favorites(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     favorited_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
+    favorited_to_id: Mapped[int] = mapped_column(ForeignKey("runners.id"))
 
     user = relationship("User", back_populates="favorites")
+    
+    # NOTE:
+    # The Favorites model currently defines relationships only with the User model on line 20.
+    # Although there is a foreign key (favorited_to_id) referencing the Runner table, no relationship() is defined for Runner yet. Just to let you know :)  
+    # runner = relationship("Runner", back_populates="favorites")
 
     def serialize(self):
         return {
             "id": self.id,
-            "favorited_by_id": self.favorited_by_id
+            "favorited_by_id": self.favorited_by_id,
+            "favorited_to_id": self.favorited_to_id
         }
 
 
@@ -101,7 +108,7 @@ class Message(db.Model):
 
     content = db.Column(db.Text, nullable=False)
 
-    timestamp = db.Column(db.DateTime, default=datetime)
+    timestamp = db.Column(db.DateTime, default=datetime.now)
 
     def serialize(self):
         return {

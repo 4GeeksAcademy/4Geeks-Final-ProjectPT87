@@ -14,6 +14,7 @@ import { EditRunner } from "./pages/EditRunner";
 import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
+import { Authentication } from "./pages/Authentication";  
 import Message  from "./pages/Message";
 import ProfileCard from "./components/ProfileCard";
 
@@ -38,6 +39,7 @@ export const router = createBrowserRouter(
         <Route path = "/list_mentors" element={<ListMentors />} />
         <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
         <Route path = "/messages/:otherUserId" element={<Message />} />
+        <Route path = "/account" element={<Authentication />} />
 
       <Route path="/profile" element={<ProfileCard />} />
     </Route>,

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, flash, redirect
-from api.models import db, User
+from api.models import Favorites, db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
@@ -107,6 +107,7 @@ def delete_runner(runner_id):
     db.session.commit()
 
     return jsonify({"msg": "Runner deleted"}), 200
+
 
 # Messages database
 @api.route("/messages", methods=["POST"])
