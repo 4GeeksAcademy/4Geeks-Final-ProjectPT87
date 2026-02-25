@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { editRunner, fetchRunner } from "../hooks/actions.jsx";
+
 
 export const EditRunner = () => {
-    const {store, dispatch, fetchRunners, editRunners} = useGlobalReducer();
+    const {store, dispatch, fetchRunner, editRunner} = useGlobalReducer();
     const navigate = useNavigate();
+
+    // below is the commented code curently not working, will recreate the edit runner with a new line of code
+
+
     const { theId } = useParams();
 
     const [currentRunnerInfo, setCurrentRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
     const [newRunnerInfo, setNewRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
 
     useEffect(() => {
-        fetchRunners();
+        fetchRunner();
     }, []);
 
     useEffect(() => {
