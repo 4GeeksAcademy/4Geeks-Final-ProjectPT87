@@ -43,14 +43,13 @@ def login():
     user = db.session.scalars(
     db.select(User).filter_by(email = request.json.get("email"))
     ).first()
-    if not all([
-        user,
-        getattr(user, "password", None) == request.json.get("password", "")
-    ]):
-        return jsonify("Invalid email or password."),400
+    
+    if not user or not user.check_password_hash(request.json.get("password", "")):
+        return jsonify(msg="Invalid email or password."), 400
     
     return (jsonify(token=create_access_token(user)
     ))
+
 
 # Gets all runners from the database and converts it into a list
 @api.route('/list_runners', methods=['GET'])
@@ -62,7 +61,7 @@ def get_runners():
 @api.route('/list_runners', methods=['POST'])
 def create_runner():
     body = request.json
-
+    
     new_runner = Runner(
         name=body.get("name"),
         phone=body.get("phone"),
@@ -71,7 +70,6 @@ def create_runner():
     )
 
     db.session.add(new_runner)
-    
     db.session.commit()
     db.session.refresh(new_runner)
 
