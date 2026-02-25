@@ -63,7 +63,7 @@ def get_current_user():
 
     return jsonify(user.serialize()), 200
 # Gets all runners from the database and converts it into a list
-@api.route('/list_runners', methods=['GET'])
+@api.route('/runners', methods=['GET'])
 def get_runners():
     runners = db.session.scalars(db.select(Runner)).all()
     return jsonify([runner.serialize() for runner in runners]), 200
@@ -71,29 +71,28 @@ def get_runners():
 # Route to create runner
 
 
-@api.route('/list_runners', methods=['POST'])
-@jwt_required()
+@api.route('/runners', methods=['POST'])
 def create_runner():
     body = request.json
-    user_id = get_jwt_identity()
-    
+
     new_runner = Runner(
         name=body.get("name"),
         phone=body.get("phone"),
         email=body.get("email"),
-        address=body.get("address"),
-        user_id=user_id
+        address=body.get("address")
     )
 
     db.session.add(new_runner)
-
     db.session.commit()
     db.session.refresh(new_runner)
 
     return jsonify(new_runner.serialize()), 201
 
 
-@api.route('/list_runners/<int:runner_id>', methods=['PUT'])
+
+
+
+@api.route('/runners/<int:runner_id>', methods=['PUT'])
 def update_runner(runner_id):
     runner = db.session.get(Runner, runner_id)
 
@@ -112,7 +111,8 @@ def update_runner(runner_id):
     return jsonify(runner.serialize()), 200
 
 
-@api.route('/list_runners/<int:runner_id>', methods=['DELETE'])
+
+@api.route('/runners/<int:runner_id>', methods=['DELETE'])
 def delete_runner(runner_id):
     runner = db.session.get(Runner, runner_id)
 

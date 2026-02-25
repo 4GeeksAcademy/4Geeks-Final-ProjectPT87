@@ -33,8 +33,7 @@ const sendMessage = async () => {
   await fetch(`${import.meta.env.VITE_BACKEND_URL}/messages`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       sender_id: currentUserId,

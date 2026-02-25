@@ -11,16 +11,13 @@ export const fetchRunner = async (dispatch) => {
 
 // Creates new Profile data to backend and adds it to global state
 export const createRunner = async (dispatch, newRunner) => {
-  await fetch(`${import.meta.env.VITE_BACKEND_URL}/list_runners`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.getItem("token")}`
-  },
-  body: JSON.stringify(newRunner)
-});
-
-  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/list_runners");
+  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/runners", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newRunner)
+  });
   const data = await response.json();
 
   dispatch({

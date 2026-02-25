@@ -14,6 +14,7 @@ import { EditRunner } from "./pages/EditRunner";
 import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
+import { Authentication } from "./pages/Authentication";
 import Message  from "./pages/Message";
 import ProfileCard from "./components/ProfileCard";
 
