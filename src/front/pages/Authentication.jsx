@@ -16,7 +16,7 @@ export const Authentication = () => {
     e.preventDefault();
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+      `${import.meta.env.VITE_BACKEND_URL}/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,7 +25,23 @@ export const Authentication = () => {
     );
     const data = await response.json();
     if (response.ok) {
+      // Saves token
       localStorage.setItem("token", data.token);
+
+      // Fetches the user's data using the token to get the user ID and saves it in localStorage
+      const userResponse = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/me`,
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      const userData = await userResponse.json();
+
+      localStorage.setItem("userId", userData.id);
+
       navigate("/");
     } else {
       alert(data.msg || "Try again, wrong credentials.");
@@ -35,7 +51,7 @@ export const Authentication = () => {
     e.preventDefault();
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/register`,
+      `${import.meta.env.VITE_BACKEND_URL}/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +73,7 @@ export const Authentication = () => {
     setForgotMsg("");
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/forgot-password`,
+      `${import.meta.env.VITE_BACKEND_URL}/forgot-password`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -67,6 +83,7 @@ export const Authentication = () => {
     const data = await response.json();
     setForgotMsg(data.msg);
   };
+
 
   return (
     <div className="authentication-body">

@@ -23,7 +23,7 @@ const Message = () => {
 
 const fetchConversation = async () => {
   const response = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/messages/${4}/${3}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
+    `${import.meta.env.VITE_BACKEND_URL}/messages/${currentUserId}/${otherId}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
   );
   const data = await response.json();
   setMessages(data);
@@ -33,11 +33,11 @@ const sendMessage = async () => {
   await fetch(`${import.meta.env.VITE_BACKEND_URL}/messages`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
-      sender_id: 4, // Replace with actual sender ID (current user)
-      receiver_id: 3, // Replace with actual receiver ID (other user) 
+      receiver_id: otherId, // Replace with actual receiver ID (other user) 
       content: messageInput,
     })
   });
@@ -54,8 +54,7 @@ return (
     <div className="border p-3 mb-3" style={{ height: "300px", overflowY: "scroll" }}>
       {messages.map((msg) => (
         <div key={msg.id}>
-          {/* OtherUserId is at the momment replaced by 3 */}
-          <strong>{msg.sender_id === 3 ? "Them" : "You"}:</strong> 
+          <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong> 
           <span> {msg.content}</span>
         </div>
       ))}

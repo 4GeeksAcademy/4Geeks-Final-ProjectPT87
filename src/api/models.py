@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import String, Boolean, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -8,8 +9,8 @@ db = SQLAlchemy()
 #  database for user
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    # username: Mapped[str] = mapped_column(
-    #    String(120), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     email: Mapped[str] = mapped_column(
         String(120), unique=True, nullable=False)
     # first_name: Mapped[str] = mapped_column(String(50))
@@ -39,7 +40,6 @@ class Runner(db.Model):
     phone = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False)
     address = db.Column(db.String(200), nullable=False)
-    
 
     # Added another database column for selecting runner or mentor for the user
     role = db.Column(
@@ -48,8 +48,8 @@ class Runner(db.Model):
         default="runner"
     )
 
-    # below a relative option for typing in the role yourself instead of selecting if we want that instead of the enum option above
-    # role = db.Column(db.String(20), nullable=False, default="runner")
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user = db.relationship("User", backref="runner_profile")
 
     def serialize(self):
         return {
@@ -89,7 +89,6 @@ class Streak(db.Model):
             "streak_by_id": self.streak_by_id
         }
 
-from datetime import datetime
 
 class Message(db.Model):
     __tablename__ = "messages"

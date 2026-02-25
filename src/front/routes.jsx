@@ -39,7 +39,7 @@ export const router = createBrowserRouter(
         <Route path = "/list_mentors" element={<ListMentors />} />
         <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
         <Route path = "/messages/:otherUserId" element={<Message />} />
-        <Route path="/account" element={<Authentication />} />
+        <Route path = "/account" element={<Authentication />} />
 
       <Route path="/profile" element={<ProfileCard />} />
     </Route>,

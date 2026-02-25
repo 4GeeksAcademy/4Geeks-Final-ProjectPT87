@@ -27,16 +27,16 @@ CORS(app)
 app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
 jwt = JWTManager(app)
 
+# Temporaly commented out the user identity loader as I added the identity loader on each component instead.
+# @jwt.user_identity_loader
+# def user_identity_lookup(user):
+#     return user.username
 
-@jwt.user_identity_loader
-def user_identity_lookup(user):
-    return user.username
 
-
-@jwt.user_lookup_loader
-def user_lookup_callback(_jwt_header, jwt_data):
-    identity = jwt_data["sub"]
-    return db.session.scalars(db.select(User).filter_by(username=identity)).one_or_none()
+# @jwt.user_lookup_loader
+# def user_lookup_callback(_jwt_header, jwt_data):
+#     identity = jwt_data["sub"]
+#     return db.session.scalars(db.select(User).filter_by(username=identity)).one_or_none()
 
 
 # database condiguration
