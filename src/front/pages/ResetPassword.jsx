@@ -19,7 +19,7 @@ export const ResetPassword = () => {
     }
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/reset-password/${token}`,
+      `${import.meta.env.VITE_BACKEND_URL}/reset-password/${token}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -36,8 +36,9 @@ export const ResetPassword = () => {
       <div className="row justify-content-center">
         <div className="col-md-5">
           <h4 className="mb-4">Reset Password</h4>
-
-          {error && <div className="alert alert-danger">{error}</div>}
+        {error && (
+          <div className="alert alert-danger">{error}</div>
+        )}
 
           {success ? (
             <div>

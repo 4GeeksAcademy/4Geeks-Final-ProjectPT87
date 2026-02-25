@@ -72,7 +72,7 @@ def forgot_password():
     return jsonify(msg="A reset link has been sent."), 200
     
 
-@api.route('reset-password/<token>', methods =['POST'])
+@api.route('/reset-password/<token>', methods =['POST'])
 def reset_password_token(token):
     new_password = request.json.get("password")
     if not new_password or len(new_password) < 8:
@@ -145,12 +145,3 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
-
-
-
-# @api.route('/user', methods=['GET'])
-# @jwt_required()
-# def get_user():
-#     uid = get_jwt_identity()
-#     user = User.query.filter_by(id=uid).first()
-#     return jsonify(user.serialize())

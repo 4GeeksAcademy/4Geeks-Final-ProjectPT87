@@ -21,7 +21,7 @@ export const ListRunners = () => {
         <div className = " contatiner text-center bg-light">
             <h1 className = "p-3">Runner List</h1>
             <div>
-                {/* {users?.length > 0 ? runners.map((runner, index) => {
+                {users?.length > 0 ? runners.map((runner, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
@@ -34,7 +34,7 @@ export const ListRunners = () => {
                 })
                 :
                 <h2>Add Runner Profile</h2>
-                } */}
+                }
             </div>
                 <br />
                 <div>

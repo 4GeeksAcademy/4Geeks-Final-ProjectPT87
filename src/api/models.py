@@ -86,14 +86,14 @@ class ResetPassword(db.Model):
     user: Mapped["User"] = relationship("User")
 
     @staticmethod
-    def generate(user_id, expirty_minutes=20):
+    def generate(user_id, expiry_minutes=20):
         token = str(uuid.uuid4())   
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
         record= ResetPassword(
             user_id= user_id,
             token_hash =token_hash,
-            expiry=datetime.now(timezone.utc)+ timedelta(minutes=expirty_minutes)
+            expiry=datetime.now(timezone.utc)+ timedelta(minutes=expiry_minutes)
         )
         return record, token
     
@@ -117,4 +117,10 @@ class ResetPassword(db.Model):
         self.used_at = datetime.now(timezone.utc)
 
 
-  
+# class Match(db.Model):
+
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     usera_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
+#     userb_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
+#     match:  Mapped[str] = mapped_column(String(60), nullable=False, unique=True, index=True)
+#     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=True)

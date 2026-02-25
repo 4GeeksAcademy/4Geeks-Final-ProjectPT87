@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
         <Route path = "/list_runners" element={<ListRunners />} />
         <Route path = "/list_mentors" element={<ListMentors />} />
         <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
-      <Route path="/profile" element={<ProfileCard />} />
+        <Route path="/profile" element={<ProfileCard />} />
     </Route>,
   ),
 );

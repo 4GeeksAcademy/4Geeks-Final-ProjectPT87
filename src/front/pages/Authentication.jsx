@@ -16,7 +16,7 @@ export const Authentication = () => {
     e.preventDefault();
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+      `${import.meta.env.VITE_BACKEND_URL}/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ export const Authentication = () => {
     e.preventDefault();
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/register`,
+      `${import.meta.env.VITE_BACKEND_URL}/register`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ export const Authentication = () => {
     setForgotMsg("");
 
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/api/forgot-password`,
+      `${import.meta.env.VITE_BACKEND_URL}/forgot-password`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
