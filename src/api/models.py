@@ -14,7 +14,7 @@ class User(db.Model):
         String(120), unique=True, nullable=False)
     # first_name: Mapped[str] = mapped_column(String(50))
     # last_name: Mapped[str] = mapped_column(String(50))
-    password: Mapped[str] = mapped_column(nullable=False)
+    _password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
     favorites = relationship("Favorites", back_populates="user")

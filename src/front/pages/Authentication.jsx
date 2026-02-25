@@ -12,7 +12,7 @@ export const Authentication=() =>{
     const handleLogin = async (e) =>{
         e.preventDefault();
 
-        // (Deony) On line 16, I've removed /api (currently isn't right now) as i already inserted it in the VITE_BACKEND_URL in .env file. If you want to keep it in the .env file, make sure to update the VITE_BACKEND_URL to include /api. Otherwise, you can add /api back to the fetch URL here.
+        
    const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/login`, 
         {
