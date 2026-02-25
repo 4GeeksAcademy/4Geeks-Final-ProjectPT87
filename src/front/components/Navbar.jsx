@@ -26,10 +26,10 @@ export const Navbar = () => {
 
           {!token ? (
             <>
-              <Link to="/account" className="btn btn-outline-primary me-2">
+              <Link to="/login" className="btn btn-outline-primary me-2">
                 Login
               </Link>
-              <Link to="/account" className="btn btn-primary">
+              <Link to="/signup" className="btn btn-primary">
                 Signup
               </Link>
             </>

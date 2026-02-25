@@ -16,7 +16,6 @@ import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
 import Message  from "./pages/Message";
 import ProfileCard from "./components/ProfileCard";
-import { Authentication } from "./pages/Authentication";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

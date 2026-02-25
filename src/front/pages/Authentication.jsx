@@ -1,237 +1,162 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./authentication.css";
+import {useNavigate } from "react-router-dom";
+import "./authentication.css"
 
-export const Authentication = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [isForgotPassword, setIsForgotPassword] = useState(false);
-  const [forgotEmail, setForgotEmail] = useState("");
-  const [forgotMsg, setForgotMsg] = useState("");
-  const navigate = useNavigate();
+export const Authentication=() =>{
+    const[email, setEmail] =useState("");
+    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("")
+    const [isSignUp, setIsSignUp] = useState(false);
+    const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    const handleLogin = async (e) =>{
+        e.preventDefault();
 
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      },
-    );
-    const data = await response.json();
-    if (response.ok) {
-      // Saves token
-      localStorage.setItem("token", data.token);
-
-      // Fetches the user's data using the token to get the user ID and saves it in localStorage
-      const userResponse = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/me`,
+   const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/login`, 
         {
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })  
         }
-      );
-
-      const userData = await userResponse.json();
-
-      localStorage.setItem("userId", userData.id);
-
-      navigate("/");
-    } else {
-      alert(data.msg || "Try again, wrong credentials.");
-    }
-  };
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/register`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
-      },
     );
-    const data = await response.json();
-
-    if (response.ok) {
-      setIsSignUp(false);
-      setPassword("");
-    } else {
-      alert(data.msg || "Registration failed.");
+        const data = await response.json();
+        if (response.ok){
+            localStorage.setItem("token", data.token)
+            navigate("/")
+        }else{
+            alert(data.msg || "Try again, wrong credentials.")
+        }
     }
-  };
+        const handleRegister = async (e) => {
+        e.preventDefault();
 
-  const handleForgotPassword = async (e) => {
-    e.preventDefault();
-    setForgotMsg("");
+           const response = await fetch(
+                `${import.meta.env.VITE_BACKEND_URL}/register`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, email, password })
+                }
+            );
+            const data = await response.json();
 
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/forgot-password`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: forgotEmail }),
-      },
-    );
-    const data = await response.json();
-    setForgotMsg(data.msg);
-  };
+            if(response.ok){
+                setIsSignUp(false);
+                setPassword("");
+            }
+            else{
+                alert(data.msg || "Registration failed.")
+            }
+    };
+    
+return(
+<div className="authentication-body">
+    <div className={`auth-container ${isSignUp ? "right-panel-active" : ""}`} id="container">
 
-
-  return (
-    <div className="authentication-body">
-      <div
-        className={`auth-container ${isSignUp ? "right-panel-active" : ""}`}
-        id="container"
-      >
         <div className="form-container sign-up-container">
-          <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister}>
             <h1>Create Account</h1>
 
             <div className="social-container">
-              <a
-                href="#"
-                className="social"
-                onClick={(e) => e.preventDefault()}
-              >
+                <a href="#" className="social" onClick={(e) => e.preventDefault()}>
                 <i className="fab fa-google-plus-g"></i>
-              </a>
+                </a>
             </div>
 
             <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-
-            <button type="submit">Sign Up</button>
-          </form>
-        </div>
-
-        <div className="form-container sign-in-container">
-          {isForgotPassword ? (
-            <form onSubmit={handleForgotPassword}>
-              <h1>Forgot Password</h1>
-              <p>Enter your email and we'll send you a reset link.</p>
-
-              <input
-                type="email"
-                placeholder="Email"
-                value={forgotEmail}
-                onChange={(e) => setForgotEmail(e.target.value)}
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 required
-              />
-
-              {forgotMsg && <p>{forgotMsg}</p>}
-
-              <button type="submit">Send Reset Link</button>
-
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsForgotPassword(false);
-                  setForgotMsg("");
-                  setForgotEmail("");
-                }}
-              >
-                Back to Sign In
-              </a>
-            </form>
-          ) : (
-            <form onSubmit={handleLogin}>
-              <h1>Sign in</h1>
-
-              <div className="social-container">
-                <a
-                  href="#"
-                  className="social"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  <i className="fab fa-google-plus-g"></i>
-                </a>
-              </div>
-
-              <input
+            />
+            <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-              />
-              <input
+            />
+            <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-              />
+            />
 
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsForgotPassword(true);
-                }}
-              >
-                Forgot your password?
-              </a>
-
-              <button type="submit">Sign In</button>
+            <button type="submit">Sign Up</button>
             </form>
-          )}
+        </div>
+
+        <div className="form-container sign-in-container">
+            <form onSubmit={handleLogin}>
+            <h1>Sign in</h1>
+
+            <div className="social-container">
+                <a href="#" className="social" onClick={(e) => e.preventDefault()}>
+                <i className="fab fa-google-plus-g"></i>
+                </a>
+            </div>
+
+            <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+            />
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+            />
+
+            <a href="#" onClick={(e) => e.preventDefault()}>
+                Forgot your password?
+            </a>
+
+            <button type="submit">Sign In</button>
+            </form>
         </div>
 
         <div className="overlay-container">
-          <div className="overlay">
+            <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <button
+                <h1>Welcome Back!</h1>
+                <button
                 className="ghost"
                 type="button"
                 onClick={() => setIsSignUp(false)}
-              >
+                >
                 Sign In
-              </button>
+                </button>
             </div>
 
             <div className="overlay-panel overlay-right">
-              <h1>Hello, Friend!</h1>
-              <p>Enter your account information meet new running partners</p>
-              <button
+                <h1>Hello, Friend!</h1>
+                <p>Enter your account information meet new running partners</p>
+                <button
                 className="ghost"
                 type="button"
                 onClick={() => setIsSignUp(true)}
-              >
+                >
                 Sign Up
-              </button>
+                </button>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
+
     </div>
-  );
-};
+</div>
+
+        
+
+
+            
+        )
+        
+    }

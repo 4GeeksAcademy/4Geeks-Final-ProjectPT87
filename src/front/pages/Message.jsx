@@ -14,7 +14,7 @@ const Message = () => {
 
   const interval = setInterval(() => {
     fetchConversation();
-  }, 1000);
+  }, 3000);
 
   return () => clearInterval(interval);
   }, [otherUserId]);   
@@ -37,7 +37,8 @@ const sendMessage = async () => {
       "Authorization": `Bearer ${localStorage.getItem("token")}`
     },
     body: JSON.stringify({
-      receiver_id: otherId, // Replace with actual receiver ID (other user) 
+      sender_id: currentUserId,
+      receiver_id: otherUserId,
       content: messageInput,
     })
   });
@@ -54,7 +55,7 @@ return (
     <div className="border p-3 mb-3" style={{ height: "300px", overflowY: "scroll" }}>
       {messages.map((msg) => (
         <div key={msg.id}>
-          <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong> 
+          <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong>
           <span> {msg.content}</span>
         </div>
       ))}
