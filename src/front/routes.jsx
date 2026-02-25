@@ -15,7 +15,8 @@ import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
 import ProfileCard from "./components/ProfileCard";
-
+import { Authentication } from "./pages/Authentication";
+import { ResetPassword } from "./pages/ResetPassword";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     // CreateRoutesFromElements function allows you to build route elements declaratively.
@@ -31,12 +32,15 @@ export const router = createBrowserRouter(
       <Route path="/single/:theId" element={<Single />} />{" "}
       {/* Dynamic route for single items */}
       <Route path="/demo" element={<Demo />} />
+       <Route path="/account" element={<Authentication />} />
+       <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path = "/create_runner" element={<CreateRunner />} />
         <Route path = "/edit_runner/:theId" element={<EditRunner />} />
         <Route path = "/list_runners" element={<ListRunners />} />
         <Route path = "/list_mentors" element={<ListMentors />} />
         <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
-      <Route path="/profile" element={<ProfileCard />} />
+        <Route path="/profile" element={<ProfileCard />} />
     </Route>,
   ),
 );

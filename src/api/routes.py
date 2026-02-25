@@ -1,17 +1,15 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, flash, redirect
-from api.models import db, User
+from flask import request, jsonify, Blueprint
+from api.models import db, User, ResetPassword, Runner
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
-import hashlib
-from api.models import db, User, Runner
-
-
+from flask_jwt_extended import create_access_token, jwt_required
+import os
 
 api = Blueprint('api', __name__)
+# unique_id = uuid.uuid4
 
 # Allow CORS requests to this API
 CORS(api)
@@ -24,11 +22,11 @@ def register():
     ).first()
 
     if user:
-        return jsonify(msg="Invalid username or password."),400
+        return jsonify(msg="Username already taken."),400
     
+    data = request.json
 
-    
-    user= User(**request.json, is_active =True)
+    user= User(username =data["username"], email=data["email"], password=data["password"], is_active =True)
 
     db.session.add(user)
     db.session.commit()
@@ -43,14 +41,52 @@ def login():
     user = db.session.scalars(
     db.select(User).filter_by(email = request.json.get("email"))
     ).first()
-    if not all([
-        user,
-        getattr(user, "password", None) == request.json.get("password", "")
-    ]):
-        return jsonify("Invalid email or password."),400
+    
+    if not user or not user.check_password_hash(request.json.get("password", "")):
+        return jsonify(msg="Invalid email or password."), 400
     
     return (jsonify(token=create_access_token(user)
     ))
+
+@api.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    return jsonify({"msg": "Logged out succesfully."}), 200
+
+
+@api.route('/forgot-password', methods= ['POST'])
+def forgot_password():
+    email = request.json.get("email")
+    user = db.session.scalars(db.select(User).filter_by(email=email)).first()
+    if not user:
+        return jsonify({"msg":"A link has been sent to your email."}),200
+    
+    record, token = ResetPassword.generate(user.id)
+    db.session.add(record)
+    db.session.commit()
+
+
+    reset_url = f"{os.environ.get('FRONTEND_URL')}/reset-password/{token}"
+    print(f"[DEV ONLY] Reset link: {reset_url}")
+
+    return jsonify(msg="A reset link has been sent."), 200
+    
+
+@api.route('/reset-password/<token>', methods =['POST'])
+def reset_password_token(token):
+    new_password = request.json.get("password")
+    if not new_password or len(new_password) < 8:
+        return jsonify({"msg": "Password must be at least 8 characters."}),400
+    
+    record = ResetPassword.verify_token(token)
+    if not record:
+        return jsonify(msg="Invalid or expired token."), 400
+
+    record.user.password = new_password  
+    record.used_token()
+    db.session.commit()
+
+    return jsonify(msg="Password reset successful."), 200
 
 # Gets all runners from the database and converts it into a list
 @api.route('/list_runners', methods=['GET'])
@@ -109,12 +145,3 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
-
-
-
-# @api.route('/user', methods=['GET'])
-# @jwt_required()
-# def get_user():
-#     uid = get_jwt_identity()
-#     user = User.query.filter_by(id=uid).first()
-#     return jsonify(user.serialize())
