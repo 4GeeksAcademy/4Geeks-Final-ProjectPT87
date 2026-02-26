@@ -14,7 +14,7 @@ class User(db.Model):
         String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-    runner_profile = relationship("Runner", back_populates="user")
+    runner = relationship("Runner", back_populates="user")
 
     def serialize(self):
         return {
@@ -22,7 +22,7 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "is_active": self.is_active,
-            "runner_profile": self.runner_profile,
+            "runner": self.runner,
             # do not serialize the password, its a security breach
         }
 
@@ -32,26 +32,18 @@ class Runner(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    # This may be broken into first_name and last_name
-    # name = db.Column(db.String(120), nullable=False)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
-    # first_name: Mapped[str] = mapped_column(String(50)) - We may break up first and last name
+    # This may be broken into first_name and last_name
+    # first_name: Mapped[str] = mapped_column(String(50))
     # last_name: Mapped[str] = mapped_column(String(50))
-    # phone = db.Column(db.String(50), nullable=True)
     phone: Mapped[str] = mapped_column(String(50), nullable=True)
-    # email = db.Column(db.String(120), nullable=False)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
-    # address = db.Column(db.String(200), nullable=True)
     address: Mapped[str] = mapped_column(String(200), nullable=True)
-    # years_running = db.Column(db.Integer, nullable=True)
     years_running: Mapped[int] = mapped_column(nullable=True)    # How do I limit int to 3 digits?
-    # schedule = db.Column(db.String(200), nullable=True)
     schedule: Mapped[str] = mapped_column(String(200), nullable=True)
-    # location = db.Column(db.String(200), nullable=True)
     location: Mapped[str] = mapped_column(String(200), nullable=True)
-    # is_mentor = db.Column(db.Boolean(), nullable=False, default=False)
     is_mentor: Mapped[bool] = mapped_column(nullable=False, default=False)
-    user = relationship("User", back_populates="runner_profile")
+    user = relationship("User", back_populates="runner")
     favorites = relationship(
         "Favorites", uselist=True,
         primaryjoin="Runner.id == Favorites.source_runner_id",
