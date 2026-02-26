@@ -66,20 +66,12 @@ class Runner(db.Model):
 class Favorites(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     favorited_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    favorited_to_id: Mapped[int] = mapped_column(ForeignKey("runners.id"))
-
-    user = relationship("User", back_populates="favorites")
     
-    # NOTE:
-    # The Favorites model currently defines relationships only with the User model on line 20.
-    # Although there is a foreign key (favorited_to_id) referencing the Runner table, no relationship() is defined for Runner yet. Just to let you know :)  
-    # runner = relationship("Runner", back_populates="favorites")
 
     def serialize(self):
         return {
             "id": self.id,
-            "favorited_by_id": self.favorited_by_id,
-            "favorited_to_id": self.favorited_to_id
+            "favorited_by_id": self.favorited_by_id
         }
 
 
