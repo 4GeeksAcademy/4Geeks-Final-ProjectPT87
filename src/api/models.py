@@ -92,7 +92,7 @@ class Favorites(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "runner": target_runner.serialize()
+            "runner": self.target_runner.serialize()
         }
 
 
