@@ -41,7 +41,8 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "is_active": self.is_active,
-            "runner": self.runner,
+            # Needs an option to select whether to serialize the runner or not, otherwise it will cause a circular reference
+            # "runner": self.runner,
             # do not serialize the password, its a security breach
         }
 
@@ -91,7 +92,7 @@ class Runner(db.Model):
             "schedule": self.schedule,
             "location": self.location,
             "is_mentor": self.is_mentor,
-            "user": self.user,
+            "user": self.user.serialize(),
             "fav_runners": [fav.serialize() for fav in self.favorites]
         }
 

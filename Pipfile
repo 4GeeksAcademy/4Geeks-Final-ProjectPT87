@@ -20,6 +20,7 @@ flask = "*"
 python-dotenv = "*"
 flask-migrate = "*"
 flask-swagger = "*"
+pyjwt = "==2.9.0"
 
 [requires]
 python_version = "3.13"
