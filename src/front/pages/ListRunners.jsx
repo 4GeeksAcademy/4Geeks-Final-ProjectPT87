@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import RunnerCard from "../components/RunnerCard.jsx";
 
+// This page lists all of the runner cards so that users can scroll through
 export const ListRunners = ({ runner }) => {
 
   const {store, dispatch, fetchRunner} = useGlobalReducer();

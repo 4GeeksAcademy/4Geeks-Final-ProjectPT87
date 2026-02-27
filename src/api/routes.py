@@ -1,34 +1,35 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from api.models import db, User, ResetPassword, Runner, Favorites, Message
 from flask import Flask, request, jsonify, url_for, Blueprint, flash, redirect
-from api.models import Favorites, db, User
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+import os
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
 import hashlib
-from api.models import db, User, Runner, Message
-
 
 
 api = Blueprint('api', __name__)
+# unique_id = uuid.uuid4
 
 # Allow CORS requests to this API
 CORS(api)
 
 
 @api.route('/register', methods=['POST'])
-def register(): 
+def register():
     user = db.session.scalars(
-        db.select(User).filter_by(username = request.json.get("username"))
+        db.select(User).filter_by(username=request.json.get("username"))
     ).first()
 
     if user:
-        return jsonify(msg="Invalid username or password."),400
-    
+        return jsonify(msg="Username already taken."), 400
 
-    
-    user= User(**request.json, is_active =True)
+    data = request.json
+
+    user = User(username=data["username"], email=data["email"],
+                password=data["password"], is_active=True)
 
     db.session.add(user)
     db.session.commit()
@@ -36,33 +37,82 @@ def register():
 
     return jsonify(user.serialize())
 
-
-
-@api.route('/login', methods=['POST'])
-def login(): 
+# Login 
+@api.route('/login', methods=['POST']) 
+def login():
     user = db.session.scalars(
-    db.select(User).filter_by(email = request.json.get("email"))
+        db.select(User).filter_by(email=request.json.get("email"))
     ).first()
-    
+
     if not user or not user.check_password_hash(request.json.get("password", "")):
         return jsonify(msg="Invalid email or password."), 400
-    
-    return (jsonify(token=create_access_token(user)
-    ))
+    print (f"User {user} logged in successfully.")
 
+    return (jsonify(token=create_access_token(user))
+                    ), 200
+
+
+@api.route('/logout', methods=['POST'])
+@jwt_required()
+def logout():
+    return jsonify({"msg": "Logged out succesfully."}), 200
+
+
+@api.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    email = request.json.get("email")
+    user = db.session.scalars(db.select(User).filter_by(email=email)).first()
+    if not user:
+        return jsonify({"msg": "A link has been sent to your email."}), 200
+
+    record, token = ResetPassword.generate(user.id)
+    db.session.add(record)
+    db.session.commit()
+
+    reset_url = f"{os.environ.get('FRONTEND_URL')}/reset-password/{token}"
+    print(f"[DEV ONLY] Reset link: {reset_url}")
+
+    return jsonify(msg="A reset link has been sent."), 200
+
+
+@api.route('/reset-password/<token>', methods=['POST'])
+def reset_password_token(token):
+    new_password = request.json.get("password")
+    if not new_password or len(new_password) < 8:
+        return jsonify({"msg": "Password must be at least 8 characters."}), 400
+
+    record = ResetPassword.verify_token(token)
+    if not record:
+        return jsonify(msg="Invalid or expired token."), 400
+
+    record.user.password = new_password
+    record.used_token()
+    db.session.commit()
+
+    return jsonify(msg="Password reset successful."), 200
 
 # Gets all runners from the database and converts it into a list
+
+
 @api.route('/list_runners', methods=['GET'])
 def get_runners():
     runners = db.session.scalars(db.select(Runner)).all()
     return jsonify([runner.serialize() for runner in runners]), 200
 
-# Route to create runner 
+# Route to create runner
+
+# Createrunner current error is subject must be a string
+# The error has to do with line 115 with the variable user
 @api.route('/list_runners', methods=['POST'])
+@jwt_required()
 def create_runner():
     body = request.json
-    
+    # This route needs to be authenticated so that you can tell who's logged in
+    print("Request body:", body)
+    user = get_jwt_identity()
+    print("Creating runner for user_id:", user)
     new_runner = Runner(
+        user_id=int(user), 
         name=body.get("name"),
         phone=body.get("phone"),
         email=body.get("email"),
@@ -73,8 +123,7 @@ def create_runner():
     db.session.commit()
     db.session.refresh(new_runner)
 
-    return jsonify(new_runner.serialize()), 201
-
+    return jsonify({"message": "Runner created successfully"}), 201
 
 
 @api.route('/list_runners/<int:runner_id>', methods=['PUT'])
@@ -124,6 +173,7 @@ def send_message():
     db.session.commit()
 
     return jsonify(new_message.serialize()), 201
+
 
 @api.route("/messages/<int:user1>/<int:user2>", methods=["GET"])
 def get_conversation(user1, user2):
