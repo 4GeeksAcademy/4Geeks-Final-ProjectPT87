@@ -38,6 +38,8 @@ def register():
     return jsonify(user.serialize())
 
 # Login 
+
+# Planning to add in user.id on return (line 53)
 @api.route('/login', methods=['POST']) 
 def login():
     user = db.session.scalars(
