@@ -24,6 +24,7 @@ export default function useGlobalReducer() {
         fetchRunner: (payload) => fetchRunner(dispatch, payload),
         createRunner: (payload) => createRunner(dispatch, payload),
         editRunner: (payload) => editRunner(dispatch, payload),
-        deleteRunner: (payload) => deleteRunner(dispatch, payload)
+        deleteRunner: (payload) => deleteRunner(dispatch, payload),
+        favoriteRunner: (payload) => favoriteRunner(dispatch, payload)
     };
 }

@@ -5,18 +5,18 @@ export const initialStore = () => {
     runners: [],
     singleRunner: null,
     loading: false, // for loading screens later
-    token: []
-}
-}
+    token: [],
+    favorites: [], // for storing favorite runners
+  };
+};
 // Reducer function that updates global state based on dispatched actions
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
-
+  switch (action.type) {
     // Replaces the entire runners array with fetched data
     case "set_runners":
       return {
         ...store,
-        runners: action.payload
+        runners: action.payload,
       };
 
     // storing single runners
@@ -26,35 +26,46 @@ export default function storeReducer(store, action = {}) {
     //     singlerunner: action.payload
     //   };
 
-      // adding runners to the existing runner array
+    // adding runners to the existing runner array
     case "add_runner":
       return {
         ...store,
-        runners: [...store.runners, action.payload]
+        runners: [...store.runners, action.payload],
       };
 
-      // editing runners info inside array
-      case "update_runner":
-  return {
-    ...store,
-    runners: store.runners.map(runner =>
-      runner.id === action.payload.id
-        ? action.payload
-        : runner
-    )
-  };
+    // editing runners info inside array
+    case "update_runner":
+      return {
+        ...store,
+        runners: store.runners.map((runner) =>
+          runner.id === action.payload.id ? action.payload : runner,
+        ),
+      };
 
-      // deleting runner by removing id
+    // deleting runner by removing id
     case "delete_runner":
       return {
         ...store,
-        runners: store.runners.filter(
-          runner => runner.id !== action.payload
-        )
+        runners: store.runners.filter((runner) => runner.id !== action.payload),
+      };
+
+    // adding favorite runners to the favorites array in the store
+    case "favorite_runner":
+      return {
+        ...store,
+        favorites: [...store.favorites, action.payload],
+      };
+
+    case "remove_favorite":
+      return {
+        ...store,
+        favorites: store.favorites.filter(
+          (fav) =>
+            !(fav.id === action.payload.id && fav.type === action.payload.type),
+        ),
       };
 
     default:
       return store;
   }
 }
-
