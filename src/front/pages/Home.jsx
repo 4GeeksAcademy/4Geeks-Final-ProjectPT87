@@ -38,43 +38,41 @@ export const Home = () => {
   // 	fetchAgenda()
   // }, [])
 
-  return (
-    <div className="text-center mt-5">
-      <h1>Welcome to Rigo's Running App!</h1>
-      <img src={rigoImageUrl} />
-      <h5>Rigo's Running App is a community where you can</h5>
-      <h5>
-        meet with other runners to run together and even ask for mentorship!
-      </h5>
-      <div className="mx-auto w-25 text-start">
-        <h5>
-          <ul>
-            <li>Create your runner profile</li>
-            <li>View other runner's profiles</li>
-            <li>Favorite other runners to run with</li>
-            <li>Schedule a time to meet and run</li>
-            <li>Become a mentor!</li>
-            <li>Seek a mentor!</li>
-          </ul>
-        </h5>
-      </div>
-      <Link to="/create_runner">
-        <button className="nav-btn mx-2">Create Runner Profile</button>
-      </Link>
-      <Link to="/edit_runner/:theId">
-        <button className="nav-btn mx-2">Edit Runner Profile</button>
-      </Link>
-      <Link to="/list_runners">
-        <Link to="/single_runner/:theID/:pictureNumber">
-          <button className="nav-btn mx-2">Single Runner Profile</button>
-        </Link>
-        <button className="nav-btn mx-2">List Runners</button>
-      </Link>
-      <Link to="/list_mentors">
-        <button className="nav-btn mx-2">List Mentors</button>
-      </Link>
-      {/* <Link to = "/">
-				<button className="nav-btn mx-2"">Return Home</button>
+	return (
+		<div className="text-center mt-5">
+			<h1>Welcome to Rigo's Running App!</h1>
+			<img src={rigoImageUrl} />
+			<h5>Rigo's Running App is a community where you can</h5>
+			<h5>meet with other runners to run together and even ask for mentorship!</h5>
+			<div className = "mx-auto w-25 text-start">
+			<h5>
+				<ul>
+					<li>Create your runner profile</li>
+					<li>View other runner's profiles</li>
+					<li>Favorite other runners to run with</li>
+					<li>Schedule a time to meet and run</li>
+					<li>Become a mentor!</li>
+					<li>Seek a mentor!</li>
+				</ul>
+			</h5>
+			</div>
+			<Link to="/create_runner">
+				<button className="btn btn-primary mx-2">Create Runner Profile</button>
+			</Link>
+			<Link to="/edit_runner/:theId">
+				<button className="btn btn-primary mx-2">Edit Runner Profile</button>
+			</Link>
+			<Link to="/list_runners">
+			{/* <Link to = "/single_runner/:theID/:pictureNumber">
+				<button className = "btn btn-primary mx-2">Single Runner Profile</button>
+			</Link> */}
+				<button className="btn btn-primary mx-2">List Runners</button>
+			</Link>
+			<Link to="/list_mentors">
+				<button className="btn btn-primary mx-2">List Mentors</button>
+			</Link>
+			{/* <Link to = "/">
+				<button className = "btn btn-primary mx-2">Return Home</button>
 			</Link> */}
     </div>
   );
