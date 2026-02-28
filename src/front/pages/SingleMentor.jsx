@@ -6,7 +6,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom ho
 import React, { useState, useEffect } from "react";
 
 // Define and export the Single component which displays individual item details.
-export const SingleRunner = props => {
+export const SingleMentor = props => {
   // Access the global state using the custom hook.
   const { store, dispatch, fetchContacts, editRunner, deleteRunner } = useGlobalReducer()
   const [ runner, setRunner ] = useState({});
@@ -52,6 +52,8 @@ export const SingleRunner = props => {
           <h4>Years Running: {runner?.years_running}</h4>
           <h4>Running Schedule: {runner?.schedule}</h4>
           <h4>Location: {runner?.location}</h4>
+          <h4>Rating: {runner?.rating}</h4>
+          <h4>Level: {runner?.level}</h4>
         </div>
         
         <hr className="my-4" />  {/* A horizontal rule for visual separation. */}
@@ -74,8 +76,8 @@ export const SingleRunner = props => {
             </button>
           </Link> */}
           <Link to="/list_runners">
-					  <button className="btn btn-primary mx-2">List Runners</button>
-					</Link>
+                      <button className="btn btn-primary mx-2">List Runners</button>
+                    </Link>
           <Link to="/list_mentors">
             <button className="btn btn-primary mx-2">List Mentors</button>
           </Link>
@@ -89,7 +91,7 @@ export const SingleRunner = props => {
 };
 
 // Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
-SingleRunner.propTypes = {
+SingleMentor.propTypes = {
   // Although 'match' prop is defined here, it is not used in the component.
   // Consider removing or using it as needed.
   match: PropTypes.object
