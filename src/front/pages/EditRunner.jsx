@@ -14,7 +14,7 @@ export const EditRunner = () => {
     const { theId } = useParams();
 
     const [currentRunnerInfo, setCurrentRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
-    const [newRunnerInfo, setNewRunnerInfo] = useState({name: "", phone: "", email: "", address: ""})
+    const [newRunnerInfo, setNewRunnerInfo] = useState({name: "", phone: "", email: "", address: "", years_running: "", schedule: "", location: ""})
 
     useEffect(() => {
         fetchRunner();
@@ -32,8 +32,8 @@ export const EditRunner = () => {
     const handleEditRunner = async (e) => {
         e.preventDefault(); // prevents page reload
 
-        if (!newRunnerInfo.name || !newRunnerInfo.phone || !newRunnerInfo.email || !newRunnerInfo.address) {
-            alert("Please complete all fields!");
+        if (!newRunnerInfo.name || !newRunnerInfo.email ) {
+            alert("Name and email fields are required");
             return;
         }
         await editRunner(newRunnerInfo);
@@ -90,6 +90,40 @@ export const EditRunner = () => {
 					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, address: e.target.value})}
 				/>
 			</div>
+
+            <div className = "mb-3">
+				<label htmlFor = "years_running" className = "ms-2 mb-1">Years Running</label>
+                <input 
+                    id = "years_running"
+                    className = "form-control"
+                    type = "text"
+                    value = {newRunnerInfo.years_running}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, years_running: e.target.value})}
+				/>
+			</div>
+
+            <div className = "mb-3">
+				<label htmlFor = "schedule" className = "ms-2 mb-1">Running Schedule</label>
+                <input 
+                    id = "schedule"
+                    className = "form-control"
+                    type = "text"
+                    value = {newRunnerInfo.schedule}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, schedule: e.target.value})}
+				/>
+			</div>
+
+            <div className = "mb-3">
+				<label htmlFor = "location" className = "ms-2 mb-1">Location</label>
+                <input 
+                    id = "location"
+                    className = "form-control"
+                    type = "text"
+                    value = {newRunnerInfo.location}
+					onChange = {(e) => setNewRunnerInfo({...newRunnerInfo, location: e.target.value})}
+				/>
+			</div>
+            
             <div className = "d-flex justify-content-center">
                 <button 
                     className = "btn btn-primary mx-2"
