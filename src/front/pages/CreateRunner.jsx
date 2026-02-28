@@ -16,7 +16,7 @@ export const CreateRunner = () => {
         location: "",
         rating: "",
         level: "",
-        is_mentor: "",
+        is_mentor: false,
     })
     const {store, dispatch, addRunner} = useGlobalReducer();
     const navigate = useNavigate();
@@ -150,7 +150,7 @@ export const CreateRunner = () => {
 			</div>
 
             {/* Need to create a yes no button for is_mentor */}
-            <div className = "mb-3">
+            {/* <div className = "mb-3">
 				<label htmlFor = "is_mentor" className = "ms-2 mb-1">Mentor?</label>
                 <input 
 					id = "is_mentor"
@@ -160,7 +160,36 @@ export const CreateRunner = () => {
 					onChange = {(e) => setRunner({...runner, is_mentor: e.target.value})}
 					value = {runner.is_mentor}
 				/>
-			</div>
+			</div> */}
+
+            <div className="form-check">
+                <input 
+                    id="flexRadioDefault1"
+                    className="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    onChange = {(e) => setRunner({...runner, is_mentor: (e.target.value === "true")})}
+					value = "true"
+                    checked = {runner.is_mentor === true}
+                />
+                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                    I want to be a mentor!
+                </label>
+            </div>
+            <div className="form-check mb-5">
+                <input 
+                    id="flexRadioDefault2"
+                    className="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    onChange = {(e) => setRunner({...runner, is_mentor: (e.target.value === "true")})}
+					value = "false"
+                    checked = {runner.is_mentor === false}
+                />
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
+                    I am not a mentor
+                </label>
+            </div>
 
             <div className = "d-flex justify-content-center">
                 <button 
