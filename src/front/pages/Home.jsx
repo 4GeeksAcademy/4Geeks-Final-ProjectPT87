@@ -58,22 +58,22 @@ export const Home = () => {
 			</h5>
 			</div>
 			<Link to="/create_runner">
-				<button className="btn btn-primary mx-2">Create Runner Profile</button>
+				<button className="nav-btn mx-2">Create Runner Profile</button>
 			</Link>
 			<Link to="/edit_runner/:theId">
-				<button className="btn btn-primary mx-2">Edit Runner Profile</button>
+				<button className="nav-btn mx-2">Edit Runner Profile</button>
 			</Link>
 			<Link to="/list_runners">
 			<Link to = "/single_runner/:theID/:pictureNumber">
-				<button className = "btn btn-primary mx-2">Single Runner Profile</button>
+				<button className="nav-btn mx-2">Single Runner Profile</button>
 			</Link>
-				<button className="btn btn-primary mx-2">List Runners</button>
+				<button className="nav-btn mx-2">List Runners</button>
 			</Link>
 			<Link to="/list_mentors">
-				<button className="btn btn-primary mx-2">List Mentors</button>
+				<button className="nav-btn mx-2">List Mentors</button>
 			</Link>
 			{/* <Link to = "/">
-				<button className = "btn btn-primary mx-2">Return Home</button>
+				<button className="nav-btn mx-2"">Return Home</button>
 			</Link> */}
 		</div>
 	);
