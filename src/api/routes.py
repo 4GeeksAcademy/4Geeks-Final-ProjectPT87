@@ -116,7 +116,13 @@ def create_runner():
         name=body.get("name"),
         phone=body.get("phone"),
         email=body.get("email"),
-        address=body.get("address")
+        address=body.get("address"),
+        years_running=body.get("years_running"),
+        schedule=body.get("schedule"),
+        location=body.get("location"),
+        rating=body.get("rating"),
+        level=body.get("level"),
+        is_mentor=body.get("is_mentor"),
     )
 
     db.session.add(new_runner)
@@ -139,6 +145,12 @@ def update_runner(runner_id):
     runner.phone = body.get("phone", runner.phone)
     runner.email = body.get("email", runner.email)
     runner.address = body.get("address", runner.address)
+    runner.years_running = body.get("years_running", runner.years_running)
+    runner.schedule = body.get("schedule", runner.schedule)
+    runner.location = body.get("location", runner.location)
+    runner.rating = body.get("rating", runner.rating)
+    runner.level = body.get("level", runner.level)
+    runner.is_mentor = body.get("is_mentor", runner.is_mentor)
 
     db.session.commit()
 

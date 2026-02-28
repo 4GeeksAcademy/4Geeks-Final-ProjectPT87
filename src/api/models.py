@@ -62,12 +62,12 @@ class Runner(db.Model):
     years_running: Mapped[int] = mapped_column(nullable=True)    # How do I limit int to 3 digits?
     schedule: Mapped[str] = mapped_column(String(200), nullable=True)
     location: Mapped[str] = mapped_column(String(200), nullable=True)
+    rating: Mapped[str] = mapped_column(String(50), nullable=True)
+    level: Mapped[str] = mapped_column(String(50), nullable=True)
     is_mentor: Mapped[bool] = mapped_column(nullable=False, default=False)
-
-
+    
     user = relationship("User", back_populates="runner")
-
-
+    
     favorites = relationship(
         "Favorites", uselist=True,
         primaryjoin="Runner.id == Favorites.source_runner_id",
@@ -91,8 +91,12 @@ class Runner(db.Model):
             "years_running": self.years_running,
             "schedule": self.schedule,
             "location": self.location,
+            "rating": self.rating,
+            "level": self.level,
             "is_mentor": self.is_mentor,
             "user": self.user.serialize(),
+            
+            # "user": self.user,
             "fav_runners": [fav.serialize() for fav in self.favorites]
         }
 

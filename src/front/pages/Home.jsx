@@ -64,9 +64,9 @@ export const Home = () => {
 				<button className="btn btn-primary mx-2">Edit Runner Profile</button>
 			</Link>
 			<Link to="/list_runners">
-			<Link to = "/single_runner/:theID/:pictureNumber">
+			{/* <Link to = "/single_runner/:theID/:pictureNumber">
 				<button className = "btn btn-primary mx-2">Single Runner Profile</button>
-			</Link>
+			</Link> */}
 				<button className="btn btn-primary mx-2">List Runners</button>
 			</Link>
 			<Link to="/list_mentors">
