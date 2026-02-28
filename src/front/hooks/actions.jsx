@@ -14,7 +14,8 @@ export const createRunner = async (dispatch, newRunner) => {
   const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/list_runners", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("token")
     },
     body: JSON.stringify(newRunner)
   });
@@ -64,3 +65,5 @@ export const deleteRunner = async (dispatch, id) => {
     payload: id
   });
 };
+
+
