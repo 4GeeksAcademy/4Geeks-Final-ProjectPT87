@@ -160,11 +160,14 @@ def delete_runner(runner_id):
 
 # Messages database
 @api.route("/messages", methods=["POST"])
+@jwt_required()
 def send_message():
+    current_user = get_jwt_identity()
     body = request.json
 
+
     new_message = Message(
-        sender_id=body.get("sender_id"),
+        sender_id=current_user,  # Assuming you have the sender's user ID from the JWT token
         receiver_id=body.get("receiver_id"),
         content=body.get("content")
     )
