@@ -18,9 +18,10 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     _password: Mapped[str] = mapped_column("password", nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-    runner = relationship("Runner", back_populates="user")
+    
+    runner = relationship("Runner", back_populates="user") 
     def __repr__(self):
-        return f"Username {self.username}"
+        return f" {self.id}"
     
     @hybrid_property
     def password(self):
@@ -40,7 +41,8 @@ class User(db.Model):
             "username": self.username,
             "email": self.email,
             "is_active": self.is_active,
-            "runner": self.runner,
+            # Needs an option to select whether to serialize the runner or not, otherwise it will cause a circular reference
+            # "runner": self.runner,
             # do not serialize the password, its a security breach
         }
 
@@ -61,11 +63,16 @@ class Runner(db.Model):
     schedule: Mapped[str] = mapped_column(String(200), nullable=True)
     location: Mapped[str] = mapped_column(String(200), nullable=True)
     is_mentor: Mapped[bool] = mapped_column(nullable=False, default=False)
+
+
     user = relationship("User", back_populates="runner")
+
+
     favorites = relationship(
         "Favorites", uselist=True,
         primaryjoin="Runner.id == Favorites.source_runner_id",
     )
+
     streak = relationship(
         "Streak", back_populates="user",
         primaryjoin="Streak.streak_by_id == Runner.id",
@@ -85,7 +92,7 @@ class Runner(db.Model):
             "schedule": self.schedule,
             "location": self.location,
             "is_mentor": self.is_mentor,
-            "user": self.user,
+            "user": self.user.serialize(),
             "fav_runners": [fav.serialize() for fav in self.favorites]
         }
 
@@ -181,3 +188,26 @@ class ResetPassword(db.Model):
 #     userb_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
 #     match:  Mapped[str] = mapped_column(String(60), nullable=False, unique=True, index=True)
 #     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=True)
+
+from datetime import datetime
+
+class Message(db.Model):
+    __tablename__ = "messages"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    sender_id = db.Column(db.Integer, nullable=False)
+    receiver_id = db.Column(db.Integer, nullable=False)
+
+    content = db.Column(db.Text, nullable=False)
+
+    timestamp = db.Column(db.DateTime, default=datetime.now)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "content": self.content,
+            "timestamp": self.timestamp.isoformat()
+        }
