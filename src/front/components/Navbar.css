@@ -42,7 +42,17 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* .footer {
+ .footer {
     background-color: #0E7DDE;
     padding: 15px;
+    color: white;
+}
+
+.footer a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #d4f5ff !important;
 }
