@@ -1,18 +1,22 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import request, jsonify, Blueprint
-from api.models import db, User, ResetPassword, Runner
+from flask import request, jsonify, Blueprint, redirect
+from api.models import db, User, ResetPassword, Runner, StravaToken
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from flask_jwt_extended import create_access_token, jwt_required
-import os
-
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import os, requests, secrets
+4
 api = Blueprint('api', __name__)
-# unique_id = uuid.uuid4
 
 # Allow CORS requests to this API
 CORS(api)
+STRAVA_API = "https://www.strava.com/api/v3"
+STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token"
+
+def is_run(a):
+    return a.get("sport_type") == "Run" or a.get("type") == "Run"
 
 
 @api.route('/register', methods=['POST'])
@@ -45,8 +49,8 @@ def login():
     if not user or not user.check_password_hash(request.json.get("password", "")):
         return jsonify(msg="Invalid email or password."), 400
     
-    return (jsonify(token=create_access_token(user)
-    ))
+    return jsonify(token=create_access_token(identity=str(user.id))), 200
+    
 
 @api.route('/logout', methods=['POST'])
 @jwt_required()
@@ -145,3 +149,130 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
+
+@api.route("/strava/login-url", methods=["GET"])
+@jwt_required()
+def strava_login_url():
+    user = current_user()
+    if not user:
+        return jsonify(msg="User not found."), 401
+
+    url = (
+        "https://www.strava.com/oauth/authorize"
+        f"?client_id={os.getenv('STRAVA_CLIENT_ID')}"
+        f"&response_type=code"
+        f"&redirect_uri={os.getenv('STRAVA_REDIRECT_URI')}"
+        f"&approval_prompt=auto"
+        f"&scope=read,activity:read_all,activity:write"
+        f"&state={user.id}"
+    )
+    return jsonify(auth_url=url), 200
+
+
+@api.route("/strava/callback", methods=["GET"])
+def strava_callback():
+    code = request.args.get("code")
+    user_id = request.args.get("state")
+
+    if not code or not user_id:
+        return jsonify(msg="Missing code or state."), 400
+
+    r = requests.post(
+        STRAVA_TOKEN_URL,
+        data={
+            "client_id": os.getenv("STRAVA_CLIENT_ID"),
+            "client_secret": os.getenv("STRAVA_CLIENT_SECRET"),
+            "code": code,
+            "grant_type": "authorization_code",
+        },
+        timeout=20,
+    )
+
+    if not r.ok:
+        return jsonify(msg="Token exchange failed.", details=r.text), 400
+
+    data = r.json()
+    user_id_int = int(user_id)
+
+    token_row = db.session.scalars(db.select(StravaToken).filter_by(user_id=user_id_int)).first()
+    if not token_row:
+        token_row = StravaToken(
+            user_id=user_id_int,
+            access_token=data["access_token"],
+            refresh_token=data["refresh_token"],
+        )
+        db.session.add(token_row)
+    else:
+        token_row.access_token = data["access_token"]
+        token_row.refresh_token = data["refresh_token"]
+
+    db.session.commit()
+    return redirect(f"{os.getenv('FRONTEND_URL')}/strava?connected=true")
+
+
+@api.route("/strava/status", methods=["GET"])
+@jwt_required()
+def strava_status():
+    user = current_user()
+    if not user:
+        return jsonify(msg="User not found."), 401
+
+    token_row = db.session.scalars(db.select(StravaToken).filter_by(user_id=user.id)).first()
+    return jsonify(connected=bool(token_row)), 200
+
+
+@api.route("/strava/runs", methods=["GET"])
+@jwt_required()
+def strava_runs():
+    user = current_user()
+    if not user:
+        return jsonify(msg="User not found."), 401
+
+    access_token = get_valid_strava_access_token(user.id)
+    if not access_token:
+        return jsonify(msg="Strava not connected."), 401
+
+    r = requests.get(
+        f"{STRAVA_API}/athlete/activities",
+        headers={"Authorization": f"Bearer {access_token}"},
+        params={"per_page": 30, "page": 1},
+        timeout=20,
+    )
+
+    if not r.ok:
+        return jsonify(msg="Strava request failed.", details=r.text), 400
+
+    runs = [a for a in r.json() if is_run(a)]
+    return jsonify(runs), 200
+
+
+@api.route("/strava/create-run", methods=["POST"])
+@jwt_required()
+def strava_create_run():
+    user = current_user()
+    if not user:
+        return jsonify(msg="User not found."), 401
+
+    access_token = get_valid_strava_access_token(user.id)
+    if not access_token:
+        return jsonify(msg="Strava not connected."), 401
+
+    body = request.json or {}
+    for k in ["name", "start_date_local", "elapsed_time", "distance"]:
+        if body.get(k) in [None, ""]:
+            return jsonify(msg=f"Missing field: {k}"), 400
+
+    r = requests.post(
+        f"{STRAVA_API}/activities",
+        headers={"Authorization": f"Bearer {access_token}"},
+        data={
+            "name": body["name"],
+            "sport_type": "Run",
+            "start_date_local": body["start_date_local"],
+            "elapsed_time": int(body["elapsed_time"]),
+            "distance": float(body["distance"]),
+        },
+        timeout=20,
+    )
+
+    return jsonify(r.json()), (201 if r.ok else 400)

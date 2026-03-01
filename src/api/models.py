@@ -146,11 +146,11 @@ class ResetPassword(db.Model):
     def used_token(self):
         self.used_at = datetime.now(timezone.utc)
 
+class StravaToken(db.Model):
+    __tablename__ = "strava_token"
 
-# class Match(db.Model):
-
-#     id: Mapped[int] = mapped_column(primary_key=True)
-#     usera_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
-#     userb_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
-#     match:  Mapped[str] = mapped_column(String(60), nullable=False, unique=True, index=True)
-#     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), unique=True, nullable=False, index=True)
+    access_token: Mapped[str] = mapped_column(String(255), nullable=False)
+    refresh_token: Mapped[str] = mapped_column(String(255), nullable=False)
+    user: Mapped["User"] = relationship("User")

@@ -17,6 +17,7 @@ import { SingleRunner } from "./pages/SingleRunner";
 import ProfileCard from "./components/ProfileCard";
 import { Authentication } from "./pages/Authentication";
 import { ResetPassword } from "./pages/ResetPassword";
+import { Strava } from "./pages/Strava";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     // CreateRoutesFromElements function allows you to build route elements declaratively.
@@ -41,6 +42,7 @@ export const router = createBrowserRouter(
         <Route path = "/list_mentors" element={<ListMentors />} />
         <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
         <Route path="/profile" element={<ProfileCard />} />
+        <Route path="/strava" element={<Strava />} />
     </Route>,
   ),
 );
