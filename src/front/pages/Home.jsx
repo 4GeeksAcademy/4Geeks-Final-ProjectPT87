@@ -58,10 +58,10 @@ export const Home = () => {
 			</h5>
 			</div>
 			<Link to="/create_runner">
-				<button className="btn btn-primary mx-2">Create Runner Profile</button>
+				<button className="btn btn-primary mx-2">Create Your Profile</button>
 			</Link>
 			<Link to="/edit_runner/:theId">
-				<button className="btn btn-primary mx-2">Edit Runner Profile</button>
+				<button className="btn btn-primary mx-2">Edit Your Profile</button>
 			</Link>
 			<Link to="/list_runners">
 			{/* <Link to = "/single_runner/:theID/:pictureNumber">

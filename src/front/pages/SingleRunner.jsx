@@ -4,7 +4,7 @@ import PropTypes from "prop-types";  // To define prop types for this component
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";  // Import an image asset
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 import React, { useState, useEffect } from "react";
-import ProfileCard from "../components/ProfileCard";
+// import ProfileCard from "../components/ProfileCard";
 // import pictureNumber from "./ListUsers";
 
 // Define and export the Single component which displays individual item details.
@@ -43,8 +43,17 @@ export const SingleRunner = props => {
         <div className = "contatiner text-center bg-light">
           <h1>Runner Profile</h1>
         </div>
-
-          <ProfileCard />
+        <div className="container text-center mt-5">
+          <img
+            src="https://i.pravatar.cc/250/250"
+            alt="User profile"
+            className="rounded-circle mx-auto d-block mb-3"
+          />
+          {/* <h2>Runner Name</h2> */}
+          {/* <p className="text-muted">Runner</p>
+          <p>Welcome to your profile page.</p> */}
+        </div>
+          {/* <ProfileCard /> */}
 
 
         <div className = "mt-4">

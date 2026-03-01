@@ -38,7 +38,7 @@ export const CreateRunner = () => {
     return (
         <div className="container bg-light mt-5 p-3 w-50 shadow p-3 mb-5 bg-white rounded">
 			<div className = "text-center mt-3">
-				<h3>Create Profile</h3>
+				<h3>Create Your Profile</h3>
 			</div>
 			
             <div className = "mb-3">

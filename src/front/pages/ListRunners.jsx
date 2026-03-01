@@ -3,6 +3,13 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import RunnerCard from "../components/RunnerCard.jsx";
+// import { photo1 } from "../assets/RUNNER1.webp"
+// import { photo2 } from "../assets/RUNNER2.webp"
+// import { photo3 } from "../assets/RUNNER3.webp"
+// import { photo4 } from "../assets/RUNNER4.webp"
+// import { photo5 } from "../assets/RUNNER5.webp"
+// import { photo6 } from "../assets/RUNNER6.webp"
+// import { photo7 } from "../assets/RUNNER7.webp"
 
 // This page lists all of the runner cards so that users can scroll through
 export const ListRunners = ({ runner }) => {
@@ -23,7 +30,7 @@ export const ListRunners = ({ runner }) => {
             <h1 className = "p-3">Runner List</h1>
             <div>
                 {runners?.length > 0 ? runners.map((runner, index) => {
-                    let pictureNumber = index < 10 ? index : index - 9;
+                    let pictureNumber = index < 7 ? index : index - 6;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
                         <RunnerCard
