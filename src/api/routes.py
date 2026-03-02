@@ -50,6 +50,7 @@ def login():
         return jsonify(msg="Invalid email or password."), 400
     print (f"User {user} logged in successfully.")
 
+
     return (jsonify(token=create_access_token(user))
                     ), 200
 
