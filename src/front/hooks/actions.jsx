@@ -41,7 +41,13 @@ export const editRunner = async (dispatch, payload ) => {
         name: payload.name,
         phone: payload.phone,
         email: payload.email,
-        address: payload.address
+        address: payload.address,
+        years_running: payload.years_running,
+        schedule: payload.schedule,
+        location: payload.location,
+        rating: payload.rating,
+        level: payload.level,
+        is_mentor: payload.is_mentor
        })
     }
   );

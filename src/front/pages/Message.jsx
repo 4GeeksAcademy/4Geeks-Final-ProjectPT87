@@ -29,7 +29,7 @@ const Message = () => {
 
   const fetchConversation = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/messages/${currentUserId}/${otherId}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
+      `${import.meta.env.VITE_BACKEND_URL}/messages/${2}/${1}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
     );
     const data = await response.json();
     setMessages(data);
@@ -43,7 +43,8 @@ const Message = () => {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       },
       body: JSON.stringify({
-        receiver_id: otherId, // Replace with actual receiver ID (other user) 
+        sender_id: 2, // Replace with actual sender ID (current user)
+        receiver_id: 1, // Replace with actual receiver ID (other user) 
         content: messageInput,
       })
     });
@@ -61,7 +62,7 @@ const Message = () => {
         {messages.map((msg) => (
           <div key={msg.id}>
             {/* OtherUserId is at the momment replaced by 3 */}
-            <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong>
+            <strong>{msg.sender_id === 2 ? "You" : "Them"}:</strong>
             <span> {msg.content}</span>
           </div>
         ))}
