@@ -193,19 +193,19 @@ export const CreateRunner = () => {
 
             <div className = "d-flex justify-content-center">
                 <button 
-                    className = "btn btn-primary mx-2"
+                    className="nav-btn"
                     onClick = {(e) => handleCreateRunner(e)}
                 >
                     Create Runner Profile
                 </button>
                 {/* <Link to="/list_runners">
-                    <button className="btn btn-primary mx-2">List list_runners</button>
+                    <button className="nav-btn">List list_runners</button>
                 </Link>
                 <Link to="/list_mentors">
-                    <button className="btn btn-primary mx-2">List Mentors</button>
+                    <button className="nav-btn">List Mentors</button>
                 </Link> */}
                 <Link to = "/">
-                    <button className = "btn btn-primary mx-2">Return Home</button>
+                    <button className="nav-btn">Return Home</button>
                 </Link>
             </div>
         </div>
