@@ -24,9 +24,9 @@ export const Navbar = () => {
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
         <div className="ms-auto">
-          <Link to="/profile" className="nav-btn">
+          {/* <Link to="/profile" className="nav-btn">
             Placeholder Profile Button
-          </Link>
+          </Link> */}
 
           {!token ? (
             <>
@@ -50,7 +50,7 @@ export const Navbar = () => {
         {/* FAVORITES DROPDOWN */}
         <div className="dropdown">
           <button
-            className="btn btn-warning dropdown-toggle"
+            className="nav-btn dropdown-toggle"
             type="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"

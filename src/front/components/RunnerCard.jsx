@@ -9,6 +9,43 @@ export default function RunnerCard ({ runner, pictureNumber }) {
 
     const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer()
 
+    const createFavorite = async (dispatch, id) => {
+        await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+        },
+        body: JSON.stringify({ 
+        runner: runner.id
+        })
+        });
+
+        dispatch({
+            type: "favorite_runner",
+            payload: {
+            id: runner.id,
+            name: runner.name,
+            type: "runner"
+        }
+    });
+        // dispatch({
+        //     type: "favorite_runner",
+        //     payload: { id: runner.id, type: "runner" }
+        // });
+    };
+
+    const deleteFavorite = async (dispatch, id) => {
+        await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/" + id, {
+        method: "DELETE"
+        });
+
+        dispatch({
+            type: "remove_favorite",
+            payload: { id: runner.id, type: "runner" }
+        });
+    };
+
     return (
         <div>
             <div className = "card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
@@ -69,19 +106,21 @@ export default function RunnerCard ({ runner, pictureNumber }) {
                                 );
 
                                 if (isFavorite) {
-                                    dispatch({
-                                        type: "remove_favorite",
-                                        payload: { id: runner.id, type: "runner" }
-                                    });
+                                    deleteFavorite(runner.id)
+                                    // dispatch({
+                                    //     type: "remove_favorite",
+                                    //     payload: { id: runner.id, type: "runner" }
+                                    // });
                                 } else {
-                                    dispatch({
-                                        type: "favorite_runner",
-                                        payload: {
-                                            id: runner.id,
-                                            name: runner.name,
-                                            type: "runner"
-                                        }
-                                    });
+                                    createFavorite(runner.id)
+                                    // dispatch({
+                                    //     type: "favorite_runner",
+                                    //     payload: {
+                                    //         id: runner.id,
+                                    //         name: runner.name,
+                                    //         type: "runner"
+                                    //     }
+                                    // });
                                 }
                             }}
                         >

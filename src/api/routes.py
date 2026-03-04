@@ -169,16 +169,36 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
-# This is the route for Favorites
+# This is the route to create a favorite
 # This route needs to be authenticated so that you can tell who's logged in
-@api.route('/list_runners', methods=['POST'])
+@api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
 def favorite_runner():
+    body = request.json
+    print("Request body:", body)
+    user = get_jwt_identity()
+    print("Creating favorited runner for user_id:", user)
+    favorited_runner = Favorites(
+        source_runner_id = int(user), 
+        target_runner_id = body.get("runner"),
+    )
+
+    db.session.add(favorited_runner)
+    db.session.commit()
+    db.session.refresh(favorited_runner)
+
+    return jsonify({"message": "Runner favorited successfully"}), 201
+
+# This is the route to delete a favorite
+# This route needs to be authenticated so that you can tell who's logged in
+@api.route('/favorite_runner/<int:target_runner_id>', methods=['DELETE'])
+@jwt_required()
+def delete_favorite():
     body = request.json
     # print("Request body:", body)
     user = get_jwt_identity()
     # print("Creating favorited runner for user_id:", user)
-    favorited_runner = Runner(
+    favorited_runner = Favorites(
         source_runner_id = int(user), 
         target_runner_id = body.get("runners.id"),
     )
@@ -187,7 +207,7 @@ def favorite_runner():
     db.session.commit()
     db.session.refresh(favorited_runner)
 
-    return jsonify({"message": "Runner favorited successfully"}), 201
+    return jsonify({"message": "Favorite deleted successfully"}), 201
 
 # Messages database
 @api.route("/messages", methods=["POST"])
