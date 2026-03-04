@@ -40,7 +40,7 @@ export const ListMentors = () => {
                 <br />
                 <div>
                     <Link to = "/">
-                        <button className="btn btn-primary" style = {{marginBottom: 100}}>Return Home</button>
+                        <button className="nav-btn" style = {{marginBottom: 100}}>Return Home</button>
                     </Link>
                 </div>
         </div>

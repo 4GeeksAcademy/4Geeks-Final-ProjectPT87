@@ -62,13 +62,13 @@ export const SingleRunner = props => {
         {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
         <div className = "d-flex justify-content-center">
           {/* <Link to = {"/edit_runner/" + runner.id}>
-            <button className="btn btn-primary mx-2" href="#" role="button">
+            <button className="nav-btn" href="#" role="button">
               Edit Runner Profile
             </button>
           </Link> */}
           {/* <Link to="/list_runners">
             <button 
-              className="btn btn-primary mx-2" 
+              className="nav-btn" 
               href="#" 
               role="button"
               onClick={() => deleteRunner(runner.id)}
@@ -77,13 +77,13 @@ export const SingleRunner = props => {
             </button>
           </Link> */}
           <Link to="/list_runners">
-					  <button className="btn btn-primary mx-2">List Runners</button>
+					  <button className="nav-btn">List Runners</button>
 					</Link>
           <Link to="/list_mentors">
-            <button className="btn btn-primary mx-2">List Mentors</button>
+            <button className="nav-btn">List Mentors</button>
           </Link>
           <Link to = "/">
-            <button className = "btn btn-primary mx-2">Return Home</button>
+            <button className="nav-btn">Return Home</button>
           </Link>
         </div>
       </div>
