@@ -1,6 +1,6 @@
 
 import click
-from api.models import db, User
+from api.models import db, User, Runner
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -29,6 +29,99 @@ def setup_commands(app):
 
         print("All test users created")
 
-    @app.cli.command("insert-test-data")
-    def insert_test_data():
-        pass
+    # @app.cli.command("insert-test-data")
+    # def insert_test_data():
+    #     user_data = [
+    #         {"name": "Patrick Andries",
+    #          "username": "pandries",
+    #          "phone": "918-366-3320",
+    #          "email": "pandries@gmail.com",
+    #          "address": "11777 S 85th E Ave",
+    #          "years_running": 5,
+    #          "schedule": "M-W-F",
+    #          "location": "OK",
+    #          "rating": 5,
+    #          "level": 1,
+    #          "is_mentor": False
+    #         },
+    #         {"name": "Jonathan Palma",
+    #          "username": "jpalma"
+    #          "phone": "301-366-3320",
+    #          "email": "jpalma@gmail.com",
+    #          "address": "11777 S 85th E Ave",
+    #          "years_running": 5,
+    #          "schedule": "M-W-F",
+    #          "location": "FL",
+    #          "rating": 5,
+    #          "level": 10,
+    #          "is_mentor": True
+    #         },
+    #         {"name": "Deony Lopez",
+    #          "username": "dlopez"
+    #          "phone": "542-366-3320",
+    #          "email": "dlopez@gmail.com",
+    #          "address": "11777 S 85th E Ave",
+    #          "years_running": 7,
+    #          "schedule": "M-W-F",
+    #          "location": "FL",
+    #          "rating": 5,
+    #          "level": 5,
+    #          "is_mentor": False
+    #         },
+    #         {"name": "Ozzie Garcia",
+    #          "username": "ogarcia",
+    #          "phone": "224-366-3320",
+    #          "email": "ogarcia@gmail.com",
+    #          "address": "11777 S 85th E Ave",
+    #          "years_running": 7,
+    #          "schedule": "M-W-F",
+    #          "location": "IL",
+    #          "rating": 5,
+    #          "level": 5,
+    #          "is_mentor": True
+    #         },
+    #         {"name": "Leonard Santiago",
+    #          "username": "lsantiago"
+    #          "phone": "714-366-3320",
+    #          "email": "lsantiago@gmail.com",
+    #          "address": "11777 S 85th E Ave",
+    #          "years_running": 2,
+    #          "schedule": "M-W-F",
+    #          "location": "IL",
+    #          "rating": 5,
+    #          "level": 2,
+    #          "is_mentor": False
+    #         },
+    #     ]
+    #     print("Creating test users")
+    #     for dict in user_data:
+    #         new_user = User(
+    #             username = dict["username"]
+    #             email = dict["email"]
+    #             _password = "password"
+    #             is_active = True
+    #         )
+
+    #         db.session.add(new_user)
+    #         db.session.commit()
+    #         print("User: ", username, " created.")
+
+    #     for dict in user_data:
+    #         new_runner = Runner(
+    #             name = dict["name"]
+    #             phone = dict["phone"]
+    #             email = dict["email"]
+    #             address = dict["address"]
+    #             running = dict["years_running"]
+    #             schedule = dict["schedule"]
+    #             location = dict["location"]
+    #             rating = dict["rating"]
+    #             level = dict["level"]
+    #             s_mentor = dict["is_mentor"]
+    #         )
+    #
+    #         db.session.add(new_runner)
+    #         db.session.commit()
+    #         print("Runner: ", runner.name, " created.")
+
+    #     print("All test users created")

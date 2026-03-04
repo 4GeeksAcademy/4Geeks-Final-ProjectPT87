@@ -65,14 +65,13 @@ class Runner(db.Model):
     rating: Mapped[str] = mapped_column(String(50), nullable=True)
     level: Mapped[str] = mapped_column(String(50), nullable=True)
     is_mentor: Mapped[bool] = mapped_column(nullable=False, default=False)
-    
+    # is_favorite: Mapped[bool] = mapped_column(nullable=False, default=False)
+
     user = relationship("User", back_populates="runner")
-    
     favorites = relationship(
         "Favorites", uselist=True,
         primaryjoin="Runner.id == Favorites.source_runner_id",
     )
-
     streak = relationship(
         "Streak", back_populates="user",
         primaryjoin="Streak.streak_by_id == Runner.id",
@@ -94,6 +93,7 @@ class Runner(db.Model):
             "rating": self.rating,
             "level": self.level,
             "is_mentor": self.is_mentor,
+            # "is_favorite": self.is_favorite,
             "user": self.user.serialize(),
             
             # "user": self.user,
