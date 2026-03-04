@@ -3,46 +3,64 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import RunnerCard from "../components/RunnerCard.jsx";
+import Spinner from "../components/Spinner.jsx";
 
 // This page lists all of the runner cards so that users can scroll through
 export const ListRunners = ({ runner }) => {
 
-  const {store, dispatch, fetchRunner} = useGlobalReducer();
-  const [ runners, setRunners ] = useState([]);
+    const { store, dispatch, fetchRunner } = useGlobalReducer();
+    const [runners, setRunners] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+    // Loading useEffect
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchRunner(dispatch);
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
+
+   
+    useEffect(() => {
         fetchRunner()
         setRunners(store.runners)
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         setRunners(store.runners)
     }, [store.runners])
+
+    // Loading component
+    if (loading) return <Spinner />;
+
     return (
-        <div className = " contatiner text-center bg-light">
-            <h1 className = "p-3">Runner List</h1>
+
+        <div className=" contatiner text-center bg-light">
+            <h1 className="p-3">Runner List</h1>
             <div>
                 {runners?.length > 0 ? runners.map((runner, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
                         <RunnerCard
-                            key = {runner.id} 
-                            runner = {runner} 
+                            key={runner.id}
+                            runner={runner}
                             pictureNumber={pictureNumber}
                         />
                     )
                 })
-                :
-                <h2>Add Runner Profile</h2>
+                    :
+                    <h2>Add Runner Profile</h2>
                 }
             </div>
-                <br />
-                <div>
-                    <Link to = "/">
-                        <button className="btn btn-primary" style = {{marginBottom: 100}}>Return Home</button>
-                    </Link>
-                </div>
+            <br />
+            <div>
+                <Link to="/">
+                    <button className="btn btn-primary" style={{ marginBottom: 100 }}>Return Home</button>
+                </Link>
+            </div>
         </div>
     );
 }; 

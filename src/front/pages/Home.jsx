@@ -3,6 +3,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
 
@@ -39,6 +40,7 @@ export const Home = () => {
   // }, [])
 
 	return (
+	
 		<div className="text-center mt-5">
 			<h1>Welcome to Rigo's Running App!</h1>
 			<img src={rigoImageUrl} />
@@ -74,6 +76,7 @@ export const Home = () => {
 			{/* <Link to = "/">
 				<button className = "btn btn-primary mx-2">Return Home</button>
 			</Link> */}
+			
     </div>
   );
 };

@@ -4,7 +4,6 @@ export const initialStore = () => {
     message: null,
     runners: [],
     singleRunner: null,
-    loading: false, // for loading screens later
     token: [],
     favorites: [], // for storing favorite runners
   };
@@ -65,7 +64,5 @@ export default function storeReducer(store, action = {}) {
         ),
       };
 
-    default:
-      return store;
   }
 }
