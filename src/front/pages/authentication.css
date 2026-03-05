@@ -2,7 +2,7 @@
 
 /* wrapper only for this page */
 .authentication-body {
-  background: #f6f5f7;
+  background: #eef5fc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@
   margin: 20px 0 30px;
 }
 
-.authentication-body span { font-size: 12px; }
+/*.authentication-body span { font-size: 12px; }*/
 
 .authentication-body a {
   color: #333;
@@ -37,25 +37,56 @@
 }
 
 .authentication-body button {
-  border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
+  background-color: #0a8018;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.authentication-body button:active { transform: scale(0.95); }
-.authentication-body button:focus { outline: none; }
+.authentication-body button:hover {
+  background-color: #166d30;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.authentication-body button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+}
+.authentication-body button:focus { 
+  outline: none; 
+}
 
 .authentication-body button.ghost {
-  background-color: transparent;
-  border-color: #FFFFFF;
+  background-color: white;
+  color: inherit;
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.gradient-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  background: linear-gradient(to right, #0e7dde, #0a8018);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.authentication-body button.ghost:hover {
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
 
 .authentication-body form {
@@ -141,7 +172,9 @@
 }
 
 .authentication-body .overlay {
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  /* incase we end up not wanting the gradient
+  background: #0e7dde;*/
+  background: linear-gradient(to right, #0e7dde, #0a8018);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
