@@ -11,8 +11,10 @@ export default function RunnerCard ({ runner, pictureNumber }) {
 
     return (
         <div>
+            
             <div className = "card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
                 <div className = "card-body">
+                    <ProfileCard />
                     <h5 className = "card-title">{runner.name}</h5>
                     {/* <p className = "card-text">{runner.phone}</p>
                     <p className = "card-text">{runner.email}</p>

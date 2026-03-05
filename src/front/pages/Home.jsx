@@ -1,8 +1,8 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+import Page1 from "../assets/img/Page1.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import "./Home.css"
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -39,44 +39,51 @@ export const Home = () => {
   // 	fetchAgenda()
   // }, [])
 
-	return (
-	
-		<div className="text-center mt-5">
-			<h1>Welcome to Rigo's Running App!</h1>
-			<img src={rigoImageUrl} />
-			<h5>Rigo's Running App is a community where you can</h5>
-			<h5>meet with other runners to run together and even ask for mentorship!</h5>
-			<div className = "mx-auto w-25 text-start">
-			<h5>
-				<ul>
-					<li>Create your runner profile</li>
-					<li>View other runner's profiles</li>
-					<li>Favorite other runners to run with</li>
-					<li>Schedule a time to meet and run</li>
-					<li>Become a mentor!</li>
-					<li>Seek a mentor!</li>
-				</ul>
-			</h5>
-			</div>
-			<Link to="/create_runner">
-				<button className="btn btn-primary mx-2">Create Runner Profile</button>
-			</Link>
-			<Link to="/edit_runner/:theId">
-				<button className="btn btn-primary mx-2">Edit Runner Profile</button>
-			</Link>
-			<Link to="/list_runners">
-			{/* <Link to = "/single_runner/:theID/:pictureNumber">
-				<button className = "btn btn-primary mx-2">Single Runner Profile</button>
+  return (
+    <div className="hero-container">
+      <img src={Page1} className="hero-img" alt="Runners" />
+
+      <div className="hero-text">
+        <h1>Welcome to Rigo's Running App!</h1>
+        <h5>
+          Rigo's Running App is a community where you can meet with other
+          runners to run together and even ask for mentorship!
+        </h5>
+        <div className="text-start hero-list">
+          <ul>
+            <li>Create your runner profile</li>
+            <li>View other runner's profiles</li>
+            <li>Favorite other runners to run with</li>
+            <li>Schedule a time to meet and run</li>
+            <li>Become a mentor!</li>
+            <li>Seek a mentor!</li>
+          </ul>
+        </div>
+        <div className="mt-3 d-flex flex-wrap gap-3">
+          <Link to="/create_runner">
+            <button className="nav-btn">
+              Create Runner Profile
+            </button>
+          </Link>
+          <Link to="/edit_runner/:theId">
+            <button className="nav-btn">
+              Edit Runner Profile
+            </button>
+          </Link>
+          <Link to="/list_runners">
+            {/* <Link to = "/single_runner/:theID/:pictureNumber">
+				<button className = "nav-btn">Single Runner Profile</button>
 			</Link> */}
-				<button className="btn btn-primary mx-2">List Runners</button>
-			</Link>
-			<Link to="/list_mentors">
-				<button className="btn btn-primary mx-2">List Mentors</button>
-			</Link>
-			{/* <Link to = "/">
-				<button className = "btn btn-primary mx-2">Return Home</button>
+            <button className="nav-btn">List Runners</button>
+          </Link>
+          <Link to="/list_mentors">
+            <button className="nav-btn">List Mentors</button>
+          </Link>
+          {/* <Link to = "/">
+				<button className = "nav-btn">Return Home</button>
 			</Link> */}
-			
+        </div>
+      </div>
     </div>
   );
 };
