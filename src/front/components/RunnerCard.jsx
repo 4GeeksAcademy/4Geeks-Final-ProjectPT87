@@ -5,30 +5,30 @@ import { Link } from 'react-router-dom';
 
 // This card populates the runners on the List Runners page
 // This allows users to scroll through the runners to see who to favorite
-export default function RunnerCard ({ runner, pictureNumber }) {
+export default function RunnerCard({ runner, pictureNumber }) {
 
     const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer()
 
-    const createFavorite = async (dispatch, id) => {
+    const createFavorite = async (id) => {
         await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/", {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token")
-        },
-        body: JSON.stringify({ 
-        runner: runner.id
-        })
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+                runner: runner.id
+            })
         });
 
         dispatch({
             type: "favorite_runner",
             payload: {
-            id: runner.id,
-            name: runner.name,
-            type: "runner"
-        }
-    });
+                id: runner.id,
+                name: runner.name,
+                type: "runner"
+            }
+        });
         // dispatch({
         //     type: "favorite_runner",
         //     payload: { id: runner.id, type: "runner" }
@@ -37,7 +37,7 @@ export default function RunnerCard ({ runner, pictureNumber }) {
 
     const deleteFavorite = async (dispatch, id) => {
         await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/" + id, {
-        method: "DELETE"
+            method: "DELETE"
         });
 
         dispatch({
@@ -48,8 +48,8 @@ export default function RunnerCard ({ runner, pictureNumber }) {
 
     return (
         <div>
-            <div className = "card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
-                <div className = "card-body">
+            <div className="card mt-3 mx-auto w-50 shadow p-3 mb-5 bg-white rounded">
+                <div className="card-body">
                     <div className="container text-center mt-5">
                         <img
                             // {runner?.length > 0 ? runner.map((runner, index) => {
@@ -68,15 +68,15 @@ export default function RunnerCard ({ runner, pictureNumber }) {
                         {/* <p className="text-muted">Runner</p> */}
                         {/* <p>Welcome to your profile page.</p> */}
                     </div>
-                    <h5 className = "card-title">{runner.name}</h5>
+                    <h5 className="card-title">{runner.name}</h5>
                     {/* <p className = "card-text">{runner.phone}</p>
                     <p className = "card-text">{runner.email}</p>
                     <p className = "card-text">{runner.address}</p> */}
-                    <p className = "card-text">{runner.years_running}</p>
-                    <p className = "card-text">{runner.schedule}</p>
-                    <p className = "card-text">{runner.location}</p>
+                    <p className="card-text">{runner.years_running}</p>
+                    <p className="card-text">{runner.schedule}</p>
+                    <p className="card-text">{runner.location}</p>
                 </div>
-                <div className = "d-flex justify-content-center">
+                <div className="d-flex justify-content-center">
                     <Link to={"/single_runner/" + runner.id + "/" + pictureNumber}>
                         <button className="btn btn-primary mb-3">View Details</button>
                     </Link>
@@ -92,13 +92,13 @@ export default function RunnerCard ({ runner, pictureNumber }) {
                     className={store.favorites?.some(element => element.name === props.name) ? "mx-2 fa-solid fa-heart" : "mx-2 fa-regular fa-heart"}
                     onClick = { () => toggleFavorites()}>
                     </i> */}
-                    <div className = "mb-3 ms-2">
-                        <button 
-                            className = {`btn ${store.favorites.some(
+                    <div className="mb-3 ms-2">
+                        <button
+                            className={`btn ${store.favorites.some(
                                 fav => fav.id === runner.id && fav.type === "runner"
                             )
-                                    ? "btn-danger"
-                                    : "btn-outline-warning"
+                                ? "btn-danger"
+                                : "btn-outline-warning"
                                 }`}
                             onClick={() => {
                                 const isFavorite = store.favorites.some(

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { editRunner, fetchRunner } from "../hooks/actions.jsx";
 
 
 export const EditRunner = () => {

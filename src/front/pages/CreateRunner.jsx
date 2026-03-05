@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { createRunner } from "../hooks/actions.jsx";
 
 
 export const CreateRunner = () => {
+    const { createRunner } = useGlobalReducer();
+
     const [runner, setRunner] = useState({
         name: "", 
         phone: "", 

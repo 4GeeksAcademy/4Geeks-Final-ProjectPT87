@@ -1,5 +1,6 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import String, Boolean,ForeignKey,DateTime
+from sqlalchemy import String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -8,21 +9,25 @@ import uuid
 import hashlib
 
 
-
 db = SQLAlchemy()
 
 #  database for user
+
+
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
-    username: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
-    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    username: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     _password: Mapped[str] = mapped_column("password", nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-    
-    runner = relationship("Runner", back_populates="user") 
+
+    runner = relationship("Runner", back_populates="user", uselist=False)
+
     def __repr__(self):
         return f" {self.id}"
-    
+
     @hybrid_property
     def password(self):
         return self._password
@@ -33,7 +38,6 @@ class User(db.Model):
 
     def check_password_hash(self, password):
         return check_password_hash(self.password, password)
-
 
     def serialize(self):
         return {
@@ -47,6 +51,8 @@ class User(db.Model):
         }
 
 # This is the runner profile
+
+
 class Runner(db.Model):
     __tablename__ = "runners"
 
@@ -57,9 +63,11 @@ class Runner(db.Model):
     # first_name: Mapped[str] = mapped_column(String(50))
     # last_name: Mapped[str] = mapped_column(String(50))
     phone: Mapped[str] = mapped_column(String(50), nullable=True)
-    email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(120), unique=True, nullable=False)
     address: Mapped[str] = mapped_column(String(200), nullable=True)
-    years_running: Mapped[int] = mapped_column(nullable=True)    # How do I limit int to 3 digits?
+    years_running: Mapped[int] = mapped_column(
+        nullable=True)    # How do I limit int to 3 digits?
     schedule: Mapped[str] = mapped_column(String(200), nullable=True)
     location: Mapped[str] = mapped_column(String(200), nullable=True)
     rating: Mapped[str] = mapped_column(String(50), nullable=True)
@@ -77,7 +85,7 @@ class Runner(db.Model):
         primaryjoin="Streak.streak_by_id == Runner.id",
     )
 
-    def serialize(self):
+    def serialize(self, includeRunner=False):
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -95,10 +103,9 @@ class Runner(db.Model):
             "is_mentor": self.is_mentor,
             # "is_favorite": self.is_favorite,
             "user": self.user.serialize(),
-            
-            # "user": self.user,
+        } | ({
             "fav_runners": [fav.serialize() for fav in self.favorites]
-        }
+        } if includeRunner else {})
 
 
 # database for favorites
@@ -141,30 +148,37 @@ class Streak(db.Model):
             "user": self.user
         }
 
+
 class ResetPassword(db.Model):
-    __tablename__ ="password_reset"
+    __tablename__ = "password_reset"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False, index=True)
-    token_hash: Mapped[str] = mapped_column(String(64), nullable=False, unique=True, index=True) 
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
-    expiry: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
-    used_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("user.id"), nullable=False, index=True)
+    token_hash: Mapped[str] = mapped_column(
+        String(64), nullable=False, unique=True, index=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(
+        timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc))
+    expiry: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, index=True)
+    used_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True)
 
     user: Mapped["User"] = relationship("User")
 
     @staticmethod
     def generate(user_id, expiry_minutes=20):
-        token = str(uuid.uuid4())   
+        token = str(uuid.uuid4())
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
-        record= ResetPassword(
-            user_id= user_id,
-            token_hash =token_hash,
-            expiry=datetime.now(timezone.utc)+ timedelta(minutes=expiry_minutes)
+        record = ResetPassword(
+            user_id=user_id,
+            token_hash=token_hash,
+            expiry=datetime.now(timezone.utc) +
+            timedelta(minutes=expiry_minutes)
         )
         return record, token
-    
+
     @staticmethod
     def verify_token(token):
         token_hash = hashlib.sha256(token.encode()).hexdigest()
@@ -178,9 +192,9 @@ class ResetPassword(db.Model):
             return None
         if record.expiry < datetime.now(timezone.utc):
             return None
-        
+
         return record
-    
+
     def used_token(self):
         self.used_at = datetime.now(timezone.utc)
 
@@ -193,7 +207,6 @@ class ResetPassword(db.Model):
 #     match:  Mapped[str] = mapped_column(String(60), nullable=False, unique=True, index=True)
 #     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=True)
 
-from datetime import datetime
 
 class Message(db.Model):
     __tablename__ = "messages"
