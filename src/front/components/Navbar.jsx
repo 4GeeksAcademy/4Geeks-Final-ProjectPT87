@@ -2,14 +2,17 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token")  || localStorage.getItem("token");
 
   // Adding this for when we add login/logout functionality.
   const logout = () => {
     sessionStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("token");
+    navigate("/account");
   };
-
+  if (!token) {
+    return null;
+  }
   // Can change the names of login/signup if needed, just adding them for now.
   return (
     <nav className="navbar navbar-light bg-light">

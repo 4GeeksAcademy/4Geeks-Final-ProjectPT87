@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
-/* wrapper only for this page */
 .authentication-body {
   background: #f6f5f7;
   display: flex;
@@ -16,18 +15,26 @@
   box-sizing: border-box;
 }
 
-.authentication-body h1 { font-weight: bold; margin: 0; }
-.authentication-body h2 { text-align: center; }
+.authentication-body h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+.authentication-body h2 {
+  text-align: center;
+}
 
 .authentication-body p {
   font-size: 14px;
-  font-weight: 100;
+  font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
 }
 
-.authentication-body span { font-size: 12px; }
+.authentication-body span {
+  font-size: 12px;
+}
 
 .authentication-body a {
   color: #333;
@@ -38,25 +45,37 @@
 
 .authentication-body button {
   border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
+  border: 1px solid #2E7D32;
+  background-color: #43A047;
+  color: white;
   font-size: 12px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: transform 80ms ease-in;
+  transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.authentication-body button:active { transform: scale(0.95); }
-.authentication-body button:focus { outline: none; }
+.authentication-body button:hover {
+  background-color: #2E7D32;
+}
+
+.authentication-body button:active {
+  transform: scale(0.95);
+}
+
+.authentication-body button:focus {
+  outline: none;
+}
 
 .authentication-body button.ghost {
-  background-color: transparent;
-  border-color: #FFFFFF;
+  background-color: rgba(255,255,255,0.15);
+  border: 2px solid white;
+  color: white;
+  backdrop-filter: blur(4px);
 }
+
 
 .authentication-body form {
   background-color: #FFFFFF;
@@ -77,17 +96,20 @@
   width: 100%;
 }
 
+
 .authentication-body .auth-container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-      0 10px 10px rgba(0,0,0,0.22);
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.25),
+    0 10px 10px rgba(0,0,0,0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
   max-width: 100%;
   min-height: 480px;
 }
+
 
 .authentication-body .form-container {
   position: absolute;
@@ -121,9 +143,16 @@
 }
 
 @keyframes show {
-  0%, 49.99% { opacity: 0; z-index: 1; }
-  50%, 100% { opacity: 1; z-index: 5; }
+  0%, 49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%, 100% {
+    opacity: 1;
+    z-index: 5;
+  }
 }
+
 
 .authentication-body .overlay-container {
   position: absolute;
@@ -140,11 +169,18 @@
   transform: translateX(-100%);
 }
 
+/* background images */
+
 .authentication-body .overlay {
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+    url("https://crownheightsrunningclub.nyc/app/uploads/2022/02/runners-night.png") left center / 50% 100% no-repeat,
+    url("https://upload.wikimedia.org/wikipedia/commons/9/9d/All-weather_running_track.jpg") right center / 50% 100% no-repeat;
+
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: 0 0;
+  background-position: left center, right center;
+  background-size: 50% 100%, 50% 100%;
+
   color: #FFFFFF;
   position: relative;
   left: -100%;
@@ -169,17 +205,46 @@
   top: 0;
   height: 100%;
   width: 50%;
-  transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 
-.authentication-body .overlay-left { transform: translateX(-20%); }
-.authentication-body .auth-container.right-panel-active .overlay-left { transform: translateX(0); }
+.authentication-body .overlay-left {
+  transform: translateX(-20%);
+}
 
-.authentication-body .overlay-right { right: 0; transform: translateX(0); }
-.authentication-body .auth-container.right-panel-active .overlay-right { transform: translateX(20%); }
+.authentication-body .auth-container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
 
-.authentication-body .social-container { margin: 20px 0; }
+.authentication-body .overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.authentication-body .auth-container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
+
+/* readable overlay text */
+
+.authentication-body .overlay-panel h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+}
+
+.authentication-body .overlay-panel p {
+  color: white;
+  font-weight: 500;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+}
+
+/* social icons */
+
+.authentication-body .social-container {
+  margin: 20px 0;
+}
 
 .authentication-body .social-container a {
   border: 1px solid #DDDDDD;

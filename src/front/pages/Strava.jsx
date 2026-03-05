@@ -1,98 +1,133 @@
-// Strava.jsx
 import React, { useEffect, useState } from "react";
+import  "./Strava.css";
 
 export const Strava = () => {
-  const [runs, setRuns] = useState([]);
-  const [msg, setMsg] = useState("");
   const [connected, setConnected] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [runs, setRuns] = useState([]);
 
   const [name, setName] = useState("");
   const [distance, setDistance] = useState("");
   const [minutes, setMinutes] = useState("");
   const [start, setStart] = useState("");
 
-  const backend = import.meta.env.VITE_BACKEND_URL;
   const token = localStorage.getItem("token");
 
-  const getHeaders = (isJson = false) => {
-    const h = { Authorization: "Bearer " + token };
-    if (isJson) h["Content-Type"] = "application/json";
-    return h;
-  };
+  const backend = import.meta.env.VITE_BACKEND_URL;
 
-  const loadStatus = async () => {
+  const checkStatus = async () => {
+    setMsg("");
+
     const res = await fetch(backend + "/strava/status", {
-      headers: getHeaders(),
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
+
     const data = await res.json();
-    if (res.ok) setConnected(!!data.connected);
-    else setMsg(data.msg || "Could not check Strava status.");
+
+    if (res.ok) {
+      setConnected(Boolean(data.connected));
+    } else {
+      setMsg(data.msg || "Could not check Strava status.");
+    }
   };
 
   const connectStrava = async () => {
     setMsg("");
+
     const res = await fetch(backend + "/strava/login-url", {
-      headers: getHeaders(),
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
+
     const data = await res.json();
 
-    if (!res.ok) return setMsg(data.msg || "Could not get Strava login URL.");
-    if (!data.auth_url) return setMsg("No auth_url returned from backend.");
+    if (!res.ok) {
+      setMsg(data.msg || "Could not get Strava login URL.");
+      return;
+    }
+
+    if (!data.auth_url) {
+      setMsg("Backend did not return auth_url.");
+      return;
+    }
 
     window.location.assign(data.auth_url);
   };
 
   const loadRuns = async () => {
+    setMsg("");
+
     const res = await fetch(backend + "/strava/runs", {
-      headers: getHeaders(),
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
+
     const data = await res.json();
 
-    if (res.ok) setRuns(data);
-    else setMsg(data.msg || "Could not load runs.");
+    if (res.ok) {
+      setRuns(data);
+    } else {
+      setMsg(data.msg || "Could not load runs.");
+    }
   };
 
   const createRun = async (e) => {
     e.preventDefault();
+    setMsg("");
 
     const res = await fetch(backend + "/strava/create-run", {
       method: "POST",
-      headers: getHeaders(true),
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        name,
-        distance: Number(distance),
-        elapsed_time: Number(minutes) * 60,
+        name: name,
+        distance: Number(distance), 
+        elapsed_time: Number(minutes) * 60, 
         start_date_local: new Date(start).toISOString(),
       }),
     });
 
     const data = await res.json();
 
-    if (!res.ok) return setMsg(data.msg || "Failed to create run.");
+    if (!res.ok) {
+      setMsg(data.msg || "Failed to create run.");
+      return;
+    }
 
     setMsg("Run created!");
     setName("");
     setDistance("");
     setMinutes("");
     setStart("");
+
     loadRuns();
   };
 
   useEffect(() => {
     if (!token) return;
 
-    if (
-      new URLSearchParams(window.location.search).get("connected") === "true"
-    ) {
+    const connectedParam =
+      new URLSearchParams(window.location.search).get("connected") === "true";
+
+    if (connectedParam) {
       setMsg("Strava connected!");
       window.history.replaceState({}, "", window.location.pathname);
     }
 
-    loadStatus();
+    checkStatus();
+
   }, []);
 
   useEffect(() => {
-    if (connected) loadRuns();
+    if (connected) {
+      loadRuns();
+    }
   }, [connected]);
 
   if (!token) {
@@ -103,72 +138,93 @@ export const Strava = () => {
     );
   }
 
-  return (
-    <div>
-      <h3>Strava</h3>
+   return (
+      <div className="strava-page">
+        <div className="strava-card">
+          <h3 className="strava-title">Strava Journal</h3>
 
-      <button onClick={connectStrava}>Connect Strava</button>
-      <button onClick={loadRuns} disabled={!connected}>
-        Refresh
-      </button>
+          <div className="strava-buttons">
+            <button className="activity-btn" onClick={connectStrava}>
+              Connect Strava
+            </button>
 
-      {!connected && <p>Not connected yet.</p>}
-      {msg && <p>{msg}</p>}
-
-      <h4>Log a Run</h4>
-      {!connected ? (
-        <p>Connect Strava to log runs.</p>
-      ) : (
-        <form onSubmit={createRun}>
-          <div>
-            <input
-              placeholder="Run name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+            <button
+              className="activity-btn"
+              onClick={loadRuns}
+              disabled={!connected}
+            >
+              Refresh Runs
+            </button>
           </div>
-          <div>
-            <input
-              placeholder="Distance (meters)"
-              type="number"
-              value={distance}
-              onChange={(e) => setDistance(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <input
-              placeholder="Duration (minutes)"
-              type="number"
-              value={minutes}
-              onChange={(e) => setMinutes(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <input
-              type="datetime-local"
-              value={start}
-              onChange={(e) => setStart(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Save Run</button>
-        </form>
-      )}
 
-      <h4>Recent Runs</h4>
-      {connected && runs.length === 0 && <p>No runs yet.</p>}
+          {msg && <p className="strava-message">{msg}</p>}
 
-      <ul>
-        {runs.map((r) => (
-          <li key={r.id}>
-            {r.name} — {(r.distance / 1000).toFixed(2)} km —{" "}
-            {Math.round(r.elapsed_time / 60)} min
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+          {!connected ? (
+            <p className="strava-muted">Not connected yet.</p>
+          ) : (
+            <>
+              <h4 className="section-title">Log a Run</h4>
+
+              <form onSubmit={createRun} className="strava-form">
+                <input
+                  className="runname-input"
+                  placeholder="Run name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+
+                <input
+                  className="runname-input"
+                  placeholder="Distance (meters)"
+                  type="number"
+                  value={distance}
+                  onChange={(e) => setDistance(e.target.value)}
+                  required
+                />
+
+                <input
+                  className="runname-input"
+                  placeholder="Duration (minutes)"
+                  type="number"
+                  value={minutes}
+                  onChange={(e) => setMinutes(e.target.value)}
+                  required
+                />
+
+                <input
+                  className="runname-input"
+                  type="datetime-local"
+                  value={start}
+                  onChange={(e) => setStart(e.target.value)}
+                  required
+                />
+
+                <button type="submit" className="activity-btn">
+                  Save Run
+                </button>
+              </form>
+
+              <h4 className="section-title">Recent Runs</h4>
+
+              {runs.length === 0 ? (
+                <p className="strava-muted">No runs yet.</p>
+              ) : (
+                <ul className="run-list">
+                  {runs.map((r) => (
+                    <li key={r.id} className="run-item">
+                      <span className="run-name">{r.name}</span>
+                      <span className="run-stats">
+                        {(r.distance / 1000).toFixed(2)} km •{" "}
+                        {Math.round(r.elapsed_time / 60)} min
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    );
 };
