@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./authentication.css";
+import "../styles/authentication.css";
 
 export const Authentication = () => {
   const [email, setEmail] = useState("");
@@ -15,14 +15,11 @@ export const Authentication = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/login`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      },
-    );
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
