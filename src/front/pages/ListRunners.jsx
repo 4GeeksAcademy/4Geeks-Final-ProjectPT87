@@ -60,12 +60,12 @@ export const ListRunners = ({ runner }) => {
                     <h2>Add Runner Profile</h2>
                 }
             </div>
-            <br />
-            <div>
-                <Link to="/">
-                    <button className="btn btn-primary" style={{ marginBottom: 100 }}>Return Home</button>
-                </Link>
-            </div>
+                <br />
+                <div>
+                    <Link to = "/">
+                        <button className="nav-btn" style = {{marginBottom: 100}}>Return Home</button>
+                    </Link>
+                </div>
         </div>
     );
 }; 

@@ -177,10 +177,10 @@ export const EditRunner = () => {
                     Update Runner Profile
                 </button>
                 <Link to="/list_runners">
-                    <button className="btn btn-primary mx-2">List Runners</button>
+                    <button className="nav-btn">List Runners</button>
                 </Link>
                 <Link to="/list_mentors">
-                    <button className="btn btn-primary mx-2">List Mentors</button>
+                    <button className="nav-btn">List Mentors</button>
                 </Link>
                 <Link to="/">
                     <button className="btn btn-primary mx-2">Return Home</button>

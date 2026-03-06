@@ -2,7 +2,7 @@ import Page1 from "../assets/img/Page1.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Home.css"
+import "./Home.css";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -61,14 +61,10 @@ export const Home = () => {
         </div>
         <div className="mt-3 d-flex flex-wrap gap-3">
           <Link to="/create_runner">
-            <button className="nav-btn">
-              Create Runner Profile
-            </button>
+            <button className="nav-btn">Create Runner Profile</button>
           </Link>
           <Link to="/edit_runner/:theId">
-            <button className="nav-btn">
-              Edit Runner Profile
-            </button>
+            <button className="nav-btn">Edit Runner Profile</button>
           </Link>
           <Link to="/list_runners">
             {/* <Link to = "/single_runner/:theID/:pictureNumber">

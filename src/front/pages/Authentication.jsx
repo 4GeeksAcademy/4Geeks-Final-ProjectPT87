@@ -197,7 +197,7 @@ export const Authentication = () => {
                 type="button"
                 onClick={() => setIsSignUp(false)}
               >
-                Sign In
+                <span className="gradient-text">Sign In</span>
               </button>
             </div>
 
@@ -209,7 +209,7 @@ export const Authentication = () => {
                 type="button"
                 onClick={() => setIsSignUp(true)}
               >
-                Sign Up
+                <span className="gradient-text">Sign Up</span>
               </button>
             </div>
           </div>

@@ -68,13 +68,13 @@ export const SingleRunner = props => {
           {/* Edit and delete runner commented out for now as we're thinking to authenticate it */}
 
           {/* <Link to = {"/edit_runner/" + runner.id}>
-            <button className="btn btn-primary mx-2" href="#" role="button">
+            <button className="nav-btn" href="#" role="button">
               Edit Runner Profile
             </button>
           </Link> */}
           {/* <Link to="/list_runners">
             <button 
-              className="btn btn-primary mx-2" 
+              className="nav-btn" 
               href="#" 
               role="button"
               onClick={() => deleteRunner(runner.id)}
@@ -85,13 +85,13 @@ export const SingleRunner = props => {
 
 
           <Link to="/list_runners">
-					  <button className="btn btn-primary mx-2">List Runners</button>
+					  <button className="nav-btn">List Runners</button>
 					</Link>
           <Link to="/list_mentors">
-            <button className="btn btn-primary mx-2">List Mentors</button>
+            <button className="nav-btn">List Mentors</button>
           </Link>
           <Link to = "/">
-            <button className = "btn btn-primary mx-2">Return Home</button>
+            <button className="nav-btn">Return Home</button>
           </Link>
         </div>
       </div>
