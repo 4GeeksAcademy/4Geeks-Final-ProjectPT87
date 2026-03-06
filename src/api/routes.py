@@ -202,29 +202,49 @@ def favorite_runner():
 
 # This is the route to delete a favorite
 # This route needs to be authenticated so that you can tell who's logged in
-
-
 @api.route('/favorite_runner/<int:target_runner_id>', methods=['DELETE'])
 @jwt_required()
-def delete_favorite():
-    body = request.json
-    print("Request body:", body)
+def delete_favorite(target_runner_id):
+    # body = request.json
+    # print("Request body:", body)
     user = get_jwt_identity()
-    print("Deleting favorited runner for user_id:", user)
-    favorited_runner = Favorites(
-        source_runner_id=int(user),
-        target_runner_id=body.get("runners.id"),
-    )
+    # print("Deleting favorited runner for user_id:", user)
+    print('This is target runner id:',target_runner_id)
+    print('User:', user)
+    # runner = db.session.get(Favorites, target_runner_id)
+    # runner = db.session.get(
+    #     source_runner_id=int(1),  # should be: current_user.runner.id
+    #     target_runner_id=target_runner_id,
+    # )
+    runner = db.session.execute(
+        db.select(Favorites).where(
+            Favorites.source_runner_id == user,
+            Favorites.target_runner_id == target_runner_id
+        )
+    ).scalar_one_or_none()
+    
+    print('This is the runner we got:', runner)
 
-    db.session.add(favorited_runner)
+    db.session.delete(runner)
     db.session.commit()
-    db.session.refresh(favorited_runner)
+    # db.session.refresh(favorited_runner)
 
-    return jsonify({"message": "Favorite deleted successfully"}), 201
+    return jsonify({"message": "Favorited runner deleted successfully"}), 200
+
+# This is a copy for reference
+# @api.route('/list_runners/<int:runner_id>', methods=['DELETE'])
+# def delete_runner(runner_id):
+#     runner = db.session.get(Runner, runner_id)
+
+#     if not runner:
+#         return jsonify({"msg": "Runner not found"}), 404
+
+#     db.session.delete(runner)
+#     db.session.commit()
+
+#     return jsonify({"msg": "Runner deleted"}), 200
 
 # Messages database
-
-
 @api.route("/messages", methods=["POST"])
 @jwt_required()
 def send_message():

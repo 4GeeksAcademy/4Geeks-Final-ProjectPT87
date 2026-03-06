@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 export default function RunnerCard({ runner, pictureNumber }) {
 
     const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer()
-
+    
     const createFavorite = async (id) => {
         await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/", {
             method: "POST",
@@ -35,14 +35,19 @@ export default function RunnerCard({ runner, pictureNumber }) {
         // });
     };
 
-    const deleteFavorite = async (dispatch, id) => {
+    const deleteFavorite = async (id) => {
         await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/" + id, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
         });
 
         dispatch({
             type: "remove_favorite",
-            payload: { id: runner.id, type: "runner" }
+            payload: {
+                id: runner.id,
+                type: "runner" }
         });
     };
 
