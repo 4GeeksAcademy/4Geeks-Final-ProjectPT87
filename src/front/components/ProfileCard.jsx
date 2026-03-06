@@ -1,10 +1,10 @@
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { fetchRunner } from "../hooks/actions.jsx";
+
 import React, { useState, useEffect } from "react";
 import { use } from "react";
 const ProfileCard = () => {
 
-
+  const {fetchRunner} = useGlobalReducer();
 
 
 

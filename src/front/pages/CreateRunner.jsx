@@ -6,6 +6,8 @@ import { createRunner } from "../hooks/actions.jsx";
 import "../styles/createRunner.css";
 
 export const CreateRunner = () => {
+    // const { createRunner } = useGlobalReducer();
+
   const [runner, setRunner] = useState({
     name: "",
     phone: "",

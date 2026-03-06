@@ -12,6 +12,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from datetime import timedelta
 
 
 # from models import Person
@@ -25,6 +26,7 @@ app.url_map.strict_slashes = False
 
 CORS(app)
 app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours = 1)
 jwt = JWTManager(app)
 
 
