@@ -58,7 +58,7 @@ const Message = () => {
     <div className="container mt-4">
       <h3>Conversation</h3>
 
-      <div className="border p-3 mb-3" style={{ height: "460px", overflowY: "scroll" }}>
+      <div className="border p-3 mb-3" style={{ height: "478px", overflowY: "scroll" }}>
         {messages.map((msg) => (
           <div key={msg.id}>
             {/* OtherUserId is at the momment replaced by 3 */}
@@ -77,7 +77,7 @@ const Message = () => {
         className="form-control mb-2"
       />
 
-      <button onClick={sendMessage} className="btn btn-primary border border mb-3">
+      <button onClick={sendMessage} className="btn btn-primary border mb-3">
         Send
       </button>
 
