@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 /* wrapper only for this page */
 .authentication-body {
-  background: #f6f5f7;
+  background: #eef5fc;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   min-height: 100vh;
   padding: 40px 0;
 }
@@ -16,8 +16,13 @@
   box-sizing: border-box;
 }
 
-.authentication-body h1 { font-weight: bold; margin: 0; }
-.authentication-body h2 { text-align: center; }
+.authentication-body h1 {
+  font-weight: bold;
+  margin: 0;
+}
+.authentication-body h2 {
+  text-align: center;
+}
 
 .authentication-body p {
   font-size: 14px;
@@ -27,7 +32,7 @@
   margin: 20px 0 30px;
 }
 
-.authentication-body span { font-size: 12px; }
+/*.authentication-body span { font-size: 12px; }*/
 
 .authentication-body a {
   color: #333;
@@ -37,29 +42,60 @@
 }
 
 .authentication-body button {
-  border-radius: 20px;
-  border: 1px solid #FF4B2B;
-  background-color: #FF4B2B;
-  color: #FFFFFF;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
+  background-color: #0a8018;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
   cursor: pointer;
 }
 
-.authentication-body button:active { transform: scale(0.95); }
-.authentication-body button:focus { outline: none; }
+.authentication-body button:hover {
+  background-color: #166d30;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.authentication-body button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.authentication-body button:focus {
+  outline: none;
+}
 
 .authentication-body button.ghost {
-  background-color: transparent;
-  border-color: #FFFFFF;
+  background-color: white;
+  color: inherit;
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  font-family: "Montserrat", sans-serif;
+}
+
+.gradient-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  background: linear-gradient(to right, #0e7dde, #0a8018);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.authentication-body button.ghost:hover {
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 
 .authentication-body form {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,8 +116,9 @@
 .authentication-body .auth-container {
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-      0 10px 10px rgba(0,0,0,0.22);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -121,8 +158,16 @@
 }
 
 @keyframes show {
-  0%, 49.99% { opacity: 0; z-index: 1; }
-  50%, 100% { opacity: 1; z-index: 5; }
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
 }
 
 .authentication-body .overlay-container {
@@ -141,11 +186,13 @@
 }
 
 .authentication-body .overlay {
-  background: linear-gradient(to right, #FF4B2B, #FF416C);
+  /* incase we end up not wanting the gradient
+  background: #0e7dde;*/
+  background: linear-gradient(to right, #0e7dde, #0a8018);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #FFFFFF;
+  color: #ffffff;
   position: relative;
   left: -100%;
   height: 100%;
@@ -173,16 +220,27 @@
   transition: transform 0.6s ease-in-out;
 }
 
-.authentication-body .overlay-left { transform: translateX(-20%); }
-.authentication-body .auth-container.right-panel-active .overlay-left { transform: translateX(0); }
+.authentication-body .overlay-left {
+  transform: translateX(-20%);
+}
+.authentication-body .auth-container.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
 
-.authentication-body .overlay-right { right: 0; transform: translateX(0); }
-.authentication-body .auth-container.right-panel-active .overlay-right { transform: translateX(20%); }
+.authentication-body .overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+.authentication-body .auth-container.right-panel-active .overlay-right {
+  transform: translateX(20%);
+}
 
-.authentication-body .social-container { margin: 20px 0; }
+.authentication-body .social-container {
+  margin: 20px 0;
+}
 
 .authentication-body .social-container a {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;

@@ -1,13 +1,12 @@
-import "./Navbar.css";
+import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token");
   const { store, dispatch } = useGlobalReducer();
-  
+
   // Adding this for when we add login/logout functionality.
   const logout = () => {
     sessionStorage.removeItem("token");
@@ -60,9 +59,7 @@ export const Navbar = () => {
 
           <ul className="dropdown-menu dropdown-menu-end">
             {store.favorites.length === 0 ? (
-              <li className="dropdown-item text-muted">
-                No favorites yet
-              </li>
+              <li className="dropdown-item text-muted">No favorites yet</li>
             ) : (
               store.favorites.map((fav, index) => (
                 <li
@@ -78,10 +75,12 @@ export const Navbar = () => {
 
                   <button
                     className="btn btn-sm btn-danger ms-2"
-                    onClick={() => dispatch({
-                      type: "remove_favorite",
-                      payload: { id: fav.id, type: fav.type } // payload includes both uid and type to identify the favorite to remove
-                    })}
+                    onClick={() =>
+                      dispatch({
+                        type: "remove_favorite",
+                        payload: { id: fav.id, type: fav.type }, // payload includes both uid and type to identify the favorite to remove
+                      })
+                    }
                   >
                     🗑
                   </button>

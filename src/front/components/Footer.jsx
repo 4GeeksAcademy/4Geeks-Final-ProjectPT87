@@ -1,7 +1,6 @@
 export const Footer = () => (
   <footer className="footer mt-auto py-3">
     <div className="container d-flex justify-content-between align-items-center flex-wrap">
-
       <div>
         <h4>Running App</h4>
       </div>
@@ -19,11 +18,10 @@ export const Footer = () => (
           <i className="fa-solid fa-file"></i> for help.
         </p>
         <p className="mb-0">
-          Made with <i className="fa fa-heart text-danger" /> by Deony, Jonathan,
-          Leonard, Ozzie, and Patrick
+          Made with <i className="fa fa-heart text-danger" /> by Deony,
+          Jonathan, Leonard, Ozzie, and Patrick
         </p>
       </div>
-
     </div>
   </footer>
 );
