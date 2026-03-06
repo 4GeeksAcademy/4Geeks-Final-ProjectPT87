@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
+import Page6 from "../assets/img/Page6.jpg"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { createRunner } from "../hooks/actions.jsx";
+import "../styles/createRunner.css"
 
 
 export const CreateRunner = () => {
@@ -36,7 +37,8 @@ export const CreateRunner = () => {
     }
 
     return (
-        <div className="container bg-light mt-5 p-3 w-50 shadow p-3 mb-5 bg-white rounded">
+        <div className="create-runner-hero">
+        <div className="container bg-light mt-5 mb-5 p-4 w-50 shadow rounded">
 			<div className = "text-center mt-3">
 				<h3>Create Profile</h3>
 			</div>
@@ -208,6 +210,7 @@ export const CreateRunner = () => {
                     <button className="nav-btn">Return Home</button>
                 </Link>
             </div>
+        </div>
         </div>
     );
 }; 

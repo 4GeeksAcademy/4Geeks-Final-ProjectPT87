@@ -1,8 +1,8 @@
-import Page1 from "../assets/img/Page1.jpg";
+import Page3 from "../assets/img/Page3.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Home.css";
+import "../styles/Home.css";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -41,7 +41,7 @@ export const Home = () => {
 
   return (
     <div className="hero-container">
-      <img src={Page1} className="hero-img" alt="Runners" />
+      <img src={Page3} className="hero-img" alt="Runners" />
 
       <div className="hero-text">
         <h1>Welcome to Rigo's Running App!</h1>
