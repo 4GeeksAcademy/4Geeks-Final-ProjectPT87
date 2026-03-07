@@ -83,7 +83,7 @@ export const fetchFavorites = async (dispatch) => {
     return
   }
   const data = await response.json();
-
+  console.log(data, 'This is the data')
   dispatch({
     type: "set_favorites",
     payload: data

@@ -69,7 +69,7 @@ export const Navbar = () => {
                   className="dropdown-item d-flex justify-content-between align-items-center"
                 >
                   <Link
-                    to={`/single_runner/${fav.id}/${fav.pictureNumber}`}
+                    to={`/single_runner/${fav.runner.id}/${index}`}
                     className="text-decoration-none text-dark"
                   >
                     {fav.runner.name}
