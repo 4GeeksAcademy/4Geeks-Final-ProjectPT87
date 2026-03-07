@@ -176,7 +176,11 @@ def delete_runner(runner_id):
 
 # This is the route to create a favorite
 # This route needs to be authenticated so that you can tell who's logged in
-
+@api.route('/list_runners', methods=['GET'])
+def get_favorites():
+    favorites = db.session.scalars(db.select(Favorites)).all()
+    print([favorites.serialize() for favorite in favorites])
+    return jsonify([favorites.serialize() for favorite in favorites]), 200
 
 @api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
