@@ -1,4 +1,4 @@
-.list-mentors-hero {
+.single-runner-hero {
   min-height: 100vh;
   background-image:
     radial-gradient(
@@ -6,7 +6,7 @@
       rgba(255, 255, 255, 0.15),
       rgba(0, 0, 0, 0.7)
     ),
-    url("../assets/img/Page11.jpg");
+    url("../assets/img/Page12.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -16,13 +16,13 @@
   padding: 120px 20px;
 }
 
-.list-mentors-container {
-  width: 100%;
-  max-width: 1100px;
+.single-runner-card {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-radius: 18px;
+  width: 100%;
+  max-width: 650px;
   padding: 40px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow:
@@ -30,14 +30,35 @@
     0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.list-title {
+.profile-title {
+  text-align: center;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
-.mentor-grid {
-  display: grid;
-  grid-template-columns: repeat(autofit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-bottom: 40px;
+.profile-image-container {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.runner-details h4 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+.runner-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }

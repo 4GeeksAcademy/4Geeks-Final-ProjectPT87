@@ -1,9 +1,8 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import MentorCard from "../components/MentorCard.jsx";
-import Page4 from "../assets/img/Page4.jpg";
+import Page11 from "../assets/img/Page11.jpg";
 import "../styles/listMentors.css";
 
 export const ListMentors = () => {
@@ -18,11 +17,14 @@ export const ListMentors = () => {
   //     useEffect(()=>{
   //         setMentors(store.mentors)
   //     }, [store.mentors])
+
   return (
-    <div className=" contatiner text-center bg-light">
-      <h1 className="p-3">Mentor List</h1>
-      <div>
-        {/* {mentors?.length > 0 ? mentors.map((mentor, index) => {
+    <div className="list-mentors-hero">
+      <div className="list-mentors-container">
+        <h1 className="list-title p-3">Mentor List</h1>
+
+        <div className="mentor-grid">
+          {/* {mentors?.length > 0 ? mentors.map((mentor, index) => {
                     let pictureNumber = index < 10 ? index : index - 9;
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
@@ -36,14 +38,20 @@ export const ListMentors = () => {
                 :
                 <h2>Add Mentor Profile</h2>
                 } */}
-      </div>
-      <br />
-      <div>
-        <Link to="/">
-          <button className="nav-btn" style={{ marginBottom: 100 }}>
-            Return Home
-          </button>
-        </Link>
+        </div>
+
+        <br />
+
+        <div>
+          <Link to="/">
+            <button
+              className="nav-btn return-btn"
+              style={{ marginBottom: 100 }}
+            >
+              Return Home
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
