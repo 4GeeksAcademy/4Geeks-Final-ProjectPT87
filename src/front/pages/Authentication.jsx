@@ -192,7 +192,7 @@ export const Authentication = () => {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+              <h1>Welcome!</h1>
               <button
                 className="ghost"
                 type="button"
