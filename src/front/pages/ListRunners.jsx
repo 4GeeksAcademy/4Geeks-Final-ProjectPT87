@@ -20,9 +20,13 @@ export const ListRunners = ({ runner }) => {
     setRunners(store.runners);
   }, [store.runners]);
   return (
-    <div className=" contatiner text-center bg-light">
-      <h1 className="p-3">Runner List</h1>
-      <div>
+  <div className="list-runners-hero">
+
+    <div className="list-runners-container">
+
+      <h1 className="list-title">Runner List</h1>
+
+      <div className="runner-grid">
         {runners?.length > 0 ? (
           runners.map((runner, index) => {
             let pictureNumber = index < 10 ? index : index - 9;
@@ -39,14 +43,15 @@ export const ListRunners = ({ runner }) => {
           <h2>Add Runner Profile</h2>
         )}
       </div>
-      <br />
-      <div>
-        <Link to="/">
-          <button className="nav-btn" style={{ marginBottom: 100 }}>
-            Return Home
-          </button>
-        </Link>
-      </div>
+
+      <Link to="/">
+        <button className="nav-btn return-btn">
+          Return Home
+        </button>
+      </Link>
+
     </div>
-  );
+
+  </div>
+);
 };
