@@ -73,6 +73,12 @@ export default function storeReducer(store, action = {}) {
         favorites: action.payload,
       };
 
+    case "set_token":
+      return {
+        ...store,
+        token: action.payload,
+      }; 
+
     default:
       return store;
   }

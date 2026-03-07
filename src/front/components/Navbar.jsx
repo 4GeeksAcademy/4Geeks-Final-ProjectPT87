@@ -13,12 +13,14 @@ export const Navbar = () => {
     navigate("/login");
   };
 
+
+
   // Can change the names of login/signup if needed, just adding them for now.
   return (
     <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">Running App</span>
+          <span className="navbar-brand mb-0 h1">Running Home</span>
         </Link>
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
@@ -70,7 +72,7 @@ export const Navbar = () => {
                     to={`/single_runner/${fav.id}/${fav.pictureNumber}`}
                     className="text-decoration-none text-dark"
                   >
-                    {fav.name}
+                    {fav.runner.name}
                   </Link>
 
                   <button

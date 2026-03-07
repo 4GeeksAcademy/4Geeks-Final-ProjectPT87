@@ -67,7 +67,21 @@ export const deleteRunner = async (dispatch, id) => {
 };
 
 export const fetchFavorites = async (dispatch) => {
-  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner");
+  if (!localStorage.getItem('token')) {
+    console.log('No token found')
+    return
+  }
+  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + localStorage.getItem("token")
+    },
+  });
+  if (!response.ok) {
+    console.log(response.status, response.statusText)
+    return
+  }
   const data = await response.json();
 
   dispatch({

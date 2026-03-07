@@ -12,12 +12,12 @@ export const Layout = ({ runner }) => {
   
     useEffect(() => {
       fetchFavorites();
-      setFavorites(store.favorites);
+      // setFavorites(store.favorites);
     }, []);
   
-    useEffect(() => {
-      setFavorites(store.favorites);
-    }, [store.favorites]);
+    // useEffect(() => {
+    //   setFavorites(store.favorites);
+    // }, [store.favorites]);
 
   return (
     <ScrollToTop>
