@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
 .authentication-body {
-  background: #f6f5f7;
+  background: #eef5fc;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   min-height: 100vh;
   padding: 40px 0;
 }
@@ -19,7 +19,6 @@
   font-weight: bold;
   margin: 0;
 }
-
 .authentication-body h2 {
   text-align: center;
 }
@@ -32,9 +31,7 @@
   margin: 20px 0 30px;
 }
 
-.authentication-body span {
-  font-size: 12px;
-}
+/*.authentication-body span { font-size: 12px; }*/
 
 .authentication-body a {
   color: #333;
@@ -44,41 +41,61 @@
 }
 
 .authentication-body button {
-  border-radius: 20px;
-  border: 1px solid #2E7D32;
-  background-color: #43A047;
+  background-color: #0a8018;
   color: white;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 14px;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
   cursor: pointer;
 }
 
 .authentication-body button:hover {
-  background-color: #2E7D32;
+  background-color: #166d30;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
 }
 
 .authentication-body button:active {
-  transform: scale(0.95);
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .authentication-body button:focus {
   outline: none;
 }
 
 .authentication-body button.ghost {
-  background-color: rgba(255,255,255,0.15);
-  border: 2px solid white;
-  color: white;
-  backdrop-filter: blur(4px);
+  background-color: white;
+  color: inherit;
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  font-family: "Montserrat", sans-serif;
+}
+
+.gradient-text {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  background: linear-gradient(to right, #0e7dde, #0a8018);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.authentication-body button.ghost:hover {
+  background-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 
 
 .authentication-body form {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,8 +118,8 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow:
-    0 14px 28px rgba(0,0,0,0.25),
-    0 10px 10px rgba(0,0,0,0.22);
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -143,11 +160,13 @@
 }
 
 @keyframes show {
-  0%, 49.99% {
+  0%,
+  49.99% {
     opacity: 0;
     z-index: 1;
   }
-  50%, 100% {
+  50%,
+  100% {
     opacity: 1;
     z-index: 5;
   }
@@ -172,16 +191,13 @@
 /* background images */
 
 .authentication-body .overlay {
-  background:
-    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-    url("https://crownheightsrunningclub.nyc/app/uploads/2022/02/runners-night.png") left center / 50% 100% no-repeat,
-    url("https://upload.wikimedia.org/wikipedia/commons/9/9d/All-weather_running_track.jpg") right center / 50% 100% no-repeat;
-
+  /* incase we end up not wanting the gradient
+  background: #0e7dde;*/
+  background: linear-gradient(to right, #0e7dde, #0a8018);
   background-repeat: no-repeat;
-  background-position: left center, right center;
-  background-size: 50% 100%, 50% 100%;
-
-  color: #FFFFFF;
+  background-size: cover;
+  background-position: 0 0;
+  color: #ffffff;
   position: relative;
   left: -100%;
   height: 100%;
@@ -211,7 +227,6 @@
 .authentication-body .overlay-left {
   transform: translateX(-20%);
 }
-
 .authentication-body .auth-container.right-panel-active .overlay-left {
   transform: translateX(0);
 }
@@ -220,34 +235,16 @@
   right: 0;
   transform: translateX(0);
 }
-
 .authentication-body .auth-container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
-
-/* readable overlay text */
-
-.authentication-body .overlay-panel h1 {
-  font-size: 32px;
-  font-weight: 800;
-  color: white;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.8);
-}
-
-.authentication-body .overlay-panel p {
-  color: white;
-  font-weight: 500;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.8);
-}
-
-/* social icons */
 
 .authentication-body .social-container {
   margin: 20px 0;
 }
 
 .authentication-body .social-container a {
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
   border-radius: 50%;
   display: inline-flex;
   justify-content: center;

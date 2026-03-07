@@ -1,8 +1,11 @@
+import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const token = sessionStorage.getItem("token")  || localStorage.getItem("token");
+  const { store, dispatch } = useGlobalReducer();
 
   // Adding this for when we add login/logout functionality.
   const logout = () => {
@@ -15,27 +18,27 @@ export const Navbar = () => {
   }
   // Can change the names of login/signup if needed, just adding them for now.
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">Running App</span>
         </Link>
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
-        <div className="ml-auto">
-          <Link to="/profile" className="btn btn-outline-secondary me-2">
+        <div className="ms-auto">
+          {/* <Link to="/profile" className="nav-btn">
             Placeholder Profile Button
-          </Link>
+          </Link> */}
 
           {!token ? (
             <>
-              <Link to="/account" className="btn btn-outline-primary me-2">
+              <Link to="/account" className="nav-btn">
                 Login/Signup
               </Link>
             </>
           ) : (
             <>
-              <Link to="/profile" className="btn btn-outline-secondary me-2">
+              <Link to="/profile" className="nav-btn">
                 My Profile
               </Link>
 
@@ -44,6 +47,50 @@ export const Navbar = () => {
               </button>
             </>
           )}
+        </div>
+
+        {/* FAVORITES DROPDOWN */}
+        <div className="dropdown">
+          <button
+            className="nav-btn dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Favorites ({store.favorites.length})
+          </button>
+
+          <ul className="dropdown-menu dropdown-menu-end">
+            {store.favorites.length === 0 ? (
+              <li className="dropdown-item text-muted">No favorites yet</li>
+            ) : (
+              store.favorites.map((fav, index) => (
+                <li
+                  key={index}
+                  className="dropdown-item d-flex justify-content-between align-items-center"
+                >
+                  <Link
+                    to={`/single_runner/${fav.id}/${fav.pictureNumber}`}
+                    className="text-decoration-none text-dark"
+                  >
+                    {fav.name}
+                  </Link>
+
+                  <button
+                    className="btn btn-sm btn-danger ms-2"
+                    onClick={() =>
+                      dispatch({
+                        type: "remove_favorite",
+                        payload: { id: fav.id, type: fav.type }, // payload includes both uid and type to identify the favorite to remove
+                      })
+                    }
+                  >
+                    🗑
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
         </div>
       </div>
     </nav>

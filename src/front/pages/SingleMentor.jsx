@@ -4,11 +4,9 @@ import PropTypes from "prop-types";  // To define prop types for this component
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";  // Import an image asset
 import useGlobalReducer from "../hooks/useGlobalReducer";  // Import a custom hook for accessing the global state
 import React, { useState, useEffect } from "react";
-// import ProfileCard from "../components/ProfileCard";
-// import pictureNumber from "./ListUsers";
 
 // Define and export the Single component which displays individual item details.
-export const SingleRunner = props => {
+export const SingleMentor = props => {
   // Access the global state using the custom hook.
   const { store, dispatch, fetchContacts, editRunner, deleteRunner } = useGlobalReducer()
   const [ runner, setRunner ] = useState({});
@@ -43,18 +41,8 @@ export const SingleRunner = props => {
         <div className = "contatiner text-center bg-light">
           <h1>Runner Profile</h1>
         </div>
-        <div className="container text-center mt-5">
-          <img
-            src="https://i.pravatar.cc/250/250"
-            alt="User profile"
-            className="rounded-circle mx-auto d-block mb-3"
-          />
-          {/* <h2>Runner Name</h2> */}
-          {/* <p className="text-muted">Runner</p>
-          <p>Welcome to your profile page.</p> */}
-        </div>
-          {/* <ProfileCard /> */}
 
+          <img src={pictureUrl} className="" alt="Profile Picture" />
 
         <div className = "mt-4">
           <h4>Name: {runner?.name}</h4>
@@ -64,6 +52,8 @@ export const SingleRunner = props => {
           <h4>Years Running: {runner?.years_running}</h4>
           <h4>Running Schedule: {runner?.schedule}</h4>
           <h4>Location: {runner?.location}</h4>
+          <h4>Rating: {runner?.rating}</h4>
+          <h4>Level: {runner?.level}</h4>
         </div>
         
         <hr className="my-4" />  {/* A horizontal rule for visual separation. */}
@@ -86,8 +76,8 @@ export const SingleRunner = props => {
             </button>
           </Link> */}
           <Link to="/list_runners">
-					  <button className="nav-btn">List Runners</button>
-					</Link>
+                      <button className="nav-btn">List Runners</button>
+                    </Link>
           <Link to="/list_mentors">
             <button className="nav-btn">List Mentors</button>
           </Link>
@@ -101,7 +91,7 @@ export const SingleRunner = props => {
 };
 
 // Use PropTypes to validate the props passed to this component, ensuring reliable behavior.
-SingleRunner.propTypes = {
+SingleMentor.propTypes = {
   // Although 'match' prop is defined here, it is not used in the component.
   // Consider removing or using it as needed.
   match: PropTypes.object

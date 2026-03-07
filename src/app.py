@@ -12,6 +12,7 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from datetime import timedelta
 
 
 # from models import Person
@@ -25,18 +26,19 @@ app.url_map.strict_slashes = False
 
 CORS(app)
 app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY', 'sample')
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours = 1)
 jwt = JWTManager(app)
 
 
-# @jwt.user_identity_loader
-# def user_identity_lookup(user):
-#     return user.username
+@jwt.user_identity_loader
+def user_identity_lookup(user):
+    return user.id
 
-
-# @jwt.user_lookup_loader
-# def user_lookup_callback(_jwt_header, jwt_data):
-#     identity = jwt_data["sub"]
-#     return db.session.scalars(db.select(User).filter_by(username=identity)).one_or_none()
+    
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return db.session.scalars(db.select(User).filter_by(id=identity)).one_or_none()
 
 
 # database condiguration
