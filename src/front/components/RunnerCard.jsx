@@ -1,55 +1,58 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { fetchFavorites } from "../hooks/actions.js";
 // import ProfileCard from "./ProfileCard.jsx";
 
 // This card populates the runners on the List Runners page
 // This allows users to scroll through the runners to see who to favorite
 export default function RunnerCard({ runner, pictureNumber }) {
-  const { store, dispatch, fetchRunner, deleteRunner } = useGlobalReducer();
 
-  const createFavorite = async (id) => {
-    await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        runner: runner.id,
-      }),
-    });
+    const { store, dispatch, fetchRunner, deleteRunner, fetchFavorites } = useGlobalReducer()
+    
+    const createFavorite = async (id) => {
+        await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify({
+                runner: runner.id
+            })
+        });
 
-    dispatch({
-      type: "favorite_runner",
-      payload: {
-        id: runner.id,
-        name: runner.name,
-        type: "runner",
-      },
-    });
-    // dispatch({
-    //     type: "favorite_runner",
-    //     payload: { id: runner.id, type: "runner" }
-    // });
-  };
+        fetchFavorites()
+        // dispatch({
+        //     type: "favorite_runner",
+        //     payload: {
+        //         id: runner.id,
+        //         name: runner.name,
+        //         type: "runner"
+        //     }
+        // });
+        // dispatch({
+        //     type: "favorite_runner",
+        //     payload: { id: runner.id, type: "runner" }
+        // });
+    };
 
-  const deleteFavorite = async (id) => {
-    await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/" + id, {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    });
-
-    dispatch({
-      type: "remove_favorite",
-      payload: {
-        id: runner.id,
-        type: "runner",
-      },
-    });
-  };
+    const deleteFavorite = async (id) => {
+        await fetch(import.meta.env.VITE_BACKEND_URL + "/favorite_runner/" + id, {
+            method: "DELETE",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+        });
+        
+        fetchFavorites()
+        // dispatch({
+        //     type: "remove_favorite",
+        //     payload: {
+        //         id: runner.id,
+        //         type: "runner" }
+        // });
+    };
 
   return (
     <div>
@@ -95,19 +98,18 @@ export default function RunnerCard({ runner, pictureNumber }) {
                     className={store.favorites?.some(element => element.name === props.name) ? "mx-2 fa-solid fa-heart" : "mx-2 fa-regular fa-heart"}
                     onClick = { () => toggleFavorites()}>
                     </i> */}
-          <div className="mb-3 ms-2">
-            <button
-              className={`nav-btn heart-btn ${
-                store.favorites.some(
-                  (fav) => fav.id === runner.id && fav.type === "runner",
-                )
-                  ? "favorited"
-                  : ""
-              }`}
-              onClick={() => {
-                const isFavorite = store.favorites.some(
-                  (fav) => fav.id === runner.id && fav.type === "runner",
-                );
+                    <div className="mb-3 ms-2">
+                        <button
+                            className={`btn ${store?.favorites.some(
+                                fav => fav.runner.id === runner.id
+                            )
+                                ? "btn-danger"
+                                : "btn-outline-warning"
+                                }`}
+                            onClick={() => {
+                                const isFavorite = store?.favorites.some(
+                                    fav => fav.runner.id === runner.id
+                                );
 
                 if (isFavorite) {
                   deleteFavorite(runner.id);

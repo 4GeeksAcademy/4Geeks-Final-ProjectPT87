@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/authentication.css";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { fetchFavorites } from "../hooks/actions";
 
 export const Authentication = () => {
+  const {store, dispatch, fetchFavorites} = useGlobalReducer();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -23,6 +26,11 @@ export const Authentication = () => {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      fetchFavorites()
+      // dispatch({
+      //   type: 'set_token',
+      //   payload: data.token,
+      // })
       navigate("/");
     } else {
       alert(data.msg || "Try again, wrong credentials.");

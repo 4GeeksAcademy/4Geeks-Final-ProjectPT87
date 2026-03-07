@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import RunnerCard from "../components/RunnerCard.jsx";
 import Page9 from "../assets/img/Page9.jpg";
-import "../styles/listRunners.css";
+// import "../styles/listRunners.css";
 
 // This page lists all of the runner cards so that users can scroll through
 export const ListRunners = ({ runner }) => {

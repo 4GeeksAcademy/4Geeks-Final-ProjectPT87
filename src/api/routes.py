@@ -174,10 +174,21 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
+
+@api.route('/favorite_runner', methods=['GET'])
+@jwt_required()
+def get_favorites():
+    user = get_jwt_identity()
+    print('This is the token info: ', user)
+    found_user = User.query.get(user)
+    # print('This is the found user:', found_user.runner.serialize())
+    favorites = Favorites.query.filter_by(source_runner_id = found_user.runner.id).all()
+    # favorites = db.session.scalars(db.select(Favorites)).all() - our original format
+    print([favorite.serialize() for favorite in favorites])
+    return jsonify([favorite.serialize() for favorite in favorites]), 200
+
 # This is the route to create a favorite
 # This route needs to be authenticated so that you can tell who's logged in
-
-
 @api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
 def favorite_runner():
