@@ -9,6 +9,16 @@ export const fetchRunner = async (dispatch) => {
   });
 };
 
+export const fetchFavorites = async (dispatch) => {
+  const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/list_runners");
+  const data = await response.json();
+
+  dispatch({
+    type: "set_favorites",
+    payload: data
+  });
+};
+
 // Creates new Profile data to backend and adds it to global state
 export const createRunner = async (dispatch, newRunner) => {
   const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/list_runners", {
@@ -66,4 +76,12 @@ export const deleteRunner = async (dispatch, id) => {
   });
 };
 
+// export const fetchFavotites = async (dispatch) => {
+//   const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/list_runners");
+//   const data = await response.json();
 
+//   dispatch({
+//     type: "set_runners",
+//     payload: data
+//   });
+// };

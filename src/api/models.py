@@ -73,7 +73,6 @@ class Runner(db.Model):
     rating: Mapped[str] = mapped_column(String(50), nullable=True)
     level: Mapped[str] = mapped_column(String(50), nullable=True)
     is_mentor: Mapped[bool] = mapped_column(nullable=False, default=False)
-    # is_favorite: Mapped[bool] = mapped_column(nullable=False, default=False)
 
     user = relationship("User", back_populates="runner")
     favorites = relationship(
