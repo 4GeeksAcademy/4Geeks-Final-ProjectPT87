@@ -3,7 +3,8 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import MentorCard from "../components/MentorCard.jsx";
-
+import Page4 from "../assets/img/Page4.jpg";
+import "../styles/listMentors.css";
 
 export const ListMentors = () => {
 

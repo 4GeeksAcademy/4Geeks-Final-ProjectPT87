@@ -15,10 +15,11 @@ import { ListMentors } from "./pages/ListMentors";
 import { ListRunners } from "./pages/ListRunners";
 import { SingleRunner } from "./pages/SingleRunner";
 import { Authentication } from "./pages/Authentication";  
-import Message  from "./pages/Message";
 import { SingleMentor } from "./pages/SingleMentor";
-// import { ProfileCard } from "./components/ProfileCard";
 import { ResetPassword } from "./pages/ResetPassword";
+import Message from "./pages/Message";
+// import { ProfileCard } from "./components/ProfileCard";
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     // CreateRoutesFromElements function allows you to build route elements declaratively.
@@ -43,9 +44,9 @@ export const router = createBrowserRouter(
       <Route path = "/list_mentors" element={<ListMentors />} />
       <Route path = "/single_runner/:theId/:pictureNumber" element={<SingleRunner />} />
       <Route path = "/single_mentor/:theId/:pictureNumber" element={<SingleMentor />} />
-      {/* <Route path="/profile" element={<ProfileCard />} /> */}
-      <Route path = "/messages/:otherUserId" element={<Message />} />
       <Route path = "/account" element={<Authentication />} />
+      <Route path = "/messages/:otherUserId" element={<Message />} />
+      {/* <Route path="/profile" element={<ProfileCard />} /> */}
     </Route>,
   ),
 );

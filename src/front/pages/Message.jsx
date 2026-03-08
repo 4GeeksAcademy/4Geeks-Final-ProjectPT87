@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const Message = () => {
   const { otherUserId } = useParams();
   const otherId = parseInt(otherUserId);
-  const currentUserId = parseInt(localStorage.getItem("userId"));
+  const currentUserId = parseInt(localStorage.getItem("userId")); // Assuming you store the current user's ID in localStorage after login
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
 

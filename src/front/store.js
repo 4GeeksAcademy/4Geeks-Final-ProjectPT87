@@ -8,6 +8,7 @@ export const initialStore = () => {
     favorites: [], // for storing favorite runners
   };
 };
+
 // Reducer function that updates global state based on dispatched actions
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
@@ -50,6 +51,7 @@ export default function storeReducer(store, action = {}) {
 
     // adding favorite runners to the favorites array in the store
     case "favorite_runner":
+      console.log(action)
       return {
         ...store,
         favorites: [...store.favorites, action.payload],

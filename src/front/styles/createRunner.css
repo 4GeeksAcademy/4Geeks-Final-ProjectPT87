@@ -1,0 +1,33 @@
+.create-runner-hero {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.55)
+    ),
+    url("../assets/img/Page6.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
+}
+
+.create-runner-form {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 18px;
+  max-width: 550px;
+  width: 100%;
+  padding: 35px;
+  margin-left: 16%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6);
+}

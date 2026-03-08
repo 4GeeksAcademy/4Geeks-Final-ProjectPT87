@@ -37,10 +37,10 @@ def register():
 
     return jsonify(user.serialize())
 
-# Login 
+# Login
 
-# Planning to add in user.id on return (line 53)
-@api.route('/login', methods=['POST']) 
+
+@api.route('/login', methods=['POST'])
 def login():
     user = db.session.scalars(
         db.select(User).filter_by(email=request.json.get("email"))
@@ -48,11 +48,10 @@ def login():
 
     if not user or not user.check_password_hash(request.json.get("password", "")):
         return jsonify(msg="Invalid email or password."), 400
-    print (f"User {user} logged in successfully.")
-
+    print(f"User {user} logged in successfully.")
 
     return (jsonify(token=create_access_token(user))
-                    ), 200
+            ), 200
 
 
 @api.route('/logout', methods=['POST'])
@@ -100,12 +99,15 @@ def reset_password_token(token):
 @api.route('/list_runners', methods=['GET'])
 def get_runners():
     runners = db.session.scalars(db.select(Runner)).all()
+    print([runner.serialize() for runner in runners])
     return jsonify([runner.serialize() for runner in runners]), 200
 
 # Route to create runner
 
 # Createrunner current error is subject must be a string
 # The error has to do with line 115 with the variable user
+
+
 @api.route('/list_runners', methods=['POST'])
 @jwt_required()
 def create_runner():
@@ -115,7 +117,7 @@ def create_runner():
     user = get_jwt_identity()
     print("Creating runner for user_id:", user)
     new_runner = Runner(
-        user_id=int(user), 
+        user_id=int(user),
         name=body.get("name"),
         phone=body.get("phone"),
         email=body.get("email"),
@@ -172,6 +174,75 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
+# This is the route to create a favorite
+# This route needs to be authenticated so that you can tell who's logged in
+
+
+@api.route('/favorite_runner', methods=['POST'])
+@jwt_required()
+def favorite_runner():
+    body = request.json
+    print("Request body:", body)
+    user = get_jwt_identity()
+
+    # You need to check if a favorite for this already exists!
+    # And if so, then return early.
+
+    print("Creating favorited runner for user_id:", user)
+    favorited_runner = Favorites(
+        source_runner_id=int(user),  # should be: current_user.runner.id
+        target_runner_id=body.get("runner"),
+    )
+
+    db.session.add(favorited_runner)
+    db.session.commit()
+    db.session.refresh(favorited_runner)
+
+    return jsonify({"message": "Runner favorited successfully"}), 200
+
+# This is the route to delete a favorite
+# This route needs to be authenticated so that you can tell who's logged in
+@api.route('/favorite_runner/<int:target_runner_id>', methods=['DELETE'])
+@jwt_required()
+def delete_favorite(target_runner_id):
+    # body = request.json
+    # print("Request body:", body)
+    user = get_jwt_identity()
+    # print("Deleting favorited runner for user_id:", user)
+    print('This is target runner id:',target_runner_id)
+    print('User:', user)
+    # runner = db.session.get(Favorites, target_runner_id)
+    # runner = db.session.get(
+    #     source_runner_id=int(1),  # should be: current_user.runner.id
+    #     target_runner_id=target_runner_id,
+    # )
+    runner = db.session.execute(
+        db.select(Favorites).where(
+            Favorites.source_runner_id == user,
+            Favorites.target_runner_id == target_runner_id
+        )
+    ).scalar_one_or_none()
+    
+    print('This is the runner we got:', runner)
+
+    db.session.delete(runner)
+    db.session.commit()
+    # db.session.refresh(favorited_runner)
+
+    return jsonify({"message": "Favorited runner deleted successfully"}), 200
+
+# This is a copy for reference
+# @api.route('/list_runners/<int:runner_id>', methods=['DELETE'])
+# def delete_runner(runner_id):
+#     runner = db.session.get(Runner, runner_id)
+
+#     if not runner:
+#         return jsonify({"msg": "Runner not found"}), 404
+
+#     db.session.delete(runner)
+#     db.session.commit()
+
+#     return jsonify({"msg": "Runner deleted"}), 200
 
 # Messages database
 @api.route("/messages", methods=["POST"])
@@ -179,7 +250,6 @@ def delete_runner(runner_id):
 def send_message():
     current_user = get_jwt_identity()
     body = request.json
-
 
     new_message = Message(
         sender_id=current_user,  # Assuming you have the sender's user ID from the JWT token
