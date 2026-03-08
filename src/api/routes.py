@@ -50,8 +50,18 @@ def login():
         return jsonify(msg="Invalid email or password."), 400
     print(f"User {user} logged in successfully.")
 
-    return (jsonify(token=create_access_token(user))
-            ), 200
+# Defined token variable to make it look more organized
+    token = create_access_token(user)
+# Added user id to the return
+
+    return jsonify({
+        "token": token,
+        "user_id": user.id
+    }), 200
+
+    # This is commented out because we want to return the user id as well, so that the message component works     
+    # return (jsonify(token=create_access_token(user))
+    #         ), 200
 
 
 @api.route('/logout', methods=['POST'])

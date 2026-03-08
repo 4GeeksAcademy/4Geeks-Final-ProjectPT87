@@ -9,8 +9,11 @@ import { Link } from "react-router-dom";
 
 const Message = () => {
   const { otherUserId } = useParams();
-  const otherId = parseInt(otherUserId);
-  const currentUserId = parseInt(localStorage.getItem("userId")); // Assuming you store the current user's ID in localStorage after login
+  const otherId = Number(otherUserId);
+  const storedUserId = localStorage.getItem("user_id");
+  // console.log("Stored user_id:", storedUserId);
+  const currentUserId = Number(storedUserId);
+  // console.log("Parsed user_id:", currentUserId);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
 
@@ -29,28 +32,33 @@ const Message = () => {
 
   const fetchConversation = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/messages/${2}/${1}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
+      `${import.meta.env.VITE_BACKEND_URL}/messages/${currentUserId}/${otherId}` // Replace with actual sender and receiver IDs, e.g., currentUserId and otherId
     );
     const data = await response.json();
     setMessages(data);
   };
 
   const sendMessage = async () => {
-    await fetch(`${import.meta.env.VITE_BACKEND_URL}/messages`, {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/messages`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
-        sender_id: 2, // Replace with actual sender ID (current user)
-        receiver_id: 1, // Replace with actual receiver ID (other user) 
+        receiver_id: otherId,
         content: messageInput,
       })
     });
 
+    const data = await response.json();
+    console.log("Message response:", data);
+
     fetchConversation();
-  }
+    setMessageInput("");
+  };
 
 
 
@@ -62,13 +70,13 @@ const Message = () => {
         {messages.map((msg) => (
           <div key={msg.id}>
             {/* OtherUserId is at the momment replaced by 3 */}
-            <strong>{msg.sender_id === 2 ? "You" : "Them"}:</strong>
+            <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong>
             <span> {msg.content}</span>
           </div>
         ))}
       </div>
 
-      
+
 
       <input
         type="text"
@@ -81,9 +89,9 @@ const Message = () => {
         Send
       </button>
 
-      
+
     </div>
-    
+
 
 
 
