@@ -76,11 +76,11 @@ export const SingleRunner = props => {
 
           {/* Edit and delete runner commented out for now as we're thinking to authenticate it */}
 
-          {/* <Link to = {"/edit_runner/" + runner.id}>
+          <Link to = {"/edit_runner/" + runner.id}>
             <button className="nav-btn" href="#" role="button">
               Edit Runner Profile
             </button>
-          </Link> */}
+          </Link>
           {/* <Link to="/list_runners">
             <button 
               className="nav-btn" 

@@ -16,10 +16,21 @@ const Message = () => {
   // console.log("Parsed user_id:", currentUserId);
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
+  const [otherUser, setOtherUser] = useState(null);
+
+  const fetchOtherUser = async () => {
+  const response = await fetch(
+    `${import.meta.env.VITE_BACKEND_URL}/users/${otherId}`
+  );
+
+  const data = await response.json();
+  setOtherUser(data);
+};
 
 
   useEffect(() => {
     fetchConversation();
+    fetchOtherUser();
 
     const interval = setInterval(() => {
       fetchConversation();
@@ -70,7 +81,8 @@ const Message = () => {
         {messages.map((msg) => (
           <div key={msg.id}>
             {/* OtherUserId is at the momment replaced by 3 */}
-            <strong>{msg.sender_id === currentUserId ? "You" : "Them"}:</strong>
+            <strong>{msg.sender_id === currentUserId ? "You" : otherUser?.username || "Them"}
+:</strong>
             <span> {msg.content}</span>
           </div>
         ))}

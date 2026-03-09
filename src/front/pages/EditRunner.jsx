@@ -143,56 +143,9 @@ export const EditRunner = () => {
                 />
             </div>
 
-        <div className="mb-3">
-          <label htmlFor="address" className="ms-2 mb-1">
-            Address
-          </label>
-          <input
-            id="address"
-            className="form-control"
-            type="text"
-            value={newRunnerInfo.address}
-            onChange={(e) =>
-              setNewRunnerInfo({ ...newRunnerInfo, address: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="years_running" className="ms-2 mb-1">
-            Years Running
-          </label>
-          <input
-            id="years_running"
-            className="form-control"
-            type="text"
-            value={newRunnerInfo.years_running}
-            onChange={(e) =>
-              setNewRunnerInfo({
-                ...newRunnerInfo,
-                years_running: e.target.value,
-              })
-            }
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="schedule" className="ms-2 mb-1">
-            Running Schedule
-          </label>
-          <input
-            id="schedule"
-            className="form-control"
-            type="text"
-            value={newRunnerInfo.schedule}
-            onChange={(e) =>
-              setNewRunnerInfo({ ...newRunnerInfo, schedule: e.target.value })
-            }
-          />
-        </div>
-
+              
             <div className="mb-3">
-                <label htmlFor="is_mentor" className="ms-2 mb-1">Is Mentor?</label>
+                <label htmlFor="is_mentor" className="ms-2 mb-1">Is Mentor? </label>
                 <input
                     id="is_mentor"
                     className="form-check-input"

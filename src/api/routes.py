@@ -283,6 +283,14 @@ def get_conversation(user1, user2):
 
     return jsonify([m.serialize() for m in messages]), 200
 
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = db.session.get(User, user_id)
+
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+    return jsonify(user.serialize()), 200
 
 # @api.route('/user', methods=['GET'])
 # @jwt_required()
