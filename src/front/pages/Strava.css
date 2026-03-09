@@ -1,0 +1,123 @@
+.strava-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f4ea8 0%, #1e88e5 55%, #2a9d8f 110%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 16px;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+}
+
+.strava-card {
+  background: rgba(255, 255, 255, 0.98);
+  width: min(720px, 100%);
+  padding: 34px 34px 28px;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.strava-title {
+  text-align: center;
+  font-size: 30px;
+  margin: 0 0 18px;
+  color: #1b5e20;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.strava-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.activity-btn {
+  background: #2e7d32;
+  color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.15s ease;
+}
+
+.activity-btn:hover {
+  filter: brightness(1.05);
+}
+
+.activity-btn:active {
+  transform: translateY(1px);
+}
+
+.activity-btn:disabled {
+  background: #a5d6a7;
+  cursor: not-allowed;
+  filter: none;
+}
+
+.section-title {
+  margin-top: 22px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #0f4ea8;
+  font-weight: 750;
+}
+
+.runname-input {
+  width: 100%;
+  padding: 11px 12px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #d6e6ff;
+  background: #fbfdff;
+  font-size: 14px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.runname-input:focus {
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.15);
+}
+
+/* Message */
+.strava-message {
+  margin: 10px 0 0;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.strava-muted {
+  color: #0f4ea8;
+}
+
+.run-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  border-top: 1px solid #e6f0ff;
+}
+
+.run-item {
+  padding: 14px 4px;
+  border-bottom: 1px solid #e6f0ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.run-name {
+  font-weight: 750;
+  color: #1b5e20;
+}
+
+.run-stats {
+  font-size: 14px;
+  color: #0f4ea8;
+  white-space: nowrap;
+}

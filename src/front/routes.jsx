@@ -20,6 +20,7 @@ import { ResetPassword } from "./pages/ResetPassword";
 import Message from "./pages/Message";
 // import { ProfileCard } from "./components/ProfileCard";
 
+import { Strava } from "./pages/Strava";
 export const router = createBrowserRouter(
   createRoutesFromElements(
     // CreateRoutesFromElements function allows you to build route elements declaratively.
@@ -47,6 +48,7 @@ export const router = createBrowserRouter(
       <Route path = "/account" element={<Authentication />} />
       <Route path = "/messages/:otherUserId" element={<Message />} />
       {/* <Route path="/profile" element={<ProfileCard />} /> */}
+        <Route path="/strava" element={<Strava />} />
     </Route>,
   ),
 );

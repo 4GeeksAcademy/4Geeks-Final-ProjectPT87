@@ -4,15 +4,18 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token")  || localStorage.getItem("token");
   const { store, dispatch } = useGlobalReducer();
 
   // Adding this for when we add login/logout functionality.
   const logout = () => {
     sessionStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("token");
+    navigate("/account");
   };
-
+  if (!token) {
+    return null;
+  }
 
 
   // Can change the names of login/signup if needed, just adding them for now.
