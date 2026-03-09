@@ -64,7 +64,7 @@ export default function MentorCard ({ runner, pictureNumber }) {
                 </div>
                 <div>
                     <Link to = {"/single_runner/" + runner.id + "/" + pictureNumber}>
-                        <button className = "btn btn-primary mb-3">View Details</button>
+                        <button className="nav-btn mb-3">View Details</button>
                     </Link>
                 <div className="mb-3 ms-2">
                         <button

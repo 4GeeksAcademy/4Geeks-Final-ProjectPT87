@@ -66,5 +66,19 @@ export default function storeReducer(store, action = {}) {
         ),
       };
 
+    case "set_favorites":
+      return {
+        ...store,
+        favorites: action.payload,
+      };
+
+    case "set_token":
+      return {
+        ...store,
+        token: action.payload,
+      }; 
+
+    default:
+      return store;
   }
 }

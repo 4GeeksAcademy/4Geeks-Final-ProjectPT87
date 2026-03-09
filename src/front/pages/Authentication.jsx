@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/authentication.css";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import { fetchFavorites } from "../hooks/actions";
 
 export const Authentication = () => {
+  const {store, dispatch, fetchFavorites} = useGlobalReducer();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -25,11 +28,17 @@ export const Authentication = () => {
       localStorage.setItem("token", data.token);
       // Added a local storage for user_id to store and use it for authentication when sending messages.
       localStorage.setItem("user_id", data.user_id);
+      fetchFavorites()
+      // dispatch({
+      //   type: 'set_token',
+      //   payload: data.token,
+      // })
       navigate("/");
     } else {
       alert(data.msg || "Try again, wrong credentials.");
     }
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -39,7 +48,7 @@ export const Authentication = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
-      },
+      }
     );
     const data = await response.json();
 
@@ -61,7 +70,7 @@ export const Authentication = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail }),
-      },
+      }
     );
     const data = await response.json();
     setForgotMsg(data.msg);
@@ -190,7 +199,7 @@ export const Authentication = () => {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+              <h1>Welcome!</h1>
               <button
                 className="ghost"
                 type="button"
@@ -217,5 +226,3 @@ export const Authentication = () => {
     </div>
   );
 };
-
-

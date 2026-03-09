@@ -11,10 +11,14 @@ import hashlib
 
 
 api = Blueprint('api', __name__)
-# unique_id = uuid.uuid4
 
 # Allow CORS requests to this API
 CORS(api)
+STRAVA_API = "https://www.strava.com/api/v3"
+STRAVA_TOKEN_URL = "https://www.strava.com/oauth/token"
+
+def is_run(a):
+    return a.get("sport_type") == "Run" or a.get("type") == "Run"
 
 
 @api.route('/register', methods=['POST'])
@@ -184,10 +188,21 @@ def delete_runner(runner_id):
 
     return jsonify({"msg": "Runner deleted"}), 200
 
+
+@api.route('/favorite_runner', methods=['GET'])
+@jwt_required()
+def get_favorites():
+    user = get_jwt_identity()
+    print('This is the token info: ', user)
+    found_user = User.query.get(user)
+    # print('This is the found user:', found_user.runner.serialize())
+    favorites = Favorites.query.filter_by(source_runner_id = found_user.runner.id).all()
+    # favorites = db.session.scalars(db.select(Favorites)).all() - our original format
+    print([favorite.serialize() for favorite in favorites])
+    return jsonify([favorite.serialize() for favorite in favorites]), 200
+
 # This is the route to create a favorite
 # This route needs to be authenticated so that you can tell who's logged in
-
-
 @api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
 def favorite_runner():
@@ -298,3 +313,151 @@ def get_user(user_id):
 #     uid = get_jwt_identity()
 #     user = User.query.filter_by(id=uid).first()
 #     return jsonify(user.serialize())
+def get_valid_strava_access_token(user_id):
+    token_row = db.session.scalars(
+        db.select(StravaToken).filter_by(user_id=user_id)
+    ).first()
+
+    if not token_row:
+        return None
+
+    return token_row.access_token
+
+@api.route("/strava/login-url", methods=["GET"])
+@jwt_required()
+def strava_login_url():
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify(msg="User not found."), 401
+
+    url = (
+        "https://www.strava.com/oauth/authorize"
+        f"?client_id={os.getenv('STRAVA_CLIENT_ID')}"
+        f"&response_type=code"
+        f"&redirect_uri={os.getenv('STRAVA_REDIRECT_URI')}"
+        f"&approval_prompt=auto"
+        f"&scope=read,activity:read_all,activity:write"
+        f"&state={user_id}"
+    )
+
+    return jsonify(auth_url=url), 200
+
+@api.route("/strava/callback", methods=["GET"])
+def strava_callback():
+    code = request.args.get("code")
+    user_id = request.args.get("state")
+
+    if not code or not user_id:
+        return jsonify(msg="Missing code or state."), 400
+
+    res = requests.post(
+        STRAVA_TOKEN_URL,
+        data={
+            "client_id": os.getenv("STRAVA_CLIENT_ID"),
+            "client_secret": os.getenv("STRAVA_CLIENT_SECRET"),
+            "code": code,
+            "grant_type": "authorization_code",
+        },
+        timeout=20,
+    )
+
+    if not res.ok:
+        return jsonify(msg="Token exchange failed.", details=res.text), 400
+
+    data = res.json()
+    user_id = int(user_id)
+
+    token_row = db.session.scalars(
+        db.select(StravaToken).filter_by(user_id=user_id)
+    ).first()
+
+    if not token_row:
+        token_row = StravaToken(
+            user_id=user_id,
+            access_token=data["access_token"],
+            refresh_token=data["refresh_token"],
+        )
+        db.session.add(token_row)
+    else:
+        token_row.access_token = data["access_token"]
+        token_row.refresh_token = data["refresh_token"]
+
+    db.session.commit()
+
+    return redirect(f"{os.getenv('FRONTEND_URL')}/strava?connected=true")
+
+@api.route("/strava/status", methods=["GET"])
+@jwt_required()
+def strava_status():
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify(msg="User not found."), 401
+
+    token_row = db.session.scalars(
+        db.select(StravaToken).filter_by(user_id=user_id)
+    ).first()
+
+    return jsonify(connected=bool(token_row)), 200
+
+@api.route("/strava/runs", methods=["GET"])
+@jwt_required()
+def strava_runs():
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify(msg="User not found."), 401
+
+    access_token = get_valid_strava_access_token(user_id)
+    if not access_token:
+        return jsonify(msg="Strava not connected."), 401
+
+    res = requests.get(
+        f"{STRAVA_API}/athlete/activities",
+        headers={"Authorization": "Bearer " + access_token},
+        params={"per_page": 30, "page": 1},
+        timeout=20,
+    )
+
+    if not res.ok:
+        return jsonify(msg="Strava request failed."), 400
+
+    runs = [a for a in res.json() if is_run(a)]
+    return jsonify(runs), 200
+
+@api.route("/strava/create-run", methods=["POST"])
+@jwt_required()
+def strava_create_run():
+    user_id = get_jwt_identity()
+    if not user_id:
+        return jsonify(msg="User not found."), 401
+
+    access_token = get_valid_strava_access_token(user_id)
+    if not access_token:
+        return jsonify(msg="Strava not connected."), 401
+
+    body = request.json or {}
+
+    name = body.get("name")
+    start_date_local = body.get("start_date_local")
+    elapsed_time = body.get("elapsed_time")
+    distance = body.get("distance")
+
+    if not name or not start_date_local or not elapsed_time or not distance:
+        return jsonify(msg="Missing fields."), 400
+
+    res = requests.post(
+        f"{STRAVA_API}/activities",
+        headers={"Authorization": "Bearer " + access_token},
+        data={
+            "name": name,
+            "sport_type": "Run",
+            "start_date_local": start_date_local,
+            "elapsed_time": int(elapsed_time),
+            "distance": float(distance),
+        },
+        timeout=20,
+    )
+
+    if not res.ok:
+        return jsonify(msg="Create failed."), 400
+
+    return jsonify(res.json()), 201

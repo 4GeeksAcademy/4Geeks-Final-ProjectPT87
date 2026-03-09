@@ -4,21 +4,26 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token")  || localStorage.getItem("token");
   const { store, dispatch } = useGlobalReducer();
 
   // Adding this for when we add login/logout functionality.
   const logout = () => {
     sessionStorage.removeItem("token");
-    navigate("/login");
+    localStorage.removeItem("token");
+    navigate("/account");
   };
+  if (!token) {
+    return null;
+  }
+
 
   // Can change the names of login/signup if needed, just adding them for now.
   return (
     <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">Running App</span>
+          <span className="navbar-brand mb-0 h1">Running Home</span>
         </Link>
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
@@ -67,10 +72,10 @@ export const Navbar = () => {
                   className="dropdown-item d-flex justify-content-between align-items-center"
                 >
                   <Link
-                    to={`/single_runner/${fav.id}/${fav.pictureNumber}`}
+                    to={`/single_runner/${fav.runner.id}/${index}`}
                     className="text-decoration-none text-dark"
                   >
-                    {fav.name}
+                    {fav.runner.name}
                   </Link>
 
                   <button

@@ -7,6 +7,7 @@ import Spinner from "../components/Spinner.jsx";
 import ProfileCard from "../components/ProfileCard.jsx";
 import Page9 from "../assets/img/Page9.jpg";
 // import "../styles/listRunners.css";
+// import "../styles/listRunners.css";
 
 // This page lists all of the runner cards so that users can scroll through
 export const ListRunners = ({ runner }) => {
@@ -25,49 +26,44 @@ export const ListRunners = ({ runner }) => {
         fetchData();
     }, []);
 
-   
-    useEffect(() => {
-        fetchRunner()
-        setRunners(store.runners)
-    }, [])
+    // useEffect(() => {
+    //     fetchRunner()
+    //     setRunners(store.runners)
+    // }, [])
+  useEffect(() => {
+    setRunners(store.runners);
+  }, [store.runners]);
 
-    useEffect(() => {
-        setRunners(store.runners)
-    }, [store.runners])
-
-    // Loading component
+  // Loading component
     if (loading) return <Spinner />;
-
-    return (
-
-        
-        <div className=" contatiner text-center bg-light">
-            <h1 className="p-3">Runner List</h1>
-            <div>
-                
-                {runners?.length > 0 ? runners.map((runner, index) => {
-                    let pictureNumber = index < 10 ? index : index - 9;
-                    // console.log("pictureNumber: " + pictureNumber);
-               
-                    return (
-                        <RunnerCard
-                            key={runner.id}
-                            runner={runner}
-                            pictureNumber={pictureNumber}
-                        />
-                        
-                    )
-                })
-                    :
-                    <h2>Add Runner Profile</h2>
-                }
-            </div>
-                <br />
-                <div>
-                    <Link to = "/">
-                        <button className="nav-btn" style = {{marginBottom: 100}}>Return Home</button>
-                    </Link>
-                </div>
-        </div>
-    );
-}; 
+  return (
+    <div className=" contatiner text-center bg-light">
+      <h1 className="p-3">Runner List</h1>
+      <div>
+        {runners?.length > 0 ? (
+          runners.map((runner, index) => {
+            let pictureNumber = index < 10 ? index : index - 9;
+            // console.log("pictureNumber: " + pictureNumber);
+            return (
+              <RunnerCard
+                key={runner.id}
+                runner={runner}
+                pictureNumber={pictureNumber}
+              />
+            );
+          })
+        ) : (
+          <h2>Add Runner Profile</h2>
+        )}
+      </div>
+      <br />
+      <div>
+        <Link to="/">
+          <button className="nav-btn" style={{ marginBottom: 100 }}>
+            Return Home
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+};
