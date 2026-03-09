@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { editRunner, fetchRunner } from "../hooks/actions.jsx";
+import { editRunner, fetchRunner } from "../hooks/actions.js";
 import Page10 from "../assets/img/Page10.jpg";
 import "../styles/editRunner.css";
 

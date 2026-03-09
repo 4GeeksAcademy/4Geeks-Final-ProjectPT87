@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Page6 from "../assets/img/Page6.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { createRunner } from "../hooks/actions.jsx";
+import { createRunner } from "../hooks/actions.js";
 import "../styles/createRunner.css";
 
 export const CreateRunner = () => {
