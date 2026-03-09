@@ -22,6 +22,7 @@ export const CreateRunner = () => {
   });
   const { store, dispatch, addRunner } = useGlobalReducer();
   const navigate = useNavigate();
+  
 
   const handleCreateRunner = async (e) => {
     e.preventDefault(); // prevents page reload

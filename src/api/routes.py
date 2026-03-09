@@ -52,9 +52,21 @@ def login():
 
     if not user or not user.check_password_hash(request.json.get("password", "")):
         return jsonify(msg="Invalid email or password."), 400
-    
-    return jsonify(token=create_access_token(identity=str(user.id))), 200
-    
+    print(f"User {user} logged in successfully.")
+
+# Defined token variable to make it look more organized
+    token = create_access_token(user)
+# Added user id to the return
+
+    return jsonify({
+        "token": token,
+        "user_id": user.id
+    }), 200
+
+    # This is commented out because we want to return the user id as well, so that the message component works     
+    # return (jsonify(token=create_access_token(user))
+    #         ), 200
+
 
 @api.route('/logout', methods=['POST'])
 @jwt_required()
@@ -286,6 +298,14 @@ def get_conversation(user1, user2):
 
     return jsonify([m.serialize() for m in messages]), 200
 
+@api.route('/users/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = db.session.get(User, user_id)
+
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+    return jsonify(user.serialize()), 200
 
 # @api.route('/user', methods=['GET'])
 # @jwt_required()
