@@ -72,7 +72,7 @@ export const CreateRunner = () => {
           />
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="email" className="ms-2 mb-1">
             Email
           </label>
@@ -84,7 +84,7 @@ export const CreateRunner = () => {
             onChange={(e) => setRunner({ ...runner, email: e.target.value })}
             value={runner.email}
           />
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <label htmlFor="address" className="ms-2 mb-1">

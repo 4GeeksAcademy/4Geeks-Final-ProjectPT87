@@ -92,7 +92,7 @@ export const EditRunner = () => {
           />
         </div>
 
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label htmlFor="email" className="ms-2 mb-1">
             Email
           </label>
@@ -105,7 +105,7 @@ export const EditRunner = () => {
               setNewRunnerInfo({ ...newRunnerInfo, email: e.target.value })
             }
           />
-        </div>
+        </div> */}
 
         <div className="mb-3">
           <label htmlFor="address" className="ms-2 mb-1">

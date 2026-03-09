@@ -58,13 +58,13 @@ class Runner(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    name: Mapped[str] = mapped_column(String(120), nullable=False)
+    name: Mapped[str] = mapped_column(String(120), nullable=True)
     # This may be broken into first_name and last_name
     # first_name: Mapped[str] = mapped_column(String(50))
     # last_name: Mapped[str] = mapped_column(String(50))
     phone: Mapped[str] = mapped_column(String(50), nullable=True)
-    email: Mapped[str] = mapped_column(
-        String(120), unique=True, nullable=False)
+    # email: Mapped[str] = mapped_column(
+    #     String(120), unique=True, nullable=False)
     address: Mapped[str] = mapped_column(String(200), nullable=True)
     years_running: Mapped[int] = mapped_column(
         nullable=True)    # How do I limit int to 3 digits?
@@ -92,7 +92,7 @@ class Runner(db.Model):
             # "firstName": self.first_name, - these are here in case we want to use them
             # "lastName": self.last_name,
             "phone": self.phone,
-            "email": self.email,
+            # "email": self.email,
             "address": self.address,
             "years_running": self.years_running,
             "schedule": self.schedule,
