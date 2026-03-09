@@ -1,7 +1,7 @@
 // Import necessary hooks and functions from React.
 import { useContext, useReducer, createContext } from "react";
 import storeReducer, { initialStore } from "../store"  // Import the reducer and the initial state.
-import { fetchRunner, createRunner, editRunner, deleteRunner } from "./actions.js";
+import { fetchRunner, createRunner, editRunner, deleteRunner, createFavorite, deleteFavorite, fetchFavorites} from "./actions.js";
 
 // Create a context to hold the global state of the application
 // We will call this global state the "store" to avoid confusion while using local states
@@ -29,6 +29,8 @@ export default function useGlobalReducer() {
         createRunner: (payload) => createRunner(dispatch, payload),
         editRunner: (payload) => editRunner(dispatch, payload),
         deleteRunner: (payload) => deleteRunner(dispatch, payload),
-        favoriteRunner: (payload) => favoriteRunner(dispatch, payload)
+        createFavorite: (payload) => createFavorite(dispatch, payload),
+        deleteFavorite: (payload) => deleteFavorite(dispatch, payload),
+        fetchFavorites: (payload) => fetchFavorites(dispatch, payload),
     };
 }
