@@ -1,4 +1,3 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -37,9 +36,13 @@ export const ListRunners = ({ runner }) => {
   // Loading component
     if (loading) return <Spinner />;
   return (
-    <div className=" contatiner text-center bg-light">
-      <h1 className="p-3">Runner List</h1>
-      <div>
+  <div className="list-runners-hero">
+
+    <div className="list-runners-container glass-card">
+
+      <h1 className="list-title">Runner List</h1>
+
+      <div className="runner-grid">
         {runners?.length > 0 ? (
           runners.map((runner, index) => {
             let pictureNumber = index < 10 ? index : index - 9;
@@ -64,6 +67,7 @@ export const ListRunners = ({ runner }) => {
           </button>
         </Link>
       </div>
+    </div>
     </div>
   );
 };

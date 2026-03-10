@@ -40,7 +40,7 @@ export const CreateRunner = () => {
 
   return (
     <div className="create-runner-hero">
-      <div className="container create-runner-form mt-5 p-4 shadow mb-5">
+      <div className="container create-runner-form glass-card mt-5 p-4 shadow mb-5">
         <div className="text-center mt-3">
           <h3>Create Runner Profile</h3>
         </div>

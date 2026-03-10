@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import  "./Strava.css";
+import "../styles/Strava.css";
+import Page5 from "../assets/img/Page5.jpg";
 
 export const Strava = () => {
   const [connected, setConnected] = useState(false);
@@ -87,8 +88,8 @@ export const Strava = () => {
       },
       body: JSON.stringify({
         name: name,
-        distance: Number(distance), 
-        elapsed_time: Number(minutes) * 60, 
+        distance: Number(distance),
+        elapsed_time: Number(minutes) * 60,
         start_date_local: new Date(start).toISOString(),
       }),
     });
@@ -121,7 +122,6 @@ export const Strava = () => {
     }
 
     checkStatus();
-
   }, []);
 
   useEffect(() => {
@@ -138,18 +138,21 @@ export const Strava = () => {
     );
   }
 
-   return (
-      <div className="strava-page">
-        <div className="strava-card">
+  return (
+    <div className="strava-hero">
+      <img src={Page5} className="strava-bg" alt="Running background" />
+
+      <div className="strava-content">
+        <div className="strava-card glass-card">
           <h3 className="strava-title">Strava Journal</h3>
 
           <div className="strava-buttons">
-            <button className="activity-btn" onClick={connectStrava}>
+            <button className="nav-btn" onClick={connectStrava}>
               Connect Strava
             </button>
 
             <button
-              className="activity-btn"
+              className="nav-btn"
               onClick={loadRuns}
               disabled={!connected}
             >
@@ -200,7 +203,7 @@ export const Strava = () => {
                   required
                 />
 
-                <button type="submit" className="activity-btn">
+                <button type="submit" className="nav-btn">
                   Save Run
                 </button>
               </form>
@@ -226,5 +229,6 @@ export const Strava = () => {
           )}
         </div>
       </div>
-    );
+    </div>
+  );
 };

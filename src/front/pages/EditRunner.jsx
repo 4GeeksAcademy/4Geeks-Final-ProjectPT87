@@ -76,7 +76,7 @@ export const EditRunner = () => {
 
   return (
     <div className="edit-runner-hero">
-      <div className="container edit-runner-form mt-5 p-4 shadow mb-5">
+      <div className="container edit-runner-form glass-card mt-5 p-4 shadow mb-5">
         <div className="text-center mt-3">
           <h3>Update Your Runner Profile</h3>
         </div>
@@ -210,7 +210,7 @@ export const EditRunner = () => {
 
             <div className="d-flex justify-content-center">
                 <button
-                    className="btn btn-primary mx-2"
+                    className="nav-btn mx-2"
                     onClick={(e) => handleEditRunner(e)}
                 >
                     Update Runner Profile
@@ -222,7 +222,7 @@ export const EditRunner = () => {
                     <button className="nav-btn">List Mentors</button>
                 </Link>
                 <Link to="/">
-                    <button className="btn btn-primary mx-2">Return Home</button>
+                    <button className="nav-btn mx-2">Return Home</button>
                 </Link>
             </div>
         </div>
