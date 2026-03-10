@@ -35,6 +35,7 @@ export const ListRunners = ({ runner }) => {
 
   // Loading component
     if (loading) return <Spinner />;
+    
   return (
   <div className="list-runners-hero">
 

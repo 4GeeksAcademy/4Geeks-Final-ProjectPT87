@@ -31,8 +31,8 @@ export const Navbar = () => {
             </Link>
           ) : (
             <>
-              <Link to="/profile" className="nav-btn">
-                My Profile
+              <Link to="/strava" className="nav-btn">
+                Strava API
               </Link>
 
               {/* FAVORITES DROPDOWN */}
