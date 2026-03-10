@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import  "./Strava.css";
+import  "../styles/Strava.css";
 
 export const Strava = () => {
   const [connected, setConnected] = useState(false);

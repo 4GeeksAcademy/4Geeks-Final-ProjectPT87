@@ -57,7 +57,7 @@ export const EditRunner = () => {
 
   return (
     <div className="edit-runner-hero">
-      <div className="container edit-runner-form mt-5 p-4 shadow mb-5">
+      <div className="container edit-runner-form glass-card mt-5 p-4 shadow mb-5">
         <div className="text-center mt-3">
           <h3>Edit Your Runner Profile</h3>
         </div>

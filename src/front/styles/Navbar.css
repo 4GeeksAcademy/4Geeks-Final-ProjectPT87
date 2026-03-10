@@ -1,6 +1,43 @@
 .custom-navbar {
-  background-color: #0e7dde;
   padding: 15px;
+  background: linear-gradient(
+    rgba(14, 125, 222, 0.75),
+    rgba(14, 125, 222, 0.55)
+  );
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.custom-navbar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%
+  );
+  animation: navShimmer 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes navShimmer {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
 }
 
 .custom-navbar .navbar-brand {
@@ -25,7 +62,9 @@
   font-weight: 500;
   margin-left: 10px;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -44,9 +83,35 @@
 }
 
 .footer {
-  background-color: #0e7dde;
   padding: 15px;
   color: white;
+  background: linear-gradient(
+    rgba(14, 125, 222, 0.75),
+    rgba(14, 125, 222, 0.55)
+  );
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 60%
+  );
+  animation: navShimmer 14s linear infinite;
+  pointer-events: none;
 }
 
 .footer a {
@@ -56,4 +121,20 @@
 
 .footer a:hover {
   color: #d4f5ff !important;
+}
+
+.logout-btn {
+  background-color: #dc3545;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logout-btn:hover {
+  background-color: #bb2d3b;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
 }

@@ -20,7 +20,7 @@ export const ListMentors = () => {
 
   return (
     <div className="list-mentors-hero">
-      <div className="list-mentors-container">
+      <div className="list-mentors-container glass-card">
         <h1 className="list-title p-3">Mentor List</h1>
 
         <div className="mentor-grid">

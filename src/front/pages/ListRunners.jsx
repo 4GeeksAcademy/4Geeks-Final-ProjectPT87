@@ -21,7 +21,7 @@ export const ListRunners = ({ runner }) => {
   return (
   <div className="list-runners-hero">
 
-    <div className="list-runners-container">
+    <div className="list-runners-container glass-card">
 
       <h1 className="list-title">Runner List</h1>
 

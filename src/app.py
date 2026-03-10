@@ -31,14 +31,14 @@ jwt = JWTManager(app)
 
 
 @jwt.user_identity_loader
-def user_identity_lookup(user):
-    return user.id
+def user_identity_lookup(identity):
+    return str(identity)
 
     
 @jwt.user_lookup_loader
 def user_lookup_callback(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
-    return db.session.scalars(db.select(User).filter_by(id=identity)).one_or_none()
+    return db.session.get(User, int(identity))
 
 
 # database condiguration
