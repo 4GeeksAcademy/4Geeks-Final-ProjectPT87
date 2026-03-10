@@ -64,7 +64,7 @@ export const Home = () => {
             <button className="nav-btn">Create Runner Profile</button>
           </Link> */}
           <Link to="/edit_runner/:theId">
-            <button className="nav-btn">Edit Runner Profile</button>
+            <button className="nav-btn">Update Profile</button>
           </Link>
           <Link to="/list_runners">
             {/* <Link to = "/single_runner/:theID/:pictureNumber">
