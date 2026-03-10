@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner.jsx";
 import "../styles/Message.css";
+// Global reducer for loading 
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 
 
 const Message = () => {
+  // Dispatch for loading screen
+  const { store, dispatch, fetchRunner } = useGlobalReducer();
   const { otherUserId } = useParams();
   const otherId = Number(otherUserId);
   const storedUserId = localStorage.getItem("user_id");
@@ -16,6 +21,19 @@ const Message = () => {
   const [messageInput, setMessageInput] = useState("");
   const [otherUser, setOtherUser] = useState(null);
   const messagesEndRef = useRef(null);
+  // Loading state
+  const [loading, setLoading] = useState(true);
+   
+  
+      // Loading useEffect
+      useEffect(() => {
+          const fetchData = async () => {
+              await fetchRunner(dispatch);
+              setLoading(false);
+          };
+  
+          fetchData();
+      }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -78,7 +96,8 @@ const Message = () => {
     setMessageInput("");
   };
 
-
+// Loading component
+    if (loading) return <Spinner />;
 
   return (
     <div className="container mt-4">
