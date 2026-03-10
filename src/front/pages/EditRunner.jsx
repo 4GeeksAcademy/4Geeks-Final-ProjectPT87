@@ -59,7 +59,7 @@ export const EditRunner = () => {
     <div className="edit-runner-hero">
       <div className="container edit-runner-form mt-5 p-4 shadow mb-5">
         <div className="text-center mt-3">
-          <h3>Edit Your Runner Profile</h3>
+          <h3>Update Your Runner Profile</h3>
         </div>
 
         <div className="mb-3">
@@ -92,7 +92,7 @@ export const EditRunner = () => {
           />
         </div>
 
-        {/* <div className="mb-3">
+        <div className="mb-3">
           <label htmlFor="email" className="ms-2 mb-1">
             Email
           </label>
@@ -105,7 +105,7 @@ export const EditRunner = () => {
               setNewRunnerInfo({ ...newRunnerInfo, email: e.target.value })
             }
           />
-        </div> */}
+        </div>
 
         <div className="mb-3">
           <label htmlFor="address" className="ms-2 mb-1">

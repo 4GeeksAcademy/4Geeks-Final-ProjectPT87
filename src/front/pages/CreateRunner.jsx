@@ -11,7 +11,7 @@ export const CreateRunner = () => {
   const [runner, setRunner] = useState({
     name: "",
     phone: "",
-    email: "",
+    // email: "",
     address: "",
     years_running: "",
     schedule: "",
@@ -26,8 +26,8 @@ export const CreateRunner = () => {
   const handleCreateRunner = async (e) => {
     e.preventDefault(); // prevents page reload
 
-    if (!runner.name || !runner.email) {
-      alert("Name and email fields are required.");
+    if (!runner.name) {
+      alert("Name field is required.");
       return;
     }
 
@@ -41,7 +41,7 @@ export const CreateRunner = () => {
     <div className="create-runner-hero">
       <div className="container create-runner-form mt-5 p-4 shadow mb-5">
         <div className="text-center mt-3">
-          <h3>Create Profile</h3>
+          <h3>Create Runner Profile</h3>
         </div>
 
         <div className="mb-3">

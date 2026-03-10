@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: b0b21a77088e
+Revision ID: 8e603e014eb9
 Revises: 
-Create Date: 2026-03-09 02:19:15.736329
+Create Date: 2026-03-10 00:03:43.386599
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b0b21a77088e'
+revision = '8e603e014eb9'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,9 +54,8 @@ def upgrade():
     op.create_table('runners',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=120), nullable=False),
+    sa.Column('name', sa.String(length=120), nullable=True),
     sa.Column('phone', sa.String(length=50), nullable=True),
-    sa.Column('email', sa.String(length=120), nullable=False),
     sa.Column('address', sa.String(length=200), nullable=True),
     sa.Column('years_running', sa.Integer(), nullable=True),
     sa.Column('schedule', sa.String(length=200), nullable=True),
@@ -65,8 +64,7 @@ def upgrade():
     sa.Column('level', sa.String(length=50), nullable=True),
     sa.Column('is_mentor', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favorites',
     sa.Column('id', sa.Integer(), nullable=False),

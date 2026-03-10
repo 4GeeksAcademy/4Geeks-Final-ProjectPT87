@@ -76,7 +76,7 @@ export const SingleRunner = (props) => {
         <div className="runner-buttons">
           {/* <Link to = {"/edit_runner/" + runner.id}>
           <button className="nav-btn" href="#" role="button">
-            Edit Runner Profile
+            Update Runner Profile
           </button>
         </Link> */}
 

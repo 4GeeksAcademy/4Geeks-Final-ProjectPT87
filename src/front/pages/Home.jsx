@@ -60,11 +60,11 @@ export const Home = () => {
           </ul>
         </div>
         <div className="mt-3 d-flex flex-wrap gap-3">
-          <Link to="/create_runner">
+          {/* <Link to="/create_runner">
             <button className="nav-btn">Create Runner Profile</button>
-          </Link>
+          </Link> */}
           <Link to="/edit_runner/:theId">
-            <button className="nav-btn">Edit Runner Profile</button>
+            <button className="nav-btn">Update Runner Profile</button>
           </Link>
           <Link to="/list_runners">
             {/* <Link to = "/single_runner/:theID/:pictureNumber">

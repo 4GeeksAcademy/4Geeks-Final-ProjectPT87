@@ -18,6 +18,17 @@ export const ListMentors = () => {
   //         setMentors(store.mentors)
   //     }, [store.mentors])
 
+// useEffect(() => {
+//         fetchRunner()
+//     }, [])
+
+// useEffect(() => {
+//         const mentorList = store.runners.filter(
+//             runner => runner.is_mentor === true
+//         );
+//         setMentors(mentorList);
+//     }, [store.runners]);
+
   return (
     <div className="list-mentors-hero">
       <div className="list-mentors-container">
