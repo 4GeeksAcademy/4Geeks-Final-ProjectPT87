@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-/* wrapper only for this page */
 .authentication-body {
   background: #eef5fc;
   display: flex;
@@ -26,7 +25,7 @@
 
 .authentication-body p {
   font-size: 14px;
-  font-weight: 100;
+  font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
@@ -94,6 +93,7 @@
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
 }
 
+
 .authentication-body form {
   background-color: #ffffff;
   display: flex;
@@ -113,6 +113,7 @@
   width: 100%;
 }
 
+
 .authentication-body .auth-container {
   background-color: #fff;
   border-radius: 10px;
@@ -125,6 +126,7 @@
   max-width: 100%;
   min-height: 480px;
 }
+
 
 .authentication-body .form-container {
   position: absolute;
@@ -170,6 +172,7 @@
   }
 }
 
+
 .authentication-body .overlay-container {
   position: absolute;
   top: 0;
@@ -184,6 +187,8 @@
 .authentication-body .auth-container.right-panel-active .overlay-container {
   transform: translateX(-100%);
 }
+
+/* background images */
 
 .authentication-body .overlay {
   /* incase we end up not wanting the gradient
@@ -216,7 +221,6 @@
   top: 0;
   height: 100%;
   width: 50%;
-  transform: translateX(0);
   transition: transform 0.6s ease-in-out;
 }
 

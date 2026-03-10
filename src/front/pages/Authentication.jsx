@@ -26,6 +26,8 @@ export const Authentication = () => {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      // Added a local storage for user_id to store and use it for authentication when sending messages.
+      localStorage.setItem("user_id", data.user_id);
       fetchFavorites()
       // dispatch({
       //   type: 'set_token',
@@ -36,6 +38,7 @@ export const Authentication = () => {
       alert(data.msg || "Try again, wrong credentials.");
     }
   };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -45,7 +48,7 @@ export const Authentication = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
-      },
+      }
     );
     const data = await response.json();
 
@@ -67,7 +70,7 @@ export const Authentication = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail }),
-      },
+      }
     );
     const data = await response.json();
     setForgotMsg(data.msg);
@@ -196,7 +199,7 @@ export const Authentication = () => {
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
+              <h1>Welcome!</h1>
               <button
                 className="ghost"
                 type="button"
