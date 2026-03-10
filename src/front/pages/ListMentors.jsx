@@ -6,18 +6,20 @@ import Page11 from "../assets/img/Page11.jpg";
 import "../styles/listMentors.css";
 
 export const ListMentors = () => {
-  const { store, dispatch, fetchMentors } = useGlobalReducer();
-  const [mentors, setMentors] = useState([]);
 
-  //   useEffect(() => {
-  //         fetchMentors()
-  //         setMentors(store.mentors)
-  //     }, [])
+    const { store, dispatch, fetchRunner } = useGlobalReducer();
+    const [mentors, setMentors] = useState([]);
 
-  //     useEffect(()=>{
-  //         setMentors(store.mentors)
-  //     }, [store.mentors])
+    useEffect(() => {
+        fetchRunner()
+    }, [])
 
+    useEffect(() => {
+        const mentorList = store.runners.filter(
+            runner => runner.is_mentor === true
+        );
+        setMentors(mentorList);
+    }, [store.runners]);
   return (
     <div className="list-mentors-hero">
       <div className="list-mentors-container glass-card">
@@ -29,29 +31,23 @@ export const ListMentors = () => {
                     // console.log("pictureNumber: " + pictureNumber);
                     return (
                         <MentorCard
-                            key = {mentor.id} 
-                            contact = {mentor} 
+                            key={mentor.id}
+                            runner={mentor}
                             pictureNumber={pictureNumber}
                         />
                     )
                 })
                 :
                 <h2>Add Mentor Profile</h2>
-                } */}
-        </div>
-
-        <br />
-
-        <div>
-          <Link to="/">
-            <button
-              className="nav-btn return-btn"
-              style={{ marginBottom: 100 }}
-            >
-              Return Home
-            </button>
-          </Link>
-        </div>
+                }
+      </div>
+      <br />
+      <div>
+        <Link to="/">
+          <button className="nav-btn" style={{ marginBottom: 100 }}>
+            Return Home
+          </button>
+        </Link>
       </div>
     </div>
   );
