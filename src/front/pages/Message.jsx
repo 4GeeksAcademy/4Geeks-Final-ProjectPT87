@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "../styles/Message.css";
 
-
-// MESSAGE PAGE CURRENTLY NOT WORKING:
-// Login route on routes.py doesn't return a user.id, so the frontend can't store it and use it for authentication when sending messages.
 
 
 const Message = () => {
@@ -74,40 +72,36 @@ const Message = () => {
 
 
   return (
-    <div className="container mt-4">
-      <h3>Conversation with {otherUser?.username || "User"}</h3>
+  <div className="container mt-4">
+    <h3>Conversation with {otherUser?.username || "User"}</h3>
 
-      <div className="border p-3 mb-3" style={{ height: "478px", overflowY: "scroll" }}>
-        {messages.map((msg) => (
-          <div key={msg.id}>
-            {/* OtherUserId is at the momment replaced by 3 */}
-            <strong>{msg.sender_id === currentUserId ? "You" : otherUser?.username || "Them"}
-:</strong>
-            <span> {msg.content}</span>
+    <div className="message-container border mb-3">
+      {messages.map((msg) => {
+        const isCurrentUser = msg.sender_id === currentUserId;
+
+        return (
+          <div key={msg.id} className={`message-row ${isCurrentUser ? "my-message" : "their-message"}`}>
+            <div className="message-bubble">
+              <strong>{isCurrentUser ? "You" : otherUser?.username || "Them"}</strong>
+              <div>{msg.content}</div>
+            </div>
           </div>
-        ))}
-      </div>
-
-
-
-      <input
-        type="text"
-        value={messageInput}
-        onChange={(e) => setMessageInput(e.target.value)}
-        className="form-control mb-2"
-      />
-
-      <button onClick={sendMessage} className="btn btn-primary border mb-3">
-        Send
-      </button>
-
-
+        );
+      })}
     </div>
 
+    <input
+      type="text"
+      value={messageInput}
+      onChange={(e) => setMessageInput(e.target.value)}
+      className="form-control mb-2"
+    />
 
-
-
-  );
-};
+    <button onClick={sendMessage} className="btn btn-primary mb-3">
+      Send
+    </button>
+  </div>
+);
+}
 
 export default Message;
