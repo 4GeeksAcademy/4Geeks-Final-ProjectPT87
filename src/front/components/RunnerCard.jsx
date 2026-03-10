@@ -56,7 +56,7 @@ export default function RunnerCard({ runner, pictureNumber }) {
 
   return (
     <div>
-      <div className="runner-card">
+      <div className="runner-card glass-card">
         <div className="card-body">
           <div className="container text-center mt-5">
             <img
