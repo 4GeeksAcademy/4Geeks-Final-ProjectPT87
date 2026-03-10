@@ -162,7 +162,7 @@ export const EditRunner = () => {
 
             <div className="d-flex justify-content-center">
                 <button
-                    className="btn btn-primary mx-2"
+                    className="nav-btn mx-2"
                     onClick={(e) => handleEditRunner(e)}
                 >
                     Update Runner Profile
@@ -174,7 +174,7 @@ export const EditRunner = () => {
                     <button className="nav-btn">List Mentors</button>
                 </Link>
                 <Link to="/">
-                    <button className="btn btn-primary mx-2">Return Home</button>
+                    <button className="nav-btn mx-2">Return Home</button>
                 </Link>
             </div>
         </div>
