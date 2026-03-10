@@ -5,6 +5,7 @@ import { editRunner, fetchRunner } from "../hooks/actions.js";
 import Page10 from "../assets/img/Page10.jpg";
 import "../styles/editRunner.css";
 
+
 export const EditRunner = () => {
     const { store, dispatch, fetchRunner, editRunner } = useGlobalReducer();
     const navigate = useNavigate();
@@ -18,6 +19,12 @@ export const EditRunner = () => {
     phone: "",
     email: "",
     address: "",
+    years_running: "",
+    schedule: "",
+    location: "",
+    rating: "",
+    level: "",
+    is_mentor: false,
   });
   const [newRunnerInfo, setNewRunnerInfo] = useState({
     name: "",
@@ -27,7 +34,12 @@ export const EditRunner = () => {
     years_running: "",
     schedule: "",
     location: "",
+    rating: "",
+    level: "",
+    is_mentor: false,
   });
+
+
 
   useEffect(() => {
     fetchRunner();
@@ -143,8 +155,43 @@ export const EditRunner = () => {
                 />
             </div>
 
+
               
-            <div className="mb-3">
+        <div className="form-check">
+          <input
+            id="flexRadioDefault1"
+            className="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            onChange={(e) =>
+              setNewRunnerInfo({ ...newRunnerInfo, is_mentor: e.target.value === "true" })
+            }
+            value="true"
+            checked={newRunnerInfo.is_mentor === true}
+          />
+          <label className="form-check-label" htmlFor="flexRadioDefault1">
+            I want to be a mentor!
+          </label>
+        </div>
+        <div className="form-check mb-5">
+          <input
+            id="flexRadioDefault2"
+            className="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            onChange={(e) =>
+              setRunner({ ...newRunnerInfo, is_mentor: e.target.value === "true" })
+            }
+            value="false"
+            checked={newRunnerInfo.is_mentor === false}
+          />
+          <label className="form-check-label" htmlFor="flexRadioDefault2">
+            I am not a mentor
+          </label>
+        </div>
+
+
+            {/* <div className="mb-3">
                 <label htmlFor="is_mentor" className="ms-2 mb-1">Is Mentor? </label>
                 <input
                     id="is_mentor"
@@ -158,7 +205,8 @@ export const EditRunner = () => {
                         })
                     }
                 />
-            </div>
+            </div> */}
+            
 
             <div className="d-flex justify-content-center">
                 <button

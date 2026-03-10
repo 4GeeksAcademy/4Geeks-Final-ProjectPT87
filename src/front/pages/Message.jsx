@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner.jsx";
+import "../styles/Message.css";
+// Global reducer for loading 
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
-
-// MESSAGE PAGE CURRENTLY NOT WORKING:
-// Login route on routes.py doesn't return a user.id, so the frontend can't store it and use it for authentication when sending messages.
 
 
 const Message = () => {
+  // Dispatch for loading screen
+  const { store, dispatch, fetchRunner } = useGlobalReducer();
   const { otherUserId } = useParams();
   const otherId = Number(otherUserId);
   const storedUserId = localStorage.getItem("user_id");
@@ -17,15 +20,37 @@ const Message = () => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const [otherUser, setOtherUser] = useState(null);
+  const messagesEndRef = useRef(null);
+  // Loading state
+  const [loading, setLoading] = useState(true);
+   
+  
+      // Loading useEffect
+      useEffect(() => {
+          const fetchData = async () => {
+              await fetchRunner(dispatch);
+              setLoading(false);
+          };
+  
+          fetchData();
+      }, []);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const fetchOtherUser = async () => {
-  const response = await fetch(
-    `${import.meta.env.VITE_BACKEND_URL}/users/${otherId}`
-  );
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/users/${otherId}`
+    );
 
-  const data = await response.json();
-  setOtherUser(data);
-};
+    const data = await response.json();
+    setOtherUser(data);
+  };
 
 
   useEffect(() => {
@@ -71,43 +96,51 @@ const Message = () => {
     setMessageInput("");
   };
 
-
+// Loading component
+    if (loading) return <Spinner />;
 
   return (
     <div className="container mt-4">
-      <h3>Conversation</h3>
-
-      <div className="border p-3 mb-3" style={{ height: "478px", overflowY: "scroll" }}>
-        {messages.map((msg) => (
-          <div key={msg.id}>
-            {/* OtherUserId is at the momment replaced by 3 */}
-            <strong>{msg.sender_id === currentUserId ? "You" : otherUser?.username || "Them"}
-:</strong>
-            <span> {msg.content}</span>
-          </div>
-        ))}
+      <div className="card mb-3 shadow-sm border-0">
+        <div className="card-header bg-primary text-white text-center py-3 rounded-top">
+          <h3 className="chat-header-text mb-0">
+            Chatting with: <span className="chat-username">{otherUser?.username || "User"}</span>
+          </h3>
+        </div>
       </div>
+      <div className="message-container border mb-3">
+        {messages.map((msg) => {
+          const isCurrentUser = msg.sender_id === currentUserId;
 
+          return (
+            <div
+              key={msg.id}
+              className={`message-row ${isCurrentUser ? "my-message" : "their-message"}`}
+            >
+              <div className="message-bubble">
+                <strong>{isCurrentUser ? "You" : otherUser?.username || "Them"}</strong>
+                <div>{msg.content}</div>
+              </div>
+            </div>
+          );
+        })}
 
+        {/* Scroll target div: inside container */}
+        <div ref={messagesEndRef}></div>
+      </div>
 
       <input
         type="text"
         value={messageInput}
         onChange={(e) => setMessageInput(e.target.value)}
-        className="form-control mb-2"
+        className="form-control chat-input mb-2"
       />
 
-      <button onClick={sendMessage} className="btn btn-primary border mb-3">
+      <button onClick={sendMessage} className="btn btn-primary mb-3">
         Send
       </button>
-
-
     </div>
-
-
-
-
   );
-};
+}
 
 export default Message;
