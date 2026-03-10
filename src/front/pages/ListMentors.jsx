@@ -20,6 +20,7 @@ export const ListMentors = () => {
         );
         setMentors(mentorList);
     }, [store.runners]);
+    
   return (
     <div className=" contatiner text-center bg-light">
       <h1 className="p-3">Mentor List</h1>

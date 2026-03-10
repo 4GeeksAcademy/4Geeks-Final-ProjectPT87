@@ -75,7 +75,7 @@ const Message = () => {
 
   return (
     <div className="container mt-4">
-      <h3>Conversation</h3>
+      <h3>Conversation with {otherUser?.username || "User"}</h3>
 
       <div className="border p-3 mb-3" style={{ height: "478px", overflowY: "scroll" }}>
         {messages.map((msg) => (
