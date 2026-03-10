@@ -33,7 +33,9 @@ def register():
     data = request.json
 
     user = User(username=data["username"], email=data["email"],
-                password=data["password"], is_active=True)
+                password=data["password"], is_active=True,
+                runner = Runner()
+                )
 
     db.session.add(user)
     db.session.commit()
@@ -215,7 +217,7 @@ def favorite_runner():
 
     print("Creating favorited runner for user_id:", user)
     favorited_runner = Favorites(
-        source_runner_id=int(user),  # should be: current_user.runner.id
+        source_runner_id=current_user.runner.id,  # should be: current_user.runner.id
         target_runner_id=body.get("runner"),
     )
 
@@ -243,7 +245,7 @@ def delete_favorite(target_runner_id):
     # )
     runner = db.session.execute(
         db.select(Favorites).where(
-            Favorites.source_runner_id == user,
+            Favorites.source_runner_id == current_user.runner.id,
             Favorites.target_runner_id == target_runner_id
         )
     ).scalar_one_or_none()
