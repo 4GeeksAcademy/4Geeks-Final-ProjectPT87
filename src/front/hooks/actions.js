@@ -124,7 +124,7 @@ export const deleteFavorite = async (dispatch, id) => {
   });
 
   dispatch({
-    type: "delete_runner",
+    type: "remove_favorite",
     payload: id
   });
 };
