@@ -6,7 +6,9 @@ import "../styles/Home.css";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
+  const [runners, setRunners] = useState([]);
 
+ 
   // const loadMessage = async () => {
   // 	try {
   // 		const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -63,6 +65,7 @@ export const Home = () => {
           {/* <Link to="/create_runner">
             <button className="nav-btn">Create Runner Profile</button>
           </Link> */}
+          
           <Link to="/edit_runner/:theId">
             <button className="nav-btn">Update Profile</button>
           </Link>

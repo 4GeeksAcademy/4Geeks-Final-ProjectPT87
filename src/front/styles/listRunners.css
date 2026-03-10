@@ -19,7 +19,7 @@
 .list-runners-container {
   background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(12px);
-  webkit-backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-radius: 18px;
   width: 100%;
   max-width: 1100px;
