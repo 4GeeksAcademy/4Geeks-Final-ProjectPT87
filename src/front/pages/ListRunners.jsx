@@ -67,5 +67,6 @@ export const ListRunners = ({ runner }) => {
         </Link>
       </div>
     </div>
+    </div>
   );
 };
