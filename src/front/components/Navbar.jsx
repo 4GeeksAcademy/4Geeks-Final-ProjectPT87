@@ -59,7 +59,7 @@ export const Navbar = () => {
                       >
                         <Link
                           to={`/single_runner/${fav.runner.id}/${index}`}
-                          className="text-decoration-none text-dark"
+                          className="text-decoration-none"
                         >
                           {fav.runner.name}
                         </Link>

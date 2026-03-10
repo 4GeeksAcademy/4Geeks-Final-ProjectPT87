@@ -18,7 +18,7 @@
 .hero-text {
   position: absolute;
   top: 50%;
-  left: 8%;
+  left: clamp(10px, 4vw, 80px);
   transform: translateY(-50%);
   color: black;
   max-width: 600px;
@@ -60,8 +60,10 @@
     0 8px 32px rgba(0, 0, 0, 0.25),
     inset 0 1px 1px rgba(255, 255, 255, 0.6),
     inset 0 -1px 1px rgba(255, 255, 255, 0.2);
-  max-width: 460px;
+  max-width: 520px;
 }
+
+
 
 .hero-buttons {
   margin-top: 15px;
@@ -73,7 +75,7 @@
 .hero-btn-row {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .hero-btn-row .nav-btn {
