@@ -20,7 +20,7 @@
   top: 50%;
   left: clamp(10px, 4vw, 80px);
   transform: translateY(-50%);
-  color: black;
+  color: white;
   max-width: 600px;
   text-align: left;
   z-index: 2;
@@ -29,9 +29,12 @@
 .hero-text h1 {
   font-size: 3rem;
   font-weight: bold;
-  color: black;
+  color: white;
 }
 
+.hero-text ul li {
+  color: white;
+}
 .hero-list {
   max-width: 400px;
 }
