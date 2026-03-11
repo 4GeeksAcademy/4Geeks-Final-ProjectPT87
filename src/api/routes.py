@@ -194,7 +194,7 @@ def get_favorites():
 @api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
 def favorite_runner():
-    body = request.json
+    body = request.jsona
     print("Request body:", body)
     user = get_jwt_identity()
 

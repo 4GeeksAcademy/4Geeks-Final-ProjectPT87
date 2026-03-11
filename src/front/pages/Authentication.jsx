@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/authentication.css";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { fetchFavorites } from "../hooks/actions";
 
 export const Authentication = () => {
   const {store, dispatch, fetchFavorites} = useGlobalReducer();

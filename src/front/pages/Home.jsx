@@ -6,7 +6,7 @@ import "../styles/Home.css";
 
 export const Home = () => {
   const { store, dispatch } = useGlobalReducer();
-
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   // const loadMessage = async () => {
   // 	try {
   // 		const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -60,24 +60,25 @@ export const Home = () => {
           </ul>
         </div>
         <div className="mt-3 d-flex flex-wrap gap-3">
-          <Link to="/create_runner">
-            <button className="nav-btn">Create Runner Profile</button>
-          </Link>
-          <Link to="/edit_runner/:theId">
-            <button className="nav-btn">Edit Runner Profile</button>
-          </Link>
-          <Link to="/list_runners">
-            {/* <Link to = "/single_runner/:theID/:pictureNumber">
-				<button className = "nav-btn">Single Runner Profile</button>
-			</Link> */}
-            <button className="nav-btn">List Runners</button>
-          </Link>
-          <Link to="/list_mentors">
-            <button className="nav-btn">List Mentors</button>
-          </Link>
-          {/* <Link to = "/">
-				<button className = "nav-btn">Return Home</button>
-			</Link> */}
+          {token && (
+            <>
+              <Link to="/create_runner">
+                <button className="nav-btn">Create Runner Profile</button>
+              </Link>
+
+              <Link to="/edit_runner/:theId">
+                <button className="nav-btn">Edit Runner Profile</button>
+              </Link>
+
+              <Link to="/list_runners">
+                <button className="nav-btn">List Runners</button>
+              </Link>
+
+              <Link to="/list_mentors">
+                <button className="nav-btn">List Mentors</button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

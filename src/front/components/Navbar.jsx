@@ -13,10 +13,6 @@ export const Navbar = () => {
     localStorage.removeItem("token");
     navigate("/account");
   };
-  if (!token) {
-    return null;
-  }
-
 
   // Can change the names of login/signup if needed, just adding them for now.
   return (
@@ -28,28 +24,15 @@ export const Navbar = () => {
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
         <div className="ms-auto">
-          {/* <Link to="/profile" className="nav-btn">
-            Placeholder Profile Button
-          </Link> */}
-
           {!token ? (
-            <>
               <Link to="/account" className="nav-btn">
-                Login/Signup
+                Account
               </Link>
-            </>
           ) : (
             <>
               <Link to="/profile" className="nav-btn">
                 My Profile
               </Link>
-
-              <button onClick={logout} className="btn btn-danger">
-                Logout
-              </button>
-            </>
-          )}
-        </div>
 
         {/* FAVORITES DROPDOWN */}
         <div className="dropdown">
@@ -94,6 +77,12 @@ export const Navbar = () => {
             )}
           </ul>
         </div>
+          <button onClick={logout} className="btn btn-danger">
+                  Logout
+          </button>
+          </>
+          )}
+      </div>
       </div>
     </nav>
   );
