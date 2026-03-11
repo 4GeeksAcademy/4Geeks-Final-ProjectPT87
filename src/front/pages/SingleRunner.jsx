@@ -70,13 +70,16 @@ export const SingleRunner = (props) => {
           <h4>Years Running: {runner?.years_running}</h4>
           <h4>Running Schedule: {runner?.schedule}</h4>
           <h4>Location: {runner?.location}</h4>
+          <h4>Rating: {runner?.rating}</h4>
+          <h4>Level: {runner?.level}</h4>
+          <h4>Is Mentor?: {runner?.is_mentor ? "Yes" : "No"}</h4>
         </div>
         <hr className="my-4" /> {/* A horizontal rule for visual separation. */}
         {/* A Link component acts as an anchor tag but is used for client-side routing to prevent page reloads. */}
         <div className="runner-buttons">
           {/* <Link to = {"/edit_runner/" + runner.id}>
           <button className="nav-btn" href="#" role="button">
-            Edit Runner Profile
+            Update Runner Profile
           </button>
         </Link> */}
 

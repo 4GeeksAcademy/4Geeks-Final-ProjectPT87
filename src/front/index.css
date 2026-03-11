@@ -1,0 +1,35 @@
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 300%;
+  height: 300%;
+  background: linear-gradient(
+    115deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 55%
+  );
+  transform: rotate(25deg);
+  animation: glassShimmer 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes glassShimmer {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(25deg);
+  }
+}

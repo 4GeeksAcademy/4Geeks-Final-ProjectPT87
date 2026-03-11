@@ -25,6 +25,8 @@ export const Authentication = () => {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      // Added a local storage for user_id to store and use it for authentication when sending messages.
+      localStorage.setItem("user_id", data.user_id);
       fetchFavorites()
       // dispatch({
       //   type: 'set_token',
