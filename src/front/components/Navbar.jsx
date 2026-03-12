@@ -1,7 +1,7 @@
 import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import Velocity from "../assets/img/Velocity_Logo.jpg";
+
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -21,8 +21,9 @@ export const Navbar = () => {
     <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
-
-          <img src={Velocity} alt="Running Home Logo" className="logo" />
+          <div classname="name d-flex align-items-center gap-2">
+            <h1> Velocity </h1>
+          </div>
           
         </Link>
 
@@ -37,6 +38,8 @@ export const Navbar = () => {
               <Link to="/strava" className="nav-btn">
                 Strava API
               </Link>
+
+              
 
               {/* FAVORITES DROPDOWN */}
               <div className="dropdown">
@@ -90,6 +93,7 @@ export const Navbar = () => {
           )}
         </div>
       </div>
+    
     </nav>
   );
 };

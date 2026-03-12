@@ -2,6 +2,7 @@ import Page3 from "../assets/img/Page3.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Velocity from "../assets/img/Velocity_Logo.jpg";
 import "../styles/Home.css";
 
 export const Home = () => {
@@ -46,7 +47,8 @@ export const Home = () => {
 
       <div className="hero-text">
         <div className="hero-glass glass-card">
-          <h1> <i class="fa-solid fa-person-running fa-bounce"></i> Welcome to Velocity!  </h1> 
+          <img src={Velocity} alt="Running Home Logo" className="logo-homepage" />
+         <h1>Welcome to <span className="brand">Velocity</span>!</h1>
     
           <h5>
             Velocity is a community where you can meet with other
