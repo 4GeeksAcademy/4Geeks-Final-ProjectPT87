@@ -32,7 +32,7 @@ export const Navbar = () => {
           ) : (
             <>
               <Link to="/strava" className="nav-btn">
-                Strava API
+                Strava
               </Link>
 
               {/* FAVORITES DROPDOWN */}
