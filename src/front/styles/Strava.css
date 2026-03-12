@@ -28,21 +28,17 @@
   z-index: 2;
   display: flex;
   justify-content: center;
-  padding-top: 140px;
+  padding-top: 100px;
   padding-bottom: 60px;
 }
 
 .strava-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.35),
-    rgba(255, 255, 255, 0.08)
-  );
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.08));
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  width: min(720px, 92%);
+  width: min(960px, 92%);
   padding: 36px 36px 30px;
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -56,8 +52,9 @@
   text-align: center;
   font-size: 30px;
   margin: 0 0 18px;
-  color: #1b5e20;
+  color: #fff;
   font-weight: 800;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   letter-spacing: 0.2px;
 }
 
@@ -68,37 +65,25 @@
   margin-bottom: 18px;
 }
 
-.activity-btn {
-  background: #2e7d32;
-  color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 650;
-  cursor: pointer;
-  transition:
-    transform 0.08s ease,
-    filter 0.15s ease;
+.strava-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
 }
 
-.activity-btn:hover {
-  filter: brightness(1.05);
+.strava-col-left {
+  padding-right: 28px;
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
 }
 
-.activity-btn:active {
-  transform: translateY(1px);
-}
-
-.activity-btn:disabled {
-  background: #a5d6a7;
-  cursor: not-allowed;
-  filter: none;
+.strava-col-right {
+  padding-left: 28px;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .section-title {
-  margin-top: 22px;
-  margin-bottom: 10px;
+  margin: 0 0 14px;
   font-size: 18px;
   color: #0f4ea8;
   font-weight: 750;
@@ -113,6 +98,7 @@
   background: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .runname-input:focus {
@@ -121,9 +107,8 @@
   box-shadow: 0 0 0 3px rgba(14, 125, 222, 0.15);
 }
 
-/* Message */
 .strava-message {
-  margin: 10px 0 0;
+  margin: 0 0 16px;
   color: #1b5e20;
   font-weight: 600;
 }
@@ -135,26 +120,69 @@
 .run-list {
   list-style: none;
   padding: 0;
-  margin: 10px 0 0;
-  border-top: 1px solid #e6f0ff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.run-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.run-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.run-list::-webkit-scrollbar-thumb {
+  background: rgba(27, 94, 32, 0.3);
+  border-radius: 4px;
 }
 
 .run-item {
-  padding: 14px 4px;
-  border-bottom: 1px solid #e6f0ff;
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+  align-items: stretch;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.15s ease;
+  min-height: 44px;
+  background: rgba(255,255,255,0.95);
+}
+
+.run-item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .run-name {
-  font-weight: 750;
-  color: #1b5e20;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  font-weight: 700;
+  font-size: 14px;
+  color: #1b5e20 ;
+  border-right: 1px solid rgba(0, 0, 0, 0.07);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .run-stats {
-  font-size: 14px;
-  color: #0f4ea8;
+  display: flex ;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  background: rgba(27, 94, 32, 0.12);
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f4ea8 ;
   white-space: nowrap;
+  width: 130px;
+  flex-shrink: 0;
 }

@@ -1,13 +1,14 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from api.models import db, User, ResetPassword, Runner, Favorites, Message
+from api.models import db, User, ResetPassword, Runner, Favorites, Message, StravaToken
 from flask import Flask, request, jsonify, url_for, Blueprint, flash, redirect
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 import os
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager, current_user
 import hashlib
+import requests
 
 
 api = Blueprint('api', __name__)
@@ -208,7 +209,7 @@ def get_favorites():
 @api.route('/favorite_runner', methods=['POST'])
 @jwt_required()
 def favorite_runner():
-    body = request.jsona
+    body = request.json
     print("Request body:", body)
     user = get_jwt_identity()
 
