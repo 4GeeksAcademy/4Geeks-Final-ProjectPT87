@@ -46,7 +46,7 @@ export const Home = () => {
 
       <div className="hero-text">
         <div className="hero-glass glass-card">
-          <h1>   Welcome to Velocity! <i class="fa-solid fa-person-running fa-bounce"></i> </h1> 
+          <h1> <i class="fa-solid fa-person-running fa-bounce"></i> Welcome to Velocity!  </h1> 
     
           <h5>
             Velocity is a community where you can meet with other

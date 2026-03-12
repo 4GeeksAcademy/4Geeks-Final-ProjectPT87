@@ -103,7 +103,7 @@ const Message = () => {
     <div className="container mt-4">
       <div className="card mb-3 shadow-sm border-0">
         <div className="card-header bg-primary text-white text-center py-3 rounded-top">
-          <h3 className="chat-header-text mb-0">
+          <h3 className="chat-header-text mb-0 ">
             Chatting with: <span className="chat-username">{otherUser?.username || "User"}</span>
           </h3>
         </div>

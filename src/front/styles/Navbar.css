@@ -177,9 +177,9 @@
   margin-right: 100px;
   display: block;
   position: relative;
+  transition: 0.2s ease;
 }
 
 .logo:hover {
-  transform: scale(1.53);
-  transition: 0.2s ease;
+  transform: scale(1.14);
 }
