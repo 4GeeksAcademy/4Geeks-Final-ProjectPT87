@@ -102,10 +102,10 @@ export default function RunnerCard({ runner, pictureNumber }) {
                     </i> */}
           <div className="mb-3 ms-2">
             <button
-              className={`btn ${
+              className={`nav-btn heart-btn ${
                 store?.favorites.some((fav) => fav.runner.id === runner.id)
-                  ? "btn-danger"
-                  : "btn-outline-warning"
+                  ? "favorited"
+                  : ""
               }`}
               onClick={() => {
                 const isFavorite = store?.favorites.some(
@@ -131,7 +131,7 @@ export default function RunnerCard({ runner, pictureNumber }) {
                 }
               }}
             >
-              ❤️
+              <i className="fa-solid fa-heart"></i>
             </button>
           </div>
         </div>
