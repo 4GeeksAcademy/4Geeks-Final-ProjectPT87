@@ -46,3 +46,25 @@
   gap: 25px;
   margin-bottom: 40px;
 }
+
+.mentor-grid .runner-card {
+  max-width: 550px;
+}
+
+.runner-card {
+  text-align: center;
+}
+
+.runner-card .d-flex {
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.runner-card .card-title {
+  margin-bottom: 18px;
+}
+
+.runner-card .card-text {
+  margin-bottom: 10px;
+}
