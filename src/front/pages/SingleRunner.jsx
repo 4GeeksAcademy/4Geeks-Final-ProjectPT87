@@ -52,7 +52,7 @@ export const SingleRunner = (props) => {
         </div>
         <div className="profile-image-container text-center">
           <img
-            src="https://i.pravatar.cc/250/250"
+            src={`https://i.pravatar.cc/250?img=${pictureNumber}`}
             alt="User profile"
             className="profile-image"
           />
