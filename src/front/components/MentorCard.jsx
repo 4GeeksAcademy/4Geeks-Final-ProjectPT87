@@ -84,12 +84,12 @@ export default function MentorCard({ runner, pictureNumber }) {
 
           <div className="mb-3 ms-2">
             <button
-              className={`btn ${
+              className={`nav-btn heart-btn ${
                 store.favorites.some(
                   (fav) => fav.id === runner.id && fav.type === "runner",
                 )
-                  ? "btn-danger"
-                  : "btn-outline-warning"
+                  ? "favorited"
+                  : ""
               }`}
               onClick={() => {
                 const isFavorite = store.favorites.some(
@@ -115,7 +115,7 @@ export default function MentorCard({ runner, pictureNumber }) {
                 }
               }}
             >
-              ❤️
+              <i className="fa-solid fa-heart"></i>
             </button>
           </div>
         </div>
