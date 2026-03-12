@@ -138,7 +138,7 @@ export const Strava = () => {
     );
   }
 
-  return (
+ return (
     <div className="strava-hero">
       <img src={Page5} className="strava-bg" alt="Running background" />
 
@@ -147,17 +147,8 @@ export const Strava = () => {
           <h3 className="strava-title">Strava Journal</h3>
 
           <div className="strava-buttons">
-            <button className="nav-btn" onClick={connectStrava}>
-              Connect Strava
-            </button>
-
-            <button
-              className="nav-btn"
-              onClick={loadRuns}
-              disabled={!connected}
-            >
-              Refresh Runs
-            </button>
+            <button className="nav-btn" onClick={connectStrava}>Connect Strava</button>
+            <button className="nav-btn" onClick={loadRuns} disabled={!connected}>Refresh Runs</button>
           </div>
 
           {msg && <p className="strava-message">{msg}</p>}
@@ -165,70 +156,43 @@ export const Strava = () => {
           {!connected ? (
             <p className="strava-muted">Not connected yet.</p>
           ) : (
-            <>
-              <h4 className="section-title">Log a Run</h4>
+            <div className="strava-columns">
 
-              <form onSubmit={createRun} className="strava-form">
-                <input
-                  className="runname-input"
-                  placeholder="Run name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
+              <div className="strava-col-left">
+                <h4 className="section-title">Log a Run</h4>
+                <form onSubmit={createRun} className="strava-form">
+                  <input className="runname-input" placeholder="Run name" value={name} onChange={(e) => setName(e.target.value)} required />
+                  <input className="runname-input" placeholder="Distance (meters)" type="number" value={distance} onChange={(e) => setDistance(e.target.value)} required />
+                  <input className="runname-input" placeholder="Duration (minutes)" type="number" value={minutes} onChange={(e) => setMinutes(e.target.value)} required />
+                  <input className="runname-input" type="datetime-local" value={start} onChange={(e) => setStart(e.target.value)} required />
+                  <button type="submit" className="nav-btn">Save Run</button>
+                </form>
+              </div>
 
-                <input
-                  className="runname-input"
-                  placeholder="Distance (meters)"
-                  type="number"
-                  value={distance}
-                  onChange={(e) => setDistance(e.target.value)}
-                  required
-                />
+              <div className="strava-col-right">
+                <h4 className="section-title">Recent Runs</h4>
+                {runs.length === 0 ? (
+                  <p className="strava-muted">No runs yet.</p>
+                ) : (
+                  <ul className="run-list">
+                    {runs.map((r) => (
+                      <li key={r.id} className="run-item">
+                        <span className="run-name">{r.name}</span>
+                        <span className="run-stats">
+                          {(r.distance / 1000).toFixed(2)} km • {Math.round(r.elapsed_time / 60)} min
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
 
-                <input
-                  className="runname-input"
-                  placeholder="Duration (minutes)"
-                  type="number"
-                  value={minutes}
-                  onChange={(e) => setMinutes(e.target.value)}
-                  required
-                />
-
-                <input
-                  className="runname-input"
-                  type="datetime-local"
-                  value={start}
-                  onChange={(e) => setStart(e.target.value)}
-                  required
-                />
-
-                <button type="submit" className="nav-btn">
-                  Save Run
-                </button>
-              </form>
-
-              <h4 className="section-title">Recent Runs</h4>
-
-              {runs.length === 0 ? (
-                <p className="strava-muted">No runs yet.</p>
-              ) : (
-                <ul className="run-list">
-                  {runs.map((r) => (
-                    <li key={r.id} className="run-item">
-                      <span className="run-name">{r.name}</span>
-                      <span className="run-stats">
-                        {(r.distance / 1000).toFixed(2)} km •{" "}
-                        {Math.round(r.elapsed_time / 60)} min
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
+            </div>
           )}
         </div>
       </div>
     </div>
   );
 };
+
+
