@@ -70,7 +70,7 @@ export const Home = () => {
                 {/* <Link to="/create_runner">
                   <button className="nav-btn">Create Runner Profile</button>
                 </Link> */}
-                <Link to={`/edit_runner/${runner.id}`}>
+                <Link to="/edit_runner/:theId">
                   <button className="nav-btn">Update Profile</button>
                 </Link>
 
