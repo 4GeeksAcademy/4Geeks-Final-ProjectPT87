@@ -59,7 +59,7 @@ const Message = () => {
 
     const interval = setInterval(() => {
       fetchConversation();
-    }, 3000);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [otherUserId, currentUserId]);
@@ -126,7 +126,7 @@ const Message = () => {
         })}
 
         {/* Scroll target div: inside container */}
-        <div ref={messagesEndRef}></div>
+        {/* <div ref={messagesEndRef}></div> */}
       </div>
 
       <input

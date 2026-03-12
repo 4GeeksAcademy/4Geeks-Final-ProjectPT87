@@ -170,3 +170,16 @@
 .dropdown-menu li {
   color: #1b5e20;
 }
+
+.logo {
+  width: 110px;
+  height: 110px;
+  margin-right: 100px;
+  display: block;
+  position: relative;
+}
+
+.logo:hover {
+  transform: scale(1.53);
+  transition: 0.2s ease;
+}

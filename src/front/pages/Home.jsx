@@ -46,10 +46,10 @@ export const Home = () => {
 
       <div className="hero-text">
         <div className="hero-glass glass-card">
-          <h1>Welcome to Rigo's Running App!</h1>
-
+          <h1>   Welcome to Velocity! <i class="fa-solid fa-person-running fa-bounce"></i> </h1> 
+    
           <h5>
-            Rigo's Running App is a community where you can meet with other
+            Velocity is a community where you can meet with other
             runners to run together and even ask for mentorship!
           </h5>
 

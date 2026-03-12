@@ -1,6 +1,7 @@
 import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import Velocity from "../assets/img/Velocity_Logo.jpg";
 
 export const Navbar = () => {
   const navigate = useNavigate();
@@ -20,7 +21,9 @@ export const Navbar = () => {
     <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">Running Home</span>
+
+          <img src={Velocity} alt="Running Home Logo" className="logo" />
+          
         </Link>
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
