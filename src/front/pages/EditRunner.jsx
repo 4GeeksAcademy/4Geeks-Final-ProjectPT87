@@ -155,6 +155,41 @@ export const EditRunner = () => {
                 />
             </div>
 
+              <div className="mb-3"> 
+                <label htmlFor="location" className="ms-2 mb-1">Location</label>
+                <input
+                    id="location"
+                    className="form-control"
+                    type="text"
+                    value={newRunnerInfo.location}
+                    onChange={(e) => setNewRunnerInfo({ ...newRunnerInfo, location: e.target.value })}
+                />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="rating" className="ms-2 mb-1">Rating</label>
+                <input
+                    id="rating"
+                    className="form-control"
+                    type="text"
+                    value={newRunnerInfo.rating}
+                    onChange={(e) => setNewRunnerInfo({ ...newRunnerInfo, rating: e.target.value })}
+                />
+            </div>
+            
+             <div className="mb-3">
+                <label htmlFor="level" className="ms-2 mb-1">Running Level</label>
+                <input
+                    id="level"
+                    className="form-control"
+                    type="text"
+                    value={newRunnerInfo.level}
+                    onChange={(e) => setNewRunnerInfo({ ...newRunnerInfo, level: e.target.value })}
+                />
+            </div>
+
+          
+
 
               
         <div className="form-check">

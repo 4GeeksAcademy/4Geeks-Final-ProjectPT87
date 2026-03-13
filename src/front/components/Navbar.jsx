@@ -2,6 +2,7 @@ import "../styles/Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
+
 export const Navbar = () => {
   const navigate = useNavigate();
   const token =
@@ -20,7 +21,10 @@ export const Navbar = () => {
     <nav className="navbar custom-navbar">
       <div className="container">
         <Link to="/">
-          <span className="navbar-brand mb-0 h1">Running Home</span>
+          <div classname="name d-flex align-items-center gap-2">
+            <h1> Velocity </h1>
+          </div>
+          
         </Link>
 
         {/* Placeholder button to make it easier to get to the profile page will remove it later. */}
@@ -32,8 +36,10 @@ export const Navbar = () => {
           ) : (
             <>
               <Link to="/strava" className="nav-btn">
-                Strava API
+                Strava
               </Link>
+
+              
 
               {/* FAVORITES DROPDOWN */}
               <div className="dropdown">
@@ -87,6 +93,7 @@ export const Navbar = () => {
           )}
         </div>
       </div>
+    
     </nav>
   );
 };
